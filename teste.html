@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard de Automação</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0f1117;
+      --surface:   #1a1d27;
+      --surface2:  #21253a;
+      --border:    #2a2f45;
+      --accent:    #6c63ff;
+      --accent2:   #4ade80;
+      --danger:    #f87171;
+      --warn:      #fbbf24;
+      --text:      #e2e8f0;
+      --muted:     #8892a4;
+      --radius:    12px;
+      --sidebar-w: 240px;
+    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; z-index: 100;
+      transition: transform .3s;
+    }
+    .sidebar-logo {
+      padding: 24px 20px 16px; font-size: 1.15rem; font-weight: 700; color: var(--accent);
+      letter-spacing: .5px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
+    }
+    .sidebar-logo svg { width: 24px; height: 24px; }
+    nav { flex: 1; padding: 16px 0; overflow-y: auto; }
+    .nav-section { padding: 8px 20px 4px; font-size: .65rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px; padding: 10px 20px; cursor: pointer;
+      border-left: 3px solid transparent; color: var(--muted); font-size: .875rem; transition: all .2s;
+      text-decoration: none;
+    }
+    .nav-item:hover { color: var(--text); background: var(--surface2); }
+    .nav-item.active { color: var(--accent); border-left-color: var(--accent); background: rgba(108,99,255,.08); }
+    .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); font-size: .75rem; color: var(--muted); }
+
+    /* ── Main ── */
+    .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar {
+      background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 28px;
+      display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50;
+    }
+    .topbar-title { font-size: 1.1rem; font-weight: 600; }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .badge-online { display: flex; align-items: center; gap: 6px; font-size: .75rem; color: var(--accent2); }
+    .badge-online::before { content: ''; width: 8px; height: 8px; background: var(--accent2); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85rem; }
+
+    /* ── Content views ── */
+    .view { display: none; padding: 28px; }
+    .view.active { display: block; }
+
+    /* ── Section Header ── */
+    .section-header { margin-bottom: 24px; }
+    .section-header h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+    .section-header p  { color: var(--muted); font-size: .875rem; }
+
+    /* ── Stats Row ── */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px; display: flex; flex-direction: column; gap: 6px;
+    }
+    .stat-card .label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; }
+    .stat-card .value { font-size: 1.8rem; font-weight: 700; }
+    .stat-card .delta { font-size: .75rem; color: var(--accent2); }
+    .stat-card.warn .value { color: var(--warn); }
+    .stat-card.danger .value { color: var(--danger); }
+    .stat-card.ok .value { color: var(--accent2); }
+
+    /* ── Agent Cards ── */
+    .agents-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .agent-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 20px; transition: border-color .2s, transform .2s;
+    }
+    .agent-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .agent-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .agent-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(108,99,255,.15); display: flex; align-items: center; justify-content: center; }
+    .agent-icon svg { width: 22px; height: 22px; color: var(--accent); }
+    .agent-name { font-weight: 600; font-size: .95rem; }
+    .agent-type { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+    .agent-status { display: flex; align-items: center; gap: 8px; font-size: .78rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot.green { background: var(--accent2); box-shadow: 0 0 6px var(--accent2); }
+    .dot.yellow { background: var(--warn); }
+    .dot.red { background: var(--danger); }
+    .agent-meta { margin-top: 14px; display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 12px; }
+
+    /* ══════════════════════════════════════════
+       CRM DE LEADS
+    ══════════════════════════════════════════ */
+
+    /* Filter Bar */
+    .crm-filters {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 16px 20px; margin-bottom: 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;
+    }
+    .filter-group { display: flex; flex-direction: column; gap: 4px; }
+    .filter-group label { font-size: .7rem; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); }
+    .filter-group select, .filter-group input {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); padding: 8px 12px; font-size: .825rem; outline: none; min-width: 160px;
+      transition: border-color .2s;
+    }
+    .filter-group select:focus, .filter-group input:focus { border-color: var(--accent); }
+    .filter-group select option { background: var(--surface2); }
+    .filter-btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-chip {
+      padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--muted); font-size: .8rem; cursor: pointer; transition: all .2s;
+    }
+    .filter-chip.selected { border-color: var(--accent); color: var(--accent); background: rgba(108,99,255,.12); }
+    .filter-chip.hot.selected  { border-color: #f87171; color: #f87171; background: rgba(248,113,113,.1); }
+    .filter-chip.cold.selected { border-color: #60a5fa; color: #60a5fa; background: rgba(96,165,250,.1); }
+    .btn-reset { padding: 8px 16px; border-radius: 8px; border: none; background: var(--surface2); color: var(--muted); font-size: .8rem; cursor: pointer; transition: all .2s; align-self: flex-end; }
+    .btn-reset:hover { color: var(--text); border-color: var(--border); }
+    .crm-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .crm-count { font-size: .85rem; color: var(--muted); }
+    .crm-count span { color: var(--text); font-weight: 600; }
+    .view-toggle { display: flex; gap: 4px; }
+    .view-toggle button {
+      width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .2s;
+    }
+    .view-toggle button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* Lead Grid */
+    .leads-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+    .leads-grid.list-view { grid-template-columns: 1fr; }
+
+    /* Lead Card */
+    .lead-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px; transition: border-color .2s, transform .2s; position: relative; overflow: hidden;
+    }
+    .lead-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+    }
+    .lead-card.quente::before { background: var(--danger); }
+    .lead-card.frio::before   { background: #60a5fa; }
+    .lead-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .lead-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .lead-avatar {
+      width: 46px; height: 46px; border-radius: 50%; object-fit: cover; background: var(--surface2);
+      border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 700; overflow: hidden;
+    }
+    .lead-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .lead-info { flex: 1; min-width: 0; }
+    .lead-name { font-weight: 600; font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .lead-whatsapp { display: flex; align-items: center; gap: 4px; font-size: .75rem; color: var(--accent2); margin-top: 2px; }
+    .lead-whatsapp svg { width: 12px; height: 12px; }
+
+    .lead-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .tag {
+      padding: 3px 10px; border-radius: 20px; font-size: .7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+    .tag.quente  { background: rgba(248,113,113,.15); color: #f87171; border: 1px solid rgba(248,113,113,.3); }
+    .tag.frio    { background: rgba(96,165,250,.15);  color: #60a5fa; border: 1px solid rgba(96,165,250,.3); }
+    .tag.agendado{ background: rgba(74,222,128,.15);  color: #4ade80; border: 1px solid rgba(74,222,128,.3); }
+    .tag.atendimento { background: rgba(251,191,36,.15); color: #fbbf24; border: 1px solid rgba(251,191,36,.3); }
+    .tag.aguardando  { background: rgba(148,163,184,.1);  color: #94a3b8; border: 1px solid rgba(148,163,184,.2); }
+    .tag.assunto { background: rgba(108,99,255,.15); color: #a78bfa; border: 1px solid rgba(108,99,255,.3); }
+
+    .lead-subject { font-size: .82rem; color: var(--muted); line-height: 1.5; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .lead-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; }
+    .lead-date { font-size: .72rem; color: var(--muted); }
+    .lead-actions { display: flex; gap: 6px; }
+    .btn-icon {
+      width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .2s; font-size: .8rem;
+    }
+    .btn-icon:hover { color: var(--accent); border-color: var(--accent); background: rgba(108,99,255,.1); }
+    .btn-icon.whatsapp:hover { color: #4ade80; border-color: #4ade80; background: rgba(74,222,128,.1); }
+
+    /* Status update select inline */
+    .lead-status-select {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text); padding: 4px 8px; font-size: .75rem; cursor: pointer; outline: none;
+    }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .empty-state svg { width: 48px; height: 48px; margin: 0 auto 16px; opacity: .4; }
+    .empty-state p { font-size: .875rem; }
+
+    /* Loading skeleton */
+    .skeleton { background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 8px; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* Toast */
+    #toast {
+      position: fixed; bottom: 24px; right: 24px; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 12px 18px; font-size: .85rem; z-index: 999;
+      transform: translateY(80px); opacity: 0; transition: all .3s; pointer-events: none; max-width: 320px;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.success { border-left: 4px solid var(--accent2); }
+    #toast.error   { border-left: 4px solid var(--danger); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .view { padding: 16px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .crm-filters { flex-direction: column; }
+      .filter-group select, .filter-group input { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════ SIDEBAR ════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    AutoFlow
+  </div>
+
+  <nav>
+    <div class="nav-section">Principal</div>
+
+    <a class="nav-item active" data-view="dashboard" onclick="showView('dashboard', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+
+    <a class="nav-item" data-view="agentes" onclick="showView('agentes', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      Agentes IA
+    </a>
+
+    <!-- ✨ NOVO: CRM de Leads -->
+    <a class="nav-item" data-view="crm" onclick="showView('crm', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      CRM de Leads
+      <span id="crm-badge" style="margin-left:auto;background:var(--accent);color:#fff;border-radius:20px;padding:1px 8px;font-size:.65rem;display:none"></span>
+    </a>
+
+    <div class="nav-section">Automação</div>
+
+    <a class="nav-item" data-view="webhooks" onclick="showView('webhooks', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      Webhooks
+    </a>
+
+    <a class="nav-item" data-view="config" onclick="showView('config', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Configurações
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">v2.4.1 · n8n integrado</div>
+</aside>
+
+<!-- ════════ MAIN ════════ -->
+<div class="main">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button onclick="document.getElementById('sidebar').classList.toggle('open')" style="display:none;background:none;border:none;color:var(--text);cursor:pointer" id="menu-toggle">☰</button>
+      <span class="topbar-title" id="topbar-title">Dashboard</span>
+    </div>
+    <div class="topbar-right">
+      <span class="badge-online">Sistema online</span>
+      <div class="avatar">U</div>
+    </div>
+  </div>
+
+  <!-- ════ VIEW: DASHBOARD ════ -->
+  <div class="view active" id="view-dashboard">
+    <div class="section-header">
+      <h2>Visão Geral</h2>
+      <p>Resumo do sistema de automação</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card ok">
+        <span class="label">Agentes Ativos</span>
+        <span class="value">8</span>
+        <span class="delta">↑ 2 esta semana</span>
+      </div>
+      <div class="stat-card warn">
+        <span class="label">Leads Hoje</span>
+        <span class="value" id="dash-leads-hoje">—</span>
+        <span class="delta">CRM sincronizado</span>
+      </div>
+      <div class="stat-card ok">
+        <span class="label">Agendamentos</span>
+        <span class="value" id="dash-agendados">—</span>
+        <span class="delta">leads convertidos</span>
+      </div>
+      <div class="stat-card danger">
+        <span class="label">Leads Quentes</span>
+        <span class="value" id="dash-quentes">—</span>
+        <span class="delta">requerem atenção</span>
+      </div>
+    </div>
+    <div class="agents-grid" id="agents-list">
+      <!-- agent cards rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ════ VIEW: AGENTES ════ -->
+  <div class="view" id="view-agentes">
+    <div class="section-header">
+      <h2>Agentes IA</h2>
+      <p>Gerencie e monitore seus agentes de automação</p>
+    </div>
+    <div class="agents-grid" id="agents-list-full"></div>
+  </div>
+
+  <!-- ════ VIEW: CRM DE LEADS ════ -->
+  <div class="view" id="view-crm">
+    <div class="section-header">
+      <h2>CRM de Leads</h2>
+      <p>Gerencie e acompanhe seus leads em tempo real</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="crm-filters">
+
+      <div class="filter-group">
+        <label>Temperatura</label>
+        <div class="filter-btn-group" id="filter-temp">
+          <button class="filter-chip hot" data-val="quente" onclick="toggleChip(this,'temp')">🔥 Lead Quente</button>
+          <button class="filter-chip cold" data-val="frio"   onclick="toggleChip(this,'temp')">❄️ Lead Frio</button>
+          <button class="filter-chip"      data-val=""       onclick="toggleChip(this,'temp')" style="display:none"></button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Status de Conversão</label>
+        <div class="filter-btn-group" id="filter-status">
+          <button class="filter-chip" data-val="Agendamento Marcado" onclick="toggleChip(this,'status')">📅 Agendamento Marcado</button>
+          <button class="filter-chip" data-val="Em Atendimento"      onclick="toggleChip(this,'status')">💬 Em Atendimento</button>
+          <button class="filter-chip" data-val="Aguardando"          onclick="toggleChip(this,'status')">⏳ Aguardando</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Assunto / Área</label>
+        <select id="filter-assunto" onchange="applyFilters()">
+          <option value="">Todos os assuntos</option>
+          <option>Previdenciário</option>
+          <option>Cível</option>
+          <option>Trabalhista</option>
+          <option>Criminal</option>
+          <option>Família</option>
+          <option>Tributário</option>
+          <option>Imobiliário</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Buscar</label>
+        <input type="text" id="filter-search" placeholder="Nome ou WhatsApp…" oninput="applyFilters()">
+      </div>
+
+      <button class="btn-reset" onclick="resetFilters()">✕ Limpar filtros</button>
+
+      <button onclick="fetchLeads()" style="padding:8px 16px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:.82rem;cursor:pointer;align-self:flex-end;transition:opacity .2s" onmouseenter="this.style.opacity='.8'" onmouseleave="this.style.opacity='1'">
+        ↻ Atualizar
+      </button>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="crm-toolbar">
+      <span class="crm-count">Exibindo <span id="leads-count">0</span> leads</span>
+      <div class="view-toggle">
+        <button class="active" id="btn-grid" onclick="setListView(false)" title="Grade">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </button>
+        <button id="btn-list" onclick="setListView(true)" title="Lista">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Leads container -->
+    <div class="leads-grid" id="leads-container"></div>
+  </div>
+
+  <!-- ════ VIEW: WEBHOOKS ════ -->
+  <div class="view" id="view-webhooks">
+    <div class="section-header"><h2>Webhooks</h2><p>Configuração e logs de integrações</p></div>
+    <p style="color:var(--muted)">Seção em desenvolvimento.</p>
+  </div>
+
+  <!-- ════ VIEW: CONFIG ════ -->
+  <div class="view" id="view-config">
+    <div class="section-header"><h2>Configurações</h2><p>Ajustes do sistema</p></div>
+    <p style="color:var(--muted)">Seção em desenvolvimento.</p>
+  </div>
+
+</div><!-- /main -->
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════ */
+function showView(name, el) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  el.classList.add('active');
+  const titles = { dashboard:'Dashboard', agentes:'Agentes IA', crm:'CRM de Leads', webhooks:'Webhooks', config:'Configurações' };
+  document.getElementById('topbar-title').textContent = titles[name] || name;
+  if (name === 'crm') fetchLeads();
+}
+
+/* ══════════════════════════════════════════════
+   AGENT CARDS (demo data)
+══════════════════════════════════════════════ */
+const AGENTS = [
+  { name: 'Atendente Jurídico', type: 'WhatsApp Bot', status: 'online',  msgs: 342, uptime: '99.8%' },
+  { name: 'Captador de Leads',  type: 'Formulário Web', status: 'online', msgs: 128, uptime: '98.2%' },
+  { name: 'Agendador',          type: 'Google Calendar', status: 'online',msgs: 87,  uptime: '100%'  },
+  { name: 'Qualificador IA',    type: 'GPT-4 Turbo',    status: 'warn',  msgs: 204, uptime: '94.1%' },
+  { name: 'Follow-up Auto',     type: 'Email / SMS',    status: 'offline',msgs: 0,  uptime: '—'     },
+  { name: 'Relatório Diário',   type: 'Cron / n8n',     status: 'online', msgs: 14, uptime: '99.9%' },
+];
+
+function renderAgents(containerId) {
+  const c = document.getElementById(containerId);
+  if (!c) return;
+  c.innerHTML = AGENTS.map(a => `
+    <div class="agent-card">
+      <div class="agent-card-header">
+        <div class="agent-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div>
+          <div class="agent-name">${a.name}</div>
+          <div class="agent-type">${a.type}</div>
+        </div>
+      </div>
+      <div class="agent-status">
+        <span class="dot ${a.status === 'online' ? 'green' : a.status === 'warn' ? 'yellow' : 'red'}"></span>
+        ${a.status === 'online' ? 'Online' : a.status === 'warn' ? 'Degradado' : 'Offline'}
+      </div>
+      <div class="agent-meta">
+        <span>💬 ${a.msgs} mensagens</span>
+        <span>⬆ ${a.uptime} uptime</span>
+      </div>
+    </div>
+  `).join('');
+}
+renderAgents('agents-list');
+renderAgents('agents-list-full');
+
+/* ══════════════════════════════════════════════
+   CRM — STATE
+══════════════════════════════════════════════ */
+let allLeads = [];
+let filters  = { temp: '', status: '', assunto: '' };
+let listView = false;
+
+/* ══════════════════════════════════════════════
+   CRM — FETCH LEADS FROM N8N WEBHOOK (GET)
+
+   📌 Configure sua URL do n8n abaixo.
+   O webhook deve retornar um array JSON com o schema:
+   [
+     {
+       "id": "lead_001",
+       "nome": "Maria Silva",
+       "whatsapp": "5511999990001",
+       "foto_url": "https://...",   // opcional
+       "assunto": "Previdenciário",
+       "temperatura": "quente",     // "quente" | "frio"
+       "status": "Em Atendimento",  // "Em Atendimento" | "Agendamento Marcado" | "Aguardando"
+       "data": "2024-05-15T10:30:00Z"
+     },
+     ...
+   ]
+══════════════════════════════════════════════ */
+const N8N_GET_WEBHOOK  = 'https://SEU_N8N.com/webhook/leads';          // 👈 altere
+const N8N_POST_WEBHOOK = 'https://SEU_N8N.com/webhook/leads/update';   // 👈 altere
+
+async function fetchLeads() {
+  showLeadsSkeleton();
+  try {
+    const res = await fetch(N8N_GET_WEBHOOK, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    allLeads = Array.isArray(data) ? data : data.leads || [];
+    updateDashboardCounters();
+    applyFilters();
+    const badge = document.getElementById('crm-badge');
+    badge.textContent = allLeads.length;
+    badge.style.display = 'inline';
+    showToast(`✅ ${allLeads.length} leads carregados`, 'success');
+  } catch (err) {
+    console.warn('Webhook indisponível — carregando dados de demonstração.', err);
+    allLeads = DEMO_LEADS;
+    updateDashboardCounters();
+    applyFilters();
+    showToast('⚠️ Modo demo — configure o webhook n8n', '');
+  }
+}
+
+/* ══════════════════════════════════════════════
+   CRM — UPDATE LEAD STATUS (POST/PUT para n8n)
+
+   Chamado automaticamente ao alterar o <select>
+   no card do lead.
+
+   Payload enviado:
+   {
+     "id": "lead_001",
+     "status": "Agendamento Marcado",
+     "temperatura": "quente"
+   }
+══════════════════════════════════════════════ */
+async function updateLeadStatus(leadId, field, value) {
+  const lead = allLeads.find(l => l.id === leadId);
+  if (!lead) return;
+  lead[field] = value;                    // atualiza local imediatamente
+
+  const payload = { id: leadId, [field]: value };
+
+  try {
+    const res = await fetch(N8N_POST_WEBHOOK, {
+      method: 'POST',                     // use PUT se seu webhook exigir
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    showToast('✅ Status atualizado com sucesso', 'success');
+    applyFilters();                       // re-renderiza com novo status
+  } catch (err) {
+    showToast('❌ Erro ao atualizar — tente novamente', 'error');
+    console.error('Erro ao atualizar lead:', err);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   CRM — FILTERS
+══════════════════════════════════════════════ */
+function toggleChip(btn, key) {
+  const group = btn.closest('.filter-btn-group').querySelectorAll('.filter-chip');
+  const val   = btn.dataset.val;
+  const already = btn.classList.contains('selected');
+  group.forEach(c => c.classList.remove('selected'));
+  if (!already) { btn.classList.add('selected'); filters[key] = val; }
+  else          { filters[key] = ''; }
+  applyFilters();
+}
+
+function applyFilters() {
+  const search  = document.getElementById('filter-search').value.toLowerCase();
+  const assunto = document.getElementById('filter-assunto').value;
+  const { temp, status } = filters;
+
+  const filtered = allLeads.filter(l => {
+    if (temp   && l.temperatura !== temp)  return false;
+    if (status && l.status      !== status) return false;
+    if (assunto && l.assunto    !== assunto) return false;
+    if (search && !l.nome.toLowerCase().includes(search) && !l.whatsapp.includes(search)) return false;
+    return true;
+  });
+
+  document.getElementById('leads-count').textContent = filtered.length;
+  renderLeads(filtered);
+}
+
+function resetFilters() {
+  filters = { temp: '', status: '', assunto: '' };
+  document.getElementById('filter-search').value  = '';
+  document.getElementById('filter-assunto').value = '';
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('selected'));
+  applyFilters();
+}
+
+/* ══════════════════════════════════════════════
+   CRM — RENDER
+══════════════════════════════════════════════ */
+function renderLeads(leads) {
+  const container = document.getElementById('leads-container');
+  if (!leads.length) {
+    container.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <p>Nenhum lead encontrado com os filtros aplicados.</p>
+      </div>`;
+    return;
+  }
+  container.innerHTML = leads.map(lead => buildLeadCard(lead)).join('');
+}
+
+function buildLeadCard(lead) {
+  const initials = lead.nome.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+  const avatarContent = lead.foto_url
+    ? `<img src="${escHtml(lead.foto_url)}" alt="${escHtml(lead.nome)}" onerror="this.parentElement.textContent='${initials}'">`
+    : initials;
+
+  const tempLabel   = lead.temperatura === 'quente' ? '🔥 Quente' : '❄️ Frio';
+  const statusClass = lead.status === 'Agendamento Marcado' ? 'agendado' : lead.status === 'Em Atendimento' ? 'atendimento' : 'aguardando';
+  const dataFmt     = lead.data ? new Date(lead.data).toLocaleDateString('pt-BR') : 'Sem data';
+
+  return `
+  <div class="lead-card ${escHtml(lead.temperatura)}" id="card-${escHtml(lead.id)}">
+    <div class="lead-card-header">
+      <div class="lead-avatar">${avatarContent}</div>
+      <div class="lead-info">
+        <div class="lead-name" title="${escHtml(lead.nome)}">${escHtml(lead.nome)}</div>
+        <div class="lead-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.5 2C6.262 2 2 6.262 2 11.5c0 1.821.476 3.536 1.315 5.027L2 22l5.605-1.299A9.456 9.456 0 0 0 11.5 21C16.738 21 21 16.738 21 11.5S16.738 2 11.5 2z" opacity=".3"/></svg>
+          ${formatWA(lead.whatsapp)}
+        </div>
+      </div>
+    </div>
+
+    <div class="lead-tags">
+      <span class="tag ${escHtml(lead.temperatura)}">${tempLabel}</span>
+      <span class="tag ${statusClass}">${escHtml(lead.status)}</span>
+      <span class="tag assunto">${escHtml(lead.assunto)}</span>
+    </div>
+
+    <div class="lead-subject">${escHtml(lead.resumo || lead.assunto)}</div>
+
+    <div class="lead-footer">
+      <span class="lead-date">📅 ${dataFmt}</span>
+      <div class="lead-actions">
+        <button class="btn-icon whatsapp" title="Abrir WhatsApp" onclick="openWhatsApp('${escHtml(lead.whatsapp)}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        </button>
+        <select class="lead-status-select" title="Alterar status" onchange="updateLeadStatus('${escHtml(lead.id)}','status',this.value)">
+          <option ${lead.status==='Aguardando'?'selected':''}>Aguardando</option>
+          <option ${lead.status==='Em Atendimento'?'selected':''}>Em Atendimento</option>
+          <option ${lead.status==='Agendamento Marcado'?'selected':''}>Agendamento Marcado</option>
+        </select>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════════ */
+function escHtml(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function formatWA(num) {
+  const n = String(num).replace(/\D/g,'');
+  return n.length >= 12 ? `+${n.slice(0,2)} (${n.slice(2,4)}) ${n.slice(4,9)}-${n.slice(9)}` : num;
+}
+function openWhatsApp(num) {
+  window.open(`https://wa.me/${String(num).replace(/\D/g,'')}`, '_blank');
+}
+function setListView(isList) {
+  listView = isList;
+  const grid = document.getElementById('leads-container');
+  grid.classList.toggle('list-view', isList);
+  document.getElementById('btn-grid').classList.toggle('active', !isList);
+  document.getElementById('btn-list').classList.toggle('active',  isList);
+}
+function showLeadsSkeleton() {
+  const c = document.getElementById('leads-container');
+  c.innerHTML = Array(6).fill(`
+    <div class="lead-card">
+      <div class="lead-card-header">
+        <div class="skeleton" style="width:46px;height:46px;border-radius:50%"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+          <div class="skeleton" style="height:14px;width:60%"></div>
+          <div class="skeleton" style="height:11px;width:40%"></div>
+        </div>
+      </div>
+      <div class="skeleton" style="height:11px;width:80%;margin-bottom:8px"></div>
+      <div class="skeleton" style="height:11px;width:55%"></div>
+    </div>`).join('');
+}
+function updateDashboardCounters() {
+  const hoje     = allLeads.length;
+  const agendados= allLeads.filter(l => l.status === 'Agendamento Marcado').length;
+  const quentes  = allLeads.filter(l => l.temperatura === 'quente').length;
+  const set = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = v; };
+  set('dash-leads-hoje', hoje);
+  set('dash-agendados',  agendados);
+  set('dash-quentes',    quentes);
+}
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = 'show ' + (type || '');
+  setTimeout(() => t.className = '', 3000);
+}
+
+/* ══════════════════════════════════════════════
+   DEMO DATA (usado quando webhook não responde)
+══════════════════════════════════════════════ */
+const DEMO_LEADS = [
+  { id:'l1', nome:'Ana Paula Ferreira',   whatsapp:'5511999110001', foto_url:'', assunto:'Previdenciário', temperatura:'quente', status:'Em Atendimento',      data:'2024-05-15T09:00:00Z', resumo:'Cliente quer revisar aposentadoria por invalidez negada pelo INSS. Processo urgente.' },
+  { id:'l2', nome:'Carlos Eduardo Lima',   whatsapp:'5521988220002', foto_url:'', assunto:'Trabalhista',   temperatura:'quente', status:'Agendamento Marcado',  data:'2024-05-15T10:30:00Z', resumo:'Rescisão sem justa causa com verbas pendentes. Agendou consulta para amanhã.' },
+  { id:'l3', nome:'Fernanda Costa',        whatsapp:'5531977330003', foto_url:'', assunto:'Cível',         temperatura:'frio',   status:'Aguardando',           data:'2024-05-14T14:00:00Z', resumo:'Dano moral por negativação indevida. Aguardando documentação.' },
+  { id:'l4', nome:'Roberto Souza Junior',  whatsapp:'5541966440004', foto_url:'', assunto:'Família',       temperatura:'frio',   status:'Aguardando',           data:'2024-05-13T11:00:00Z', resumo:'Divórcio consensual com guarda compartilhada.' },
+  { id:'l5', nome:'Juliana Martins',       whatsapp:'5551955550005', foto_url:'', assunto:'Previdenciário',temperatura:'quente', status:'Agendamento Marcado',  data:'2024-05-15T08:00:00Z', resumo:'Auxílio-doença indeferido. Documentos médicos em mãos.' },
+  { id:'l6', nome:'Paulo Roberto Alves',   whatsapp:'5561944660006', foto_url:'', assunto:'Criminal',      temperatura:'quente', status:'Em Atendimento',       data:'2024-05-15T07:30:00Z', resumo:'Réu primário em processo de furto qualificado. Quer acordo.' },
+  { id:'l7', nome:'Mariana Oliveira',      whatsapp:'5571933770007', foto_url:'', assunto:'Tributário',    temperatura:'frio',   status:'Aguardando',           data:'2024-05-12T16:00:00Z', resumo:'Empresa com débitos fiscais quer parcelamento.' },
+  { id:'l8', nome:'Diego Henrique Nunes',  whatsapp:'5581922880008', foto_url:'', assunto:'Imobiliário',   temperatura:'frio',   status:'Em Atendimento',       data:'2024-05-14T15:00:00Z', resumo:'Distrato de compra de imóvel na planta. Construtora recusando reembolso.' },
+];
+
+/* Inicializa demo no dashboard */
+allLeads = DEMO_LEADS;
+updateDashboardCounters();
+
+/* Responsive sidebar toggle */
+if (window.innerWidth <= 768) {
+  document.getElementById('menu-toggle').style.display = 'block';
+}
+window.addEventListener('resize', () => {
+  document.getElementById('menu-toggle').style.display = window.innerWidth <= 768 ? 'block' : 'none';
+});
+</script>
+</body>
+</html>
