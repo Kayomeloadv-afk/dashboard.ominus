@@ -3,11 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CRM de Leads</title>
+  <title>CRM de Leads · Ominus tech</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/.png">
+  <!-- Tailwind + plugins -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Estilos do CRM (adaptados) -->
   <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
+    /* ── Reset & Base ── (apenas para a área de conteúdo) */
+    .crm-content * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    .crm-content {
       --bg:        #0f1117;
       --surface:   #1a1d27;
       --surface2:  #21253a;
@@ -19,40 +32,32 @@
       --text:      #e2e8f0;
       --muted:     #8892a4;
       --radius:    12px;
-    }
-    body {
+
       font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
+      background: transparent; /* herdado do body */
       color: var(--text);
-      padding: 24px;
-      min-height: 100vh;
+      padding: 0;
+      min-height: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
     }
-    .container {
+    .crm-content .container {
       max-width: 1400px;
       width: 100%;
+      margin: 0 auto;
     }
 
-    /* ── Header ── */
-    .page-header {
+    /* ── Header interno do CRM (subtítulo) ── */
+    .crm-content .page-header {
       margin-bottom: 28px;
     }
-    .page-header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-    .page-header p {
+    .crm-content .page-header p {
       color: var(--muted);
       font-size: 0.9rem;
     }
 
-    /* ── CRM ────────────────────────────────── */
-
-    /* Filter Bar */
-    .crm-filters {
+    /* ── Filtros, cards, etc (mantidos do original) ── */
+    .crm-content .crm-filters {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -63,19 +68,19 @@
       gap: 12px;
       align-items: flex-end;
     }
-    .filter-group {
+    .crm-content .filter-group {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
-    .filter-group label {
+    .crm-content .filter-group label {
       font-size: .7rem;
       text-transform: uppercase;
       letter-spacing: .8px;
       color: var(--muted);
     }
-    .filter-group select,
-    .filter-group input {
+    .crm-content .filter-group select,
+    .crm-content .filter-group input {
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -86,19 +91,19 @@
       min-width: 160px;
       transition: border-color .2s;
     }
-    .filter-group select:focus,
-    .filter-group input:focus {
+    .crm-content .filter-group select:focus,
+    .crm-content .filter-group input:focus {
       border-color: var(--accent);
     }
-    .filter-group select option {
+    .crm-content .filter-group select option {
       background: var(--surface2);
     }
-    .filter-btn-group {
+    .crm-content .filter-btn-group {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
-    .filter-chip {
+    .crm-content .filter-chip {
       padding: 8px 14px;
       border-radius: 8px;
       border: 1px solid var(--border);
@@ -108,22 +113,22 @@
       cursor: pointer;
       transition: all .2s;
     }
-    .filter-chip.selected {
+    .crm-content .filter-chip.selected {
       border-color: var(--accent);
       color: var(--accent);
       background: rgba(108,99,255,.12);
     }
-    .filter-chip.hot.selected  {
+    .crm-content .filter-chip.hot.selected  {
       border-color: #f87171;
       color: #f87171;
       background: rgba(248,113,113,.1);
     }
-    .filter-chip.cold.selected {
+    .crm-content .filter-chip.cold.selected {
       border-color: #60a5fa;
       color: #60a5fa;
       background: rgba(96,165,250,.1);
     }
-    .btn-reset {
+    .crm-content .btn-reset {
       padding: 8px 16px;
       border-radius: 8px;
       border: none;
@@ -134,11 +139,11 @@
       transition: all .2s;
       align-self: flex-end;
     }
-    .btn-reset:hover {
+    .crm-content .btn-reset:hover {
       color: var(--text);
       border-color: var(--border);
     }
-    .crm-toolbar {
+    .crm-content .crm-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -146,19 +151,19 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    .crm-count {
+    .crm-content .crm-count {
       font-size: .85rem;
       color: var(--muted);
     }
-    .crm-count span {
+    .crm-content .crm-count span {
       color: var(--text);
       font-weight: 600;
     }
-    .view-toggle {
+    .crm-content .view-toggle {
       display: flex;
       gap: 4px;
     }
-    .view-toggle button {
+    .crm-content .view-toggle button {
       width: 34px;
       height: 34px;
       border-radius: 8px;
@@ -171,24 +176,24 @@
       justify-content: center;
       transition: all .2s;
     }
-    .view-toggle button.active {
+    .crm-content .view-toggle button.active {
       background: var(--accent);
       color: #fff;
       border-color: var(--accent);
     }
 
     /* Lead Grid */
-    .leads-grid {
+    .crm-content .leads-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 18px;
     }
-    .leads-grid.list-view {
+    .crm-content .leads-grid.list-view {
       grid-template-columns: 1fr;
     }
 
     /* Lead Card */
-    .lead-card {
+    .crm-content .lead-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -197,7 +202,7 @@
       position: relative;
       overflow: hidden;
     }
-    .lead-card::before {
+    .crm-content .lead-card::before {
       content: '';
       position: absolute;
       top: 0;
@@ -205,24 +210,24 @@
       width: 4px;
       height: 100%;
     }
-    .lead-card.quente::before {
+    .crm-content .lead-card.quente::before {
       background: var(--danger);
     }
-    .lead-card.frio::before {
+    .crm-content .lead-card.frio::before {
       background: #60a5fa;
     }
-    .lead-card:hover {
+    .crm-content .lead-card:hover {
       border-color: var(--accent);
       transform: translateY(-2px);
     }
 
-    .lead-card-header {
+    .crm-content .lead-card-header {
       display: flex;
       align-items: center;
       gap: 12px;
       margin-bottom: 12px;
     }
-    .lead-avatar {
+    .crm-content .lead-avatar {
       width: 46px;
       height: 46px;
       border-radius: 50%;
@@ -237,24 +242,24 @@
       font-weight: 700;
       overflow: hidden;
     }
-    .lead-avatar img {
+    .crm-content .lead-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
     }
-    .lead-info {
+    .crm-content .lead-info {
       flex: 1;
       min-width: 0;
     }
-    .lead-name {
+    .crm-content .lead-name {
       font-weight: 600;
       font-size: .95rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .lead-whatsapp {
+    .crm-content .lead-whatsapp {
       display: flex;
       align-items: center;
       gap: 4px;
@@ -262,18 +267,18 @@
       color: var(--accent2);
       margin-top: 2px;
     }
-    .lead-whatsapp svg {
+    .crm-content .lead-whatsapp svg {
       width: 12px;
       height: 12px;
     }
 
-    .lead-tags {
+    .crm-content .lead-tags {
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
       margin-bottom: 10px;
     }
-    .tag {
+    .crm-content .tag {
       padding: 3px 10px;
       border-radius: 20px;
       font-size: .7rem;
@@ -281,38 +286,38 @@
       text-transform: uppercase;
       letter-spacing: .5px;
     }
-    .tag.quente  {
+    .crm-content .tag.quente  {
       background: rgba(248,113,113,.15);
       color: #f87171;
       border: 1px solid rgba(248,113,113,.3);
     }
-    .tag.frio    {
+    .crm-content .tag.frio    {
       background: rgba(96,165,250,.15);
       color: #60a5fa;
       border: 1px solid rgba(96,165,250,.3);
     }
-    .tag.agendado {
+    .crm-content .tag.agendado {
       background: rgba(74,222,128,.15);
       color: #4ade80;
       border: 1px solid rgba(74,222,128,.3);
     }
-    .tag.atendimento {
+    .crm-content .tag.atendimento {
       background: rgba(251,191,36,.15);
       color: #fbbf24;
       border: 1px solid rgba(251,191,36,.3);
     }
-    .tag.aguardando {
+    .crm-content .tag.aguardando {
       background: rgba(148,163,184,.1);
       color: #94a3b8;
       border: 1px solid rgba(148,163,184,.2);
     }
-    .tag.assunto {
+    .crm-content .tag.assunto {
       background: rgba(108,99,255,.15);
       color: #a78bfa;
       border: 1px solid rgba(108,99,255,.3);
     }
 
-    .lead-subject {
+    .crm-content .lead-subject {
       font-size: .82rem;
       color: var(--muted);
       line-height: 1.5;
@@ -323,22 +328,22 @@
       overflow: hidden;
     }
 
-    .lead-footer {
+    .crm-content .lead-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid var(--border);
       padding-top: 10px;
     }
-    .lead-date {
+    .crm-content .lead-date {
       font-size: .72rem;
       color: var(--muted);
     }
-    .lead-actions {
+    .crm-content .lead-actions {
       display: flex;
       gap: 6px;
     }
-    .btn-icon {
+    .crm-content .btn-icon {
       width: 30px;
       height: 30px;
       border-radius: 8px;
@@ -352,19 +357,19 @@
       transition: all .2s;
       font-size: .8rem;
     }
-    .btn-icon:hover {
+    .crm-content .btn-icon:hover {
       color: var(--accent);
       border-color: var(--accent);
       background: rgba(108,99,255,.1);
     }
-    .btn-icon.whatsapp:hover {
+    .crm-content .btn-icon.whatsapp:hover {
       color: #4ade80;
       border-color: #4ade80;
       background: rgba(74,222,128,.1);
     }
 
     /* Status update select inline */
-    .lead-status-select {
+    .crm-content .lead-status-select {
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -376,24 +381,24 @@
     }
 
     /* Empty state */
-    .empty-state {
+    .crm-content .empty-state {
       text-align: center;
       padding: 60px 20px;
       color: var(--muted);
       grid-column: 1 / -1;
     }
-    .empty-state svg {
+    .crm-content .empty-state svg {
       width: 48px;
       height: 48px;
       margin: 0 auto 16px;
       opacity: .4;
     }
-    .empty-state p {
+    .crm-content .empty-state p {
       font-size: .875rem;
     }
 
     /* Loading skeleton */
-    .skeleton {
+    .crm-content .skeleton {
       background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
       background-size: 200% 100%;
       animation: shimmer 1.5s infinite;
@@ -432,104 +437,266 @@
       border-left: 4px solid var(--danger);
     }
 
-    /* Responsive */
+    /* Responsive para o conteúdo CRM */
     @media (max-width: 768px) {
-      body { padding: 16px; }
-      .crm-filters { flex-direction: column; }
-      .filter-group select,
-      .filter-group input { min-width: 100%; }
+      .crm-content .crm-filters { flex-direction: column; }
+      .crm-content .filter-group select,
+      .crm-content .filter-group input { min-width: 100%; }
     }
+
+    /* Estilos da sidebar e header (reaproveitados do index) */
+    body {
+      background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+      font-family: 'Inter', sans-serif;
+    }
+    .glass-sidebar {
+      background: #1a1d27 !important; /* mesma cor da superfície do CRM */
+      border-right: 1px solid #2a2f45;
+      color: #e2e8f0;
+    }
+    .glass-sidebar a {
+      color: #e2e8f0;
+    }
+    .glass-sidebar .sidebar-active {
+      background: rgba(108,99,255,0.2);
+    }
+    .glass-sidebar a:hover {
+      background: rgba(108,99,255,0.1);
+    }
+    .glass-sidebar i {
+      color: #6c63ff;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+    }
+    .hover-lift {
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px -8px rgba(0, 34, 64, 0.15);
+    }
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 12px; }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 12px; }
+    ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+    /* Tema escuro */
+    body.dark-theme {
+      background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+      color: #e2e8f0;
+    }
+    body.dark-theme .glass-card {
+      background: rgba(30, 41, 59, 0.6);
+      border-color: rgba(148, 163, 184, 0.1);
+    }
+    body.dark-theme .text-slate-800 { color: #e2e8f0; }
+    body.dark-theme .text-slate-600 { color: #cbd5e1; }
+    body.dark-theme .bg-white\/70 { background: rgba(15, 23, 42, 0.9); }
+    body.dark-theme .border-white\/30 { border-color: rgba(71, 85, 105, 0.3); }
+    body.dark-theme .bg-emerald-50 { background: rgba(5, 150, 105, 0.1); }
+    body.dark-theme .text-emerald-700 { color: #6ee7b7; }
+    body.dark-theme ::-webkit-scrollbar-track { background: #1e293b; }
+    body.dark-theme ::-webkit-scrollbar-thumb { background: #475569; }
+
+    /* sidebar retrátil */
+    .sidebar-collapsed { width: 4rem !important; }
+    .sidebar-collapsed .nav-text,
+    .sidebar-collapsed .user-info,
+    .sidebar-collapsed .sidebar-header-text { display: none; }
+    .sidebar-collapsed .p-8 { padding: 1rem !important; }
+    .sidebar-collapsed nav a { justify-content: center; }
+    .sidebar-collapsed nav a i { margin-right: 0 !important; }
   </style>
 </head>
-<body>
-  <div class="container">
-    <div class="page-header">
-      <h1>CRM de Leads</h1>
-      <p>Gerencie e acompanhe seus leads em tempo real</p>
+<body class="min-h-screen flex flex-col md:flex-row text-slate-800 antialiased">
+
+  <!-- Mobile Header -->
+  <div class="md:hidden bg-slate-900/90 backdrop-blur-sm text-white p-4 flex justify-between items-center sticky top-0 z-50">
+    <h1 class="text-xl font-bold text-blue-300 tracking-tight">Ominus tech</h1>
+    <button onclick="toggleMobileMenu()" class="text-2xl">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Overlay (glass) -->
+  <div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-xl z-[60] hidden flex-col p-8">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-2xl font-bold text-blue-300">Ominus tech</h1>
+      <button onclick="toggleMobileMenu()" class="text-2xl text-white">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
+    <nav class="space-y-6">
+      <a href="index.html#overview" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Visão Geral</a>
+      <a href="index.html#reports" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Relatórios</a>
+      <a href="index.html#whatsapp" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Config. WhatsApp</a>
+      <a href="crm.html" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">CRM de Leads</a>
+      <a href="prompts.html" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Prompts Salvos</a>
+    </nav>
+  </div>
 
-    <!-- Filtros -->
-    <div class="crm-filters">
-      <div class="filter-group">
-        <label>Temperatura</label>
-        <div class="filter-btn-group" id="filter-temp">
-          <button class="filter-chip hot" data-val="quente" onclick="toggleChip(this,'temp')">🔥 Lead Quente</button>
-          <button class="filter-chip cold" data-val="frio"   onclick="toggleChip(this,'temp')">❄️ Lead Frio</button>
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <label>Status de Conversão</label>
-        <div class="filter-btn-group" id="filter-status">
-          <button class="filter-chip" data-val="Agendamento Marcado" onclick="toggleChip(this,'status')">📅 Agendamento Marcado</button>
-          <button class="filter-chip" data-val="Em Atendimento"      onclick="toggleChip(this,'status')">💬 Em Atendimento</button>
-          <button class="filter-chip" data-val="Aguardando"          onclick="toggleChip(this,'status')">⏳ Aguardando</button>
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <label>Assunto / Área</label>
-        <select id="filter-assunto" onchange="applyFilters()">
-          <option value="">Todos os assuntos</option>
-          <option>Previdenciário</option>
-          <option>Cível</option>
-          <option>Trabalhista</option>
-          <option>Criminal</option>
-          <option>Família</option>
-          <option>Tributário</option>
-          <option>Imobiliário</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label>Buscar</label>
-        <input type="text" id="filter-search" placeholder="Nome ou WhatsApp…" oninput="applyFilters()">
-      </div>
-
-      <button class="btn-reset" onclick="resetFilters()">✕ Limpar filtros</button>
-      <button onclick="fetchLeads()" style="padding:8px 16px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:.82rem;cursor:pointer;align-self:flex-end;">
-        ↻ Atualizar
+  <!-- Sidebar Desktop (glass) -->
+  <aside class="w-72 glass-sidebar text-white flex-shrink-0 hidden md:flex flex-col transition-all duration-300">
+    <div class="p-8 relative">
+      <h1 class="text-3xl font-light tracking-tight text-blue-300 sidebar-header-text">Ominus<span class="font-bold text-white">tech</span></h1>
+      <p class="text-xs text-slate-400 uppercase tracking-widest mt-1 sidebar-header-text">Sistemas Jurídicos</p>
+      <button id="sidebar-toggle-btn" onclick="toggleSidebar()" class="absolute top-4 right-4 text-slate-300 hover:text-white">
+        <i class="fas fa-angle-left"></i>
       </button>
     </div>
 
-    <!-- Barra de ferramentas -->
-    <div class="crm-toolbar">
-      <span class="crm-count">Exibindo <span id="leads-count">0</span> leads</span>
-      <div class="view-toggle">
-        <button class="active" id="btn-grid" onclick="setListView(false)" title="Grade">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-            <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-          </svg>
-        </button>
-        <button id="btn-list" onclick="setListView(true)" title="Lista">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-            <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
-            <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
-          </svg>
-        </button>
+    <nav class="mt-4 flex-1 space-y-1 px-4">
+      <a href="index.html#overview" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
+        <i class="fas fa-chart-line w-5 mr-3 text-blue-400"></i>
+        <span class="font-medium nav-text">Visão Geral</span>
+      </a>
+      <a href="index.html#reports" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
+        <i class="fas fa-file-contract w-5 mr-3 text-indigo-400"></i>
+        <span class="font-medium nav-text">Relatórios</span>
+      </a>
+      <a href="index.html#whatsapp" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
+        <i class="fab fa-whatsapp w-5 mr-3 text-green-400"></i>
+        <span class="font-medium nav-text">Config. WhatsApp</span>
+      </a>
+      <a href="crm.html" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all sidebar-active">
+        <i class="fas fa-users w-5 mr-3 text-purple-400"></i>
+        <span class="font-medium nav-text">CRM de Leads</span>
+      </a>
+      <a href="prompts.html" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
+        <i class="fas fa-save w-5 mr-3 text-yellow-400"></i>
+        <span class="font-medium nav-text">Prompts Salvos</span>
+      </a>
+    </nav>
+
+    <div class="p-6 border-t border-white/10 mt-auto">
+      <div class="flex items-center">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold shadow-lg">AD</div>
+        <div class="ml-3 user-info">
+          <p class="text-sm font-medium">Dr. Advogado</p>
+          <p class="text-xs text-slate-400">Plano Premium</p>
+        </div>
       </div>
     </div>
+  </aside>
 
-    <!-- Container dos leads -->
-    <div class="leads-grid" id="leads-container"></div>
-  </div>
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col overflow-x-hidden">
+    <!-- Header com glass effect -->
+    <header class="h-20 bg-white/70 backdrop-blur-md border-b border-white/30 flex items-center justify-between px-8 sticky top-0 z-40">
+      <h2 id="page-title" class="text-2xl font-semibold text-slate-800">CRM de Leads</h2>
+      <div class="flex items-center space-x-5">
+        <span class="flex items-center text-sm text-emerald-700 font-medium bg-emerald-50 px-3 py-1.5 rounded-full">
+          <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></span>
+          Sistemas Online
+        </span>
+        <button onclick="toggleTheme()" class="p-2 text-slate-500 hover:text-slate-800 bg-white/50 rounded-xl hover:bg-white transition theme-toggle" title="Alternar tema">
+          <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+        <button class="p-2 text-slate-500 hover:text-slate-800 bg-white/50 rounded-xl hover:bg-white transition">
+          <i class="fas fa-bell"></i>
+        </button>
+      </div>
+    </header>
 
-  <!-- Toast -->
+    <!-- Page Content Area (CRM) -->
+    <div id="content-area" class="p-8 overflow-y-auto crm-content">
+      <!-- Conteúdo original do CRM -->
+      <div class="container">
+        <!-- Apenas o subtítulo (o h1 principal já está no header) -->
+        <div class="page-header">
+          <p>Gerencie e acompanhe seus leads em tempo real</p>
+        </div>
+
+        <!-- Filtros -->
+        <div class="crm-filters">
+          <div class="filter-group">
+            <label>Temperatura</label>
+            <div class="filter-btn-group" id="filter-temp">
+              <button class="filter-chip hot" data-val="quente" onclick="toggleChip(this,'temp')">🔥 Lead Quente</button>
+              <button class="filter-chip cold" data-val="frio"   onclick="toggleChip(this,'temp')">❄️ Lead Frio</button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label>Status de Conversão</label>
+            <div class="filter-btn-group" id="filter-status">
+              <button class="filter-chip" data-val="Agendamento Marcado" onclick="toggleChip(this,'status')">📅 Agendamento Marcado</button>
+              <button class="filter-chip" data-val="Em Atendimento"      onclick="toggleChip(this,'status')">💬 Em Atendimento</button>
+              <button class="filter-chip" data-val="Aguardando"          onclick="toggleChip(this,'status')">⏳ Aguardando</button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label>Assunto / Área</label>
+            <select id="filter-assunto" onchange="applyFilters()">
+              <option value="">Todos os assuntos</option>
+              <option>Previdenciário</option>
+              <option>Cível</option>
+              <option>Trabalhista</option>
+              <option>Criminal</option>
+              <option>Família</option>
+              <option>Tributário</option>
+              <option>Imobiliário</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Buscar</label>
+            <input type="text" id="filter-search" placeholder="Nome ou WhatsApp…" oninput="applyFilters()">
+          </div>
+
+          <button class="btn-reset" onclick="resetFilters()">✕ Limpar filtros</button>
+          <button onclick="fetchLeads()" style="padding:8px 16px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:.82rem;cursor:pointer;align-self:flex-end;">
+            ↻ Atualizar
+          </button>
+        </div>
+
+        <!-- Barra de ferramentas -->
+        <div class="crm-toolbar">
+          <span class="crm-count">Exibindo <span id="leads-count">0</span> leads</span>
+          <div class="view-toggle">
+            <button class="active" id="btn-grid" onclick="setListView(false)" title="Grade">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </button>
+            <button id="btn-list" onclick="setListView(true)" title="Lista">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+                <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+                <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Container dos leads -->
+        <div class="leads-grid" id="leads-container"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast (fora da área de conteúdo, fixo na viewport) -->
   <div id="toast"></div>
 
+  <!-- SCRIPTS (mesclados) -->
   <script>
-    // ========== CONFIGURAÇÃO DOS WEBHOOKS N8N ==========
+    // ========== CONFIGURAÇÃO DOS WEBHOOKS N8N (CRM) ==========
     const N8N_GET_WEBHOOK  = 'https://SEU_N8N.com/webhook/leads';          // 👈 altere para sua URL de GET
     const N8N_POST_WEBHOOK = 'https://SEU_N8N.com/webhook/leads/update';   // 👈 altere para sua URL de POST/UPDATE
 
-    // ========== ESTADO GLOBAL ==========
+    // ========== ESTADO GLOBAL (CRM) ==========
     let allLeads = [];
     let filters  = { temp: '', status: '', assunto: '' };
     let listView = false;
 
-    // ========== FUNÇÕES DE FILTRO ==========
+    // ========== FUNÇÕES DE FILTRO (CRM) ==========
     function toggleChip(btn, key) {
       const group = btn.closest('.filter-btn-group').querySelectorAll('.filter-chip');
       const val   = btn.dataset.val;
@@ -569,7 +736,7 @@
       applyFilters();
     }
 
-    // ========== RENDERIZAÇÃO DOS LEADS ==========
+    // ========== RENDERIZAÇÃO DOS LEADS (CRM) ==========
     function renderLeads(leads) {
       const container = document.getElementById('leads-container');
       if (!leads.length) {
@@ -637,7 +804,7 @@
       </div>`;
     }
 
-    // ========== ATUALIZAÇÃO DE STATUS (POST) ==========
+    // ========== ATUALIZAÇÃO DE STATUS (CRM) ==========
     async function updateLeadStatus(leadId, field, value) {
       const lead = allLeads.find(l => l.id === leadId);
       if (!lead) return;
@@ -660,7 +827,7 @@
       }
     }
 
-    // ========== CARREGAR LEADS DO WEBHOOK ==========
+    // ========== CARREGAR LEADS DO WEBHOOK (CRM) ==========
     async function fetchLeads() {
       showLeadsSkeleton();
       try {
@@ -681,7 +848,7 @@
       }
     }
 
-    // ========== UTILITÁRIOS ==========
+    // ========== UTILITÁRIOS (CRM) ==========
     function escHtml(s) {
       return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
@@ -721,7 +888,7 @@
       setTimeout(() => t.className = '', 3000);
     }
 
-    // ========== DADOS DE DEMONSTRAÇÃO ==========
+    // ========== DADOS DE DEMONSTRAÇÃO (CRM) ==========
     const DEMO_LEADS = [
       { id:'l1', nome:'Ana Paula Ferreira',   whatsapp:'5511999110001', foto_url:'', assunto:'Previdenciário', temperatura:'quente', status:'Em Atendimento',      data:'2024-05-15T09:00:00Z', resumo:'Cliente quer revisar aposentadoria por invalidez negada pelo INSS. Processo urgente.' },
       { id:'l2', nome:'Carlos Eduardo Lima',   whatsapp:'5521988220002', foto_url:'', assunto:'Trabalhista',   temperatura:'quente', status:'Agendamento Marcado',  data:'2024-05-15T10:30:00Z', resumo:'Rescisão sem justa causa com verbas pendentes. Agendou consulta para amanhã.' },
@@ -733,8 +900,57 @@
       { id:'l8', nome:'Diego Henrique Nunes',  whatsapp:'5581922880008', foto_url:'', assunto:'Imobiliário',   temperatura:'frio',   status:'Em Atendimento',       data:'2024-05-14T15:00:00Z', resumo:'Distrato de compra de imóvel na planta. Construtora recusando reembolso.' },
     ];
 
+    // ========== FUNÇÕES DO SISTEMA (TEMA, SIDEBAR, MOBILE) ==========
+    function toggleTheme() {
+      const body = document.body;
+      const isDarkMode = body.classList.contains('dark-theme');
+      const themeIcon = document.getElementById('theme-icon');
+
+      if (isDarkMode) {
+        body.classList.remove('dark-theme');
+        themeIcon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.add('dark-theme');
+        themeIcon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      const themeIcon = document.getElementById('theme-icon');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeIcon.className = 'fas fa-sun';
+      } else {
+        document.body.classList.remove('dark-theme');
+        themeIcon.className = 'fas fa-moon';
+      }
+    }
+
+    function toggleSidebar() {
+      const aside = document.querySelector('aside');
+      const btn = document.getElementById('sidebar-toggle-btn');
+      aside.classList.toggle('sidebar-collapsed');
+      if (aside.classList.contains('sidebar-collapsed')) {
+        btn.innerHTML = '<i class="fas fa-angle-right"></i>';
+      } else {
+        btn.innerHTML = '<i class="fas fa-angle-left"></i>';
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('flex');
+    }
+
     // ========== INICIALIZAÇÃO ==========
-    fetchLeads();
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      fetchLeads(); // carrega leads do CRM
+    });
   </script>
 </body>
 </html>
