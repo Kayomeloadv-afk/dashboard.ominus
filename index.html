@@ -224,11 +224,11 @@
         }
 
         .glass-sidebar .sidebar-active {
-            background: rgba(108,99,255,0.2);
+            background: rgba(108, 99, 255, 0.2);
         }
 
         .glass-sidebar a:hover {
-            background: rgba(108,99,255,0.1);
+            background: rgba(108, 99, 255, 0.1);
         }
 
         .glass-sidebar i {
@@ -238,6 +238,7 @@
         #mobile-menu a {
             color: var(--sidebar-text-color);
         }
+
         #mobile-menu a:hover {
             color: var(--sidebar-accent-color);
         }
@@ -604,7 +605,7 @@
     <script>
         // --- WEBHOOKS N8N (substitua pelos seus endpoints) ---
         const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
-        const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis";
+        const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/relatorios-ominis";
         const WEBHOOK_QR_CODE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/generate-qr";
         const WEBHOOK_SAVE_PROMPT = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-prompt"; // novo
 
@@ -832,7 +833,7 @@
                         "ngrok-skip-browser-warning": "true" // Isso remove a tela de interrupção do ngrok
                     }
                 });
-                
+
                 const contentType = response.headers.get("content-type");
                 if (!response.ok || !contentType || !contentType.includes("application/json")) {
                     throw new Error("O n8n não retornou um JSON válido.");
@@ -856,19 +857,20 @@
                 }
 
                 data.forEach(item => {
-                    // Mapeando os nomes das colunas que você recebeu no teste (Data, Reuniao, acao)
                     const dataFormatada = item.Data ? new Date(item.Data).toLocaleDateString('pt-BR') : '---';
                     const titulo = item.Reuniao || 'Sem título';
-                    const acao = item.acao || '---';
+                    const idRelatorio = item.id; // Usaremos o ID para buscar o PDF específico
 
                     const row = `
-                <tr class="hover:bg-white/20 transition cursor-pointer" onclick="openModal('${titulo}', '${dataFormatada}', '${item.resumo || ""}', '${item.transcricao || ""}')">
-                    <td class="px-6 py-4 text-sm">${dataFormatada}</td>
-                    <td class="px-6 py-4 text-sm font-medium text-slate-800">${titulo}</td>
-                    <td class="px-6 py-4 text-right">
-                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-lg">${acao}</span>
-                    </td>
-                </tr>`;
+        <tr class="hover:bg-white/20 transition cursor-pointer">
+            <td class="px-6 py-4 text-sm" onclick="openModal(...)">${dataFormatada}</td>
+            <td class="px-6 py-4 text-sm font-medium text-slate-800" onclick="openModal(...)">${titulo}</td>
+            <td class="px-6 py-4 text-right">
+                <button onclick="viewPDF('${idRelatorio}')" class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-lg hover:bg-red-200 transition">
+                    <i class="fas fa-file-pdf mr-1"></i> Ver PDF
+                </button>
+            </td>
+        </tr>`;
                     list.insertAdjacentHTML('beforeend', row);
                 });
 
@@ -922,6 +924,13 @@
                 window.scrollTo(0, 0);
             }
         });
+        function viewPDF(id) {
+            // Usamos o URL de produção para que o link seja permanente
+            const pdfUrl = `https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis?id=${id}`;
+
+            // Abre em nova aba. O cabeçalho 'inline' configurado no n8n fará o resto.
+            window.open(pdfUrl, '_blank');
+        }
     </script>
 </body>
 
