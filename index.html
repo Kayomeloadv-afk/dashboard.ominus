@@ -662,13 +662,9 @@
     <script>
         // --- WEBHOOKS N8N (substitua pelos seus endpoints) ---
         const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
-<<<<<<< HEAD
-        const WEBHOOK_TOGGLE_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/noticias";
-        const WEBHOOK_SET_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/noticias";
+        const WEBHOOK_TOGGLE_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticiasPost";
+        const WEBHOOK_SET_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticias";
         const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis";
-=======
-        const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/relatorios-ominis";
->>>>>>> a895de90034445b429481f39ab355d6c445f718e
         const WEBHOOK_QR_CODE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/generate-qr";
         const WEBHOOK_SAVE_PROMPT = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-prompt"; // novo
 
@@ -768,7 +764,7 @@
                 statusLabel.innerText = "PROCESSANDO...";
                 statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
 
-                const response = await fetch(webhookUrl,{
+                const response = await fetch(webhookUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -841,24 +837,25 @@
 
         // --- SALVAR INTERVALO BOT-NOTICIAS ---
         async function saveNewsInterval() {
-            const hours = document.getElementById('news-interval').value;
-            const minutes = document.getElementById('news-interval-min').value;
-
-            // validation
-            if ((hours === '' || isNaN(hours) || hours < 0) ||
-                (minutes === '' || isNaN(minutes) || minutes < 0 || minutes > 59)) {
-                alert("Informe um número válido de horas e minutos (0–59).");
-                return;
-            }
+            const horasValue = document.getElementById('news-interval').value; // Pega o valor do input
+            const payload = {
+                horas: horasValue,
+                minutos: 30,
+                acao: 'update_time'
+            };
 
             try {
-                const total = `${hours}h ${minutes}m`;
-                console.log("Intervalo de notícias salvo:", total);
-                alert("Intervalo salvo com sucesso: " + total);
-                // aqui você poderia chamar um webhook semelhante aos outros
-            } catch (err) {
-                console.error("Erro ao salvar intervalo de notícias:", err);
-                alert("Erro ao salvar intervalo de notícias.");
+                await fetch(WEBHOOK_SET_NOTICIAS, {
+                    method: 'POST',
+                    mode: 'no-cors', // Evita o erro de preflight/CORS
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                console.log("Payload enviado com sucesso:", payload);
+            } catch (error) {
+                console.error("Erro ao conectar com o n8n:", error);
             }
         }
 
@@ -917,13 +914,18 @@
 
             try {
                 // Esta é a parte que você deve atualizar:
-                const response = await fetch(WEBHOOK_GET_REPORTS, {
-                    method: 'GET',
+                const response = await fetch('https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/rest/webhooks/noticias', {
+                    method: 'POST', // Pode manter POST aqui
+                    mode: 'no-cors', // Isso ignora a verificação rígida de CORS do navegador
                     headers: {
-                        "Content-Type": "application/json",
-                        "ngrok-skip-browser-warning": "true" // Isso remove a tela de interrupção do ngrok
-                    }
+                        'Content-Type': 'text/plain'
+                    },
+                    body: JSON.stringify(payload)
                 });
+
+                // Nota: No modo 'no-cors', o JS não consegue ler a resposta do n8n, 
+                // mas os dados CHEGAM lá perfeitamente.
+                alert("Comando enviado! Verifique o n8n.");
 
                 const contentType = response.headers.get("content-type");
                 if (!response.ok || !contentType || !contentType.includes("application/json")) {
