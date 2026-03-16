@@ -666,7 +666,7 @@
         const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
         const WEBHOOK_TOGGLE_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticiasPost";
         const WEBHOOK_SET_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticias";
-        const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/relatorios-ominis";
+        const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis";
         const WEBHOOK_GERAR_PDF = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/gerar-pdf";
         const WEBHOOK_QR_CODE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/generate-qr";
         const WEBHOOK_SAVE_PROMPT = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-prompt"; // novo
@@ -928,60 +928,61 @@
         // --- CARREGAR RELATÓRIOS (Data, Reunião, Ação) ---
         // 1. Função para carregar a tabela (chama o webhook JSON)
 
-       async function loadReports() {
+async function loadReports() {
     const tableBody = document.getElementById('reports-list');
-    const refreshIcon = document.getElementById('refresh-icon');
-    // Substitua pela URL do seu Webhook de Produção do n8n
-    const webhookUrl = 'SUA_URL_DO_WEBHOOK_AQUI';
+    if (!tableBody) return;
 
-    refreshIcon.classList.add('fa-spin');
-    
+    tableBody.innerHTML = `<tr><td colspan="3" class="px-6 py-10 text-center text-slate-400 animate-pulse">Buscando dados em Ominus Tech...</td></tr>`;
+
     try {
-        const response = await fetch(webhookUrl);
-        if (!response.ok) throw new Error('Erro na requisição');
-        
-        const data = await response.json();
+        const response = await fetch(WEBHOOK_GET_REPORTS, {
+            method: 'GET',
+            headers: { 'ngrok-skip-browser-warning': 'true' }
+        });
+
+        const rawData = await response.json();
+        console.log("Dados recebidos do n8n:", rawData); // Verifique isso no F12 do navegador
+
+        // Ajuste crucial: O n8n costuma enviar [{json: {...}}, {json: {...}}]
+        // Esta linha extrai os dados reais da tabela de forma segura
+        const items = Array.isArray(rawData) 
+            ? rawData.map(item => item.json || item) 
+            : (rawData.json ? [rawData.json] : [rawData]);
+
         tableBody.innerHTML = '';
 
-        if (!data || data.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-slate-400">Nenhum relatório encontrado.</td></tr>';
+        if (items.length === 0 || !items[0] || (!items[0].Data && !items[0].Reuniao)) {
+            tableBody.innerHTML = `<tr><td colspan="3" class="px-6 py-10 text-center text-slate-500">Nenhum relatório encontrado na base de dados.</td></tr>`;
             return;
         }
 
-        data.forEach(item => {
-            // Formatação da data para PT-BR (DD/MM/YYYY)
-            const dataFormatada = item.Data ? new Date(item.Data).toLocaleDateString('pt-BR') : '---';
-            
+        items.forEach(fields => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-white/20 transition-colors border-b border-white/10';
-            
+            row.className = 'hover:bg-white/5 transition-colors border-b border-white/5';
+
+            // Mapeamento exato das colunas do seu print (Data, Reuniao, acao)
+            const dataObj = fields.Data ? new Date(fields.Data) : null;
+            const dataFormatada = dataObj && !isNaN(dataObj) ? dataObj.toLocaleDateString('pt-BR') : '---';
+            const titulo = fields.Reuniao || 'Relatório Sem Título';
+            const status = fields.acao || 'Pendente';
+
             row.innerHTML = `
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
-                    ${dataFormatada}
-                </td>
-                <td class="px-6 py-4 text-sm font-medium text-slate-800">
-                    <div class="flex flex-col">
-                        <span>${item.Reuniao || 'Sem título'}</span>
-                        <span class="text-xs text-slate-400 font-normal italic">${item.acao || ''}</span>
-                    </div>
-                </td>
-                <td class="px-6 py-4 text-right">
-                    <button class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-bold hover:bg-blue-100 transition-colors uppercase">
-                        Ver Detalhes
-                    </button>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-black-400 font-mono">${dataFormatada}</td>
+                <td class="px-6 py-4 text-sm font-medium text-black">${titulo}</td>
+                <td class="px-6 py-4 text-sm text-right">
+                    <span class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase border border-blue-500/20">
+                        ${status}
+                    </span>
                 </td>
             `;
             tableBody.appendChild(row);
         });
 
     } catch (error) {
-        console.error('Erro ao carregar n8n:', error);
-        tableBody.innerHTML = '<tr><td colspan="3" class="px-6 py-10 text-center text-red-400">Erro ao carregar dados. Verifique a URL do Webhook.</td></tr>';
-    } finally {
-        refreshIcon.classList.remove('fa-spin');
+        console.error('Erro detalhado:', error);
+        tableBody.innerHTML = `<tr><td colspan="3" class="px-6 py-10 text-center text-red-400">Erro de conexão. Verifique se o n8n está Ativo.</td></tr>`;
     }
 }
-
         // --- MODAL ---
         function openReport(report) {
             document.getElementById('modal-title').innerText = report.titulo;
