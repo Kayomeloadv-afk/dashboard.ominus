@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CRM de Leads · Ominus tech</title>
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/.png">
   <!-- Tailwind + plugins -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+    rel="stylesheet">
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Estilos do CRM (adaptados) -->
@@ -20,27 +23,30 @@
       margin: 0;
       padding: 0;
     }
+
     .crm-content {
-      --bg:        #0f1117;
-      --surface:   #1a1d27;
-      --surface2:  #21253a;
-      --border:    #2a2f45;
-      --accent:    #6c63ff;
-      --accent2:   #4ade80;
-      --danger:    #f87171;
-      --warn:      #fbbf24;
-      --text:      #e2e8f0;
-      --muted:     #8892a4;
-      --radius:    12px;
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #21253a;
+      --border: #2a2f45;
+      --accent: #6c63ff;
+      --accent2: #4ade80;
+      --danger: #f87171;
+      --warn: #fbbf24;
+      --text: #e2e8f0;
+      --muted: #8892a4;
+      --radius: 12px;
 
       font-family: 'Segoe UI', system-ui, sans-serif;
-      background: transparent; /* herdado do body */
+      background: transparent;
+      /* herdado do body */
       color: var(--text);
       padding: 0;
       min-height: 100%;
       display: flex;
       flex-direction: column;
     }
+
     .crm-content .container {
       max-width: 1400px;
       width: 100%;
@@ -51,6 +57,7 @@
     .crm-content .page-header {
       margin-bottom: 28px;
     }
+
     .crm-content .page-header p {
       color: var(--muted);
       font-size: 0.9rem;
@@ -68,17 +75,20 @@
       gap: 12px;
       align-items: flex-end;
     }
+
     .crm-content .filter-group {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
+
     .crm-content .filter-group label {
       font-size: .7rem;
       text-transform: uppercase;
       letter-spacing: .8px;
       color: var(--muted);
     }
+
     .crm-content .filter-group select,
     .crm-content .filter-group input {
       background: var(--surface2);
@@ -91,18 +101,22 @@
       min-width: 160px;
       transition: border-color .2s;
     }
+
     .crm-content .filter-group select:focus,
     .crm-content .filter-group input:focus {
       border-color: var(--accent);
     }
+
     .crm-content .filter-group select option {
       background: var(--surface2);
     }
+
     .crm-content .filter-btn-group {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
+
     .crm-content .filter-chip {
       padding: 8px 14px;
       border-radius: 8px;
@@ -113,21 +127,25 @@
       cursor: pointer;
       transition: all .2s;
     }
+
     .crm-content .filter-chip.selected {
       border-color: var(--accent);
       color: var(--accent);
-      background: rgba(108,99,255,.12);
+      background: rgba(108, 99, 255, .12);
     }
-    .crm-content .filter-chip.hot.selected  {
+
+    .crm-content .filter-chip.hot.selected {
       border-color: #f87171;
       color: #f87171;
-      background: rgba(248,113,113,.1);
+      background: rgba(248, 113, 113, .1);
     }
+
     .crm-content .filter-chip.cold.selected {
       border-color: #60a5fa;
       color: #60a5fa;
-      background: rgba(96,165,250,.1);
+      background: rgba(96, 165, 250, .1);
     }
+
     .crm-content .btn-reset {
       padding: 8px 16px;
       border-radius: 8px;
@@ -139,10 +157,12 @@
       transition: all .2s;
       align-self: flex-end;
     }
+
     .crm-content .btn-reset:hover {
       color: var(--text);
       border-color: var(--border);
     }
+
     .crm-content .crm-toolbar {
       display: flex;
       justify-content: space-between;
@@ -151,18 +171,22 @@
       flex-wrap: wrap;
       gap: 10px;
     }
+
     .crm-content .crm-count {
       font-size: .85rem;
       color: var(--muted);
     }
+
     .crm-content .crm-count span {
       color: var(--text);
       font-weight: 600;
     }
+
     .crm-content .view-toggle {
       display: flex;
       gap: 4px;
     }
+
     .crm-content .view-toggle button {
       width: 34px;
       height: 34px;
@@ -176,6 +200,7 @@
       justify-content: center;
       transition: all .2s;
     }
+
     .crm-content .view-toggle button.active {
       background: var(--accent);
       color: #fff;
@@ -188,6 +213,7 @@
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 18px;
     }
+
     .crm-content .leads-grid.list-view {
       grid-template-columns: 1fr;
     }
@@ -202,6 +228,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .crm-content .lead-card::before {
       content: '';
       position: absolute;
@@ -210,12 +237,15 @@
       width: 4px;
       height: 100%;
     }
+
     .crm-content .lead-card.quente::before {
       background: var(--danger);
     }
+
     .crm-content .lead-card.frio::before {
       background: #60a5fa;
     }
+
     .crm-content .lead-card:hover {
       border-color: var(--accent);
       transform: translateY(-2px);
@@ -227,6 +257,7 @@
       gap: 12px;
       margin-bottom: 12px;
     }
+
     .crm-content .lead-avatar {
       width: 46px;
       height: 46px;
@@ -242,16 +273,19 @@
       font-weight: 700;
       overflow: hidden;
     }
+
     .crm-content .lead-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
     }
+
     .crm-content .lead-info {
       flex: 1;
       min-width: 0;
     }
+
     .crm-content .lead-name {
       font-weight: 600;
       font-size: .95rem;
@@ -259,6 +293,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .crm-content .lead-whatsapp {
       display: flex;
       align-items: center;
@@ -267,6 +302,7 @@
       color: var(--accent2);
       margin-top: 2px;
     }
+
     .crm-content .lead-whatsapp svg {
       width: 12px;
       height: 12px;
@@ -278,6 +314,7 @@
       flex-wrap: wrap;
       margin-bottom: 10px;
     }
+
     .crm-content .tag {
       padding: 3px 10px;
       border-radius: 20px;
@@ -286,35 +323,41 @@
       text-transform: uppercase;
       letter-spacing: .5px;
     }
-    .crm-content .tag.quente  {
-      background: rgba(248,113,113,.15);
+
+    .crm-content .tag.quente {
+      background: rgba(248, 113, 113, .15);
       color: #f87171;
-      border: 1px solid rgba(248,113,113,.3);
+      border: 1px solid rgba(248, 113, 113, .3);
     }
-    .crm-content .tag.frio    {
-      background: rgba(96,165,250,.15);
+
+    .crm-content .tag.frio {
+      background: rgba(96, 165, 250, .15);
       color: #60a5fa;
-      border: 1px solid rgba(96,165,250,.3);
+      border: 1px solid rgba(96, 165, 250, .3);
     }
+
     .crm-content .tag.agendado {
-      background: rgba(74,222,128,.15);
+      background: rgba(74, 222, 128, .15);
       color: #4ade80;
-      border: 1px solid rgba(74,222,128,.3);
+      border: 1px solid rgba(74, 222, 128, .3);
     }
+
     .crm-content .tag.atendimento {
-      background: rgba(251,191,36,.15);
+      background: rgba(251, 191, 36, .15);
       color: #fbbf24;
-      border: 1px solid rgba(251,191,36,.3);
+      border: 1px solid rgba(251, 191, 36, .3);
     }
+
     .crm-content .tag.aguardando {
-      background: rgba(148,163,184,.1);
+      background: rgba(148, 163, 184, .1);
       color: #94a3b8;
-      border: 1px solid rgba(148,163,184,.2);
+      border: 1px solid rgba(148, 163, 184, .2);
     }
+
     .crm-content .tag.assunto {
-      background: rgba(108,99,255,.15);
+      background: rgba(108, 99, 255, .15);
       color: #a78bfa;
-      border: 1px solid rgba(108,99,255,.3);
+      border: 1px solid rgba(108, 99, 255, .3);
     }
 
     .crm-content .lead-subject {
@@ -335,14 +378,17 @@
       border-top: 1px solid var(--border);
       padding-top: 10px;
     }
+
     .crm-content .lead-date {
       font-size: .72rem;
       color: var(--muted);
     }
+
     .crm-content .lead-actions {
       display: flex;
       gap: 6px;
     }
+
     .crm-content .btn-icon {
       width: 30px;
       height: 30px;
@@ -357,15 +403,17 @@
       transition: all .2s;
       font-size: .8rem;
     }
+
     .crm-content .btn-icon:hover {
       color: var(--accent);
       border-color: var(--accent);
-      background: rgba(108,99,255,.1);
+      background: rgba(108, 99, 255, .1);
     }
+
     .crm-content .btn-icon.whatsapp:hover {
       color: #4ade80;
       border-color: #4ade80;
-      background: rgba(74,222,128,.1);
+      background: rgba(74, 222, 128, .1);
     }
 
     /* Status update select inline */
@@ -387,12 +435,14 @@
       color: var(--muted);
       grid-column: 1 / -1;
     }
+
     .crm-content .empty-state svg {
       width: 48px;
       height: 48px;
       margin: 0 auto 16px;
       opacity: .4;
     }
+
     .crm-content .empty-state p {
       font-size: .875rem;
     }
@@ -404,9 +454,15 @@
       animation: shimmer 1.5s infinite;
       border-radius: 8px;
     }
+
     @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
     }
 
     /* Toast */
@@ -426,22 +482,30 @@
       pointer-events: none;
       max-width: 320px;
     }
+
     #toast.show {
       transform: translateY(0);
       opacity: 1;
     }
+
     #toast.success {
       border-left: 4px solid var(--accent2);
     }
+
     #toast.error {
       border-left: 4px solid var(--danger);
     }
 
     /* Responsive para o conteúdo CRM */
     @media (max-width: 768px) {
-      .crm-content .crm-filters { flex-direction: column; }
+      .crm-content .crm-filters {
+        flex-direction: column;
+      }
+
       .crm-content .filter-group select,
-      .crm-content .filter-group input { min-width: 100%; }
+      .crm-content .filter-group input {
+        min-width: 100%;
+      }
     }
 
     /* Estilos da sidebar e header (reaproveitados do index) */
@@ -449,74 +513,138 @@
       background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
       font-family: 'Inter', sans-serif;
     }
+
     .glass-sidebar {
-      background: #1a1d27 !important; /* mesma cor da superfície do CRM */
+      background: #1a1d27 !important;
+      /* mesma cor da superfície do CRM */
       border-right: 1px solid #2a2f45;
       color: #e2e8f0;
     }
+
     .glass-sidebar a {
       color: #e2e8f0;
     }
+
     .glass-sidebar .sidebar-active {
-      background: rgba(108,99,255,0.2);
+      background: rgba(108, 99, 255, 0.2);
     }
+
     .glass-sidebar a:hover {
-      background: rgba(108,99,255,0.1);
+      background: rgba(108, 99, 255, 0.1);
     }
+
     .glass-sidebar i {
       color: #6c63ff;
     }
+
     .glass-card {
       background: rgba(255, 255, 255, 0.75);
       backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
     }
+
     .hover-lift {
       transition: transform 0.15s ease, box-shadow 0.2s ease;
     }
+
     .hover-lift:hover {
       transform: translateY(-2px);
       box-shadow: 0 16px 32px -8px rgba(0, 34, 64, 0.15);
     }
+
     /* scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 12px; }
-    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 12px; }
-    ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+      border-radius: 12px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 12px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
 
     /* Tema escuro */
     body.dark-theme {
       background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
       color: #e2e8f0;
     }
+
     body.dark-theme .glass-card {
       background: rgba(30, 41, 59, 0.6);
       border-color: rgba(148, 163, 184, 0.1);
     }
-    body.dark-theme .text-slate-800 { color: #e2e8f0; }
-    body.dark-theme .text-slate-600 { color: #cbd5e1; }
-    body.dark-theme .bg-white\/70 { background: rgba(15, 23, 42, 0.9); }
-    body.dark-theme .border-white\/30 { border-color: rgba(71, 85, 105, 0.3); }
-    body.dark-theme .bg-emerald-50 { background: rgba(5, 150, 105, 0.1); }
-    body.dark-theme .text-emerald-700 { color: #6ee7b7; }
-    body.dark-theme ::-webkit-scrollbar-track { background: #1e293b; }
-    body.dark-theme ::-webkit-scrollbar-thumb { background: #475569; }
+
+    body.dark-theme .text-slate-800 {
+      color: #e2e8f0;
+    }
+
+    body.dark-theme .text-slate-600 {
+      color: #cbd5e1;
+    }
+
+    body.dark-theme .bg-white\/70 {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    body.dark-theme .border-white\/30 {
+      border-color: rgba(71, 85, 105, 0.3);
+    }
+
+    body.dark-theme .bg-emerald-50 {
+      background: rgba(5, 150, 105, 0.1);
+    }
+
+    body.dark-theme .text-emerald-700 {
+      color: #6ee7b7;
+    }
+
+    body.dark-theme ::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+
+    body.dark-theme ::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
 
     /* sidebar retrátil */
-    .sidebar-collapsed { width: 4rem !important; }
+    .sidebar-collapsed {
+      width: 4rem !important;
+    }
+
     .sidebar-collapsed .nav-text,
     .sidebar-collapsed .user-info,
-    .sidebar-collapsed .sidebar-header-text { display: none; }
-    .sidebar-collapsed .p-8 { padding: 1rem !important; }
-    .sidebar-collapsed nav a { justify-content: center; }
-    .sidebar-collapsed nav a i { margin-right: 0 !important; }
+    .sidebar-collapsed .sidebar-header-text {
+      display: none;
+    }
+
+    .sidebar-collapsed .p-8 {
+      padding: 1rem !important;
+    }
+
+    .sidebar-collapsed nav a {
+      justify-content: center;
+    }
+
+    .sidebar-collapsed nav a i {
+      margin-right: 0 !important;
+    }
   </style>
 </head>
+
 <body class="min-h-screen flex flex-col md:flex-row text-slate-800 antialiased">
 
   <!-- Mobile Header -->
-  <div class="md:hidden bg-slate-900/90 backdrop-blur-sm text-white p-4 flex justify-between items-center sticky top-0 z-50">
+  <div
+    class="md:hidden bg-slate-900/90 backdrop-blur-sm text-white p-4 flex justify-between items-center sticky top-0 z-50">
     <h1 class="text-xl font-bold text-blue-300 tracking-tight">Ominus tech</h1>
     <button onclick="toggleMobileMenu()" class="text-2xl">
       <i class="fas fa-bars"></i>
@@ -532,42 +660,56 @@
       </button>
     </div>
     <nav class="space-y-6">
-      <a href="index.html#overview" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Visão Geral</a>
-      <a href="index.html#reports" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Relatórios</a>
-      <a href="index.html#whatsapp" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Config. WhatsApp</a>
-      <a href="crm.html" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">CRM de Leads</a>
-      <a href="prompts.html" class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Prompts Salvos</a>
+      <a href="index.html#overview"
+        class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Visão Geral</a>
+      <a href="index.html#reports"
+        class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Relatórios</a>
+      <a href="index.html#whatsapp"
+        class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Config.
+        WhatsApp</a>
+      <a href="crm.html"
+        class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">CRM de Leads</a>
+      <a href="prompts.html"
+        class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Prompts
+        Salvos</a>
     </nav>
   </div>
 
   <!-- Sidebar Desktop (glass) -->
   <aside class="w-72 glass-sidebar text-white flex-shrink-0 hidden md:flex flex-col transition-all duration-300">
     <div class="p-8 relative">
-      <h1 class="text-3xl font-light tracking-tight text-blue-300 sidebar-header-text">Ominus<span class="font-bold text-white">tech</span></h1>
+      <h1 class="text-3xl font-light tracking-tight text-blue-300 sidebar-header-text">Ominus<span
+          class="font-bold text-white">tech</span></h1>
       <p class="text-xs text-slate-400 uppercase tracking-widest mt-1 sidebar-header-text">Sistemas Jurídicos</p>
-      <button id="sidebar-toggle-btn" onclick="toggleSidebar()" class="absolute top-4 right-4 text-slate-300 hover:text-white">
+      <button id="sidebar-toggle-btn" onclick="toggleSidebar()"
+        class="absolute top-4 right-4 text-slate-300 hover:text-white">
         <i class="fas fa-angle-left"></i>
       </button>
     </div>
 
     <nav class="mt-4 flex-1 space-y-1 px-4">
-      <a href="index.html#overview" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
+      <a href="index.html#overview"
+        class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
         <i class="fas fa-chart-line w-5 mr-3 text-blue-400"></i>
         <span class="font-medium nav-text">Visão Geral</span>
       </a>
-      <a href="index.html#reports" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
+      <a href="index.html#reports"
+        class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
         <i class="fas fa-file-contract w-5 mr-3 text-indigo-400"></i>
         <span class="font-medium nav-text">Relatórios</span>
       </a>
-      <a href="index.html#whatsapp" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
+      <a href="index.html#whatsapp"
+        class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
         <i class="fab fa-whatsapp w-5 mr-3 text-green-400"></i>
         <span class="font-medium nav-text">Config. WhatsApp</span>
       </a>
-      <a href="crm.html" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all sidebar-active">
+      <a href="crm.html"
+        class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all sidebar-active">
         <i class="fas fa-users w-5 mr-3 text-purple-400"></i>
         <span class="font-medium nav-text">CRM de Leads</span>
       </a>
-      <a href="prompts.html" class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
+      <a href="prompts.html"
+        class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
         <i class="fas fa-save w-5 mr-3 text-yellow-400"></i>
         <span class="font-medium nav-text">Prompts Salvos</span>
       </a>
@@ -575,7 +717,9 @@
 
     <div class="p-6 border-t border-white/10 mt-auto">
       <div class="flex items-center">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold shadow-lg">AD</div>
+        <div
+          class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold shadow-lg">
+          AD</div>
         <div class="ml-3 user-info">
           <p class="text-sm font-medium">Dr. Advogado</p>
           <p class="text-xs text-slate-400">Plano Premium</p>
@@ -587,14 +731,17 @@
   <!-- Main Content -->
   <main class="flex-1 flex flex-col overflow-x-hidden">
     <!-- Header com glass effect -->
-    <header class="h-20 bg-white/70 backdrop-blur-md border-b border-white/30 flex items-center justify-between px-8 sticky top-0 z-40">
+    <header
+      class="h-20 bg-white/70 backdrop-blur-md border-b border-white/30 flex items-center justify-between px-8 sticky top-0 z-40">
       <h2 id="page-title" class="text-2xl font-semibold text-slate-800">CRM de Leads</h2>
       <div class="flex items-center space-x-5">
         <span class="flex items-center text-sm text-emerald-700 font-medium bg-emerald-50 px-3 py-1.5 rounded-full">
           <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></span>
           Sistemas Online
         </span>
-        <button onclick="toggleTheme()" class="p-2 text-slate-500 hover:text-slate-800 bg-white/50 rounded-xl hover:bg-white transition theme-toggle" title="Alternar tema">
+        <button onclick="toggleTheme()"
+          class="p-2 text-slate-500 hover:text-slate-800 bg-white/50 rounded-xl hover:bg-white transition theme-toggle"
+          title="Alternar tema">
           <i class="fas fa-moon" id="theme-icon"></i>
         </button>
         <button class="p-2 text-slate-500 hover:text-slate-800 bg-white/50 rounded-xl hover:bg-white transition">
@@ -617,17 +764,21 @@
           <div class="filter-group">
             <label>Temperatura</label>
             <div class="filter-btn-group" id="filter-temp">
-              <button class="filter-chip hot" data-val="quente" onclick="toggleChip(this,'temp')">🔥 Lead Quente</button>
-              <button class="filter-chip cold" data-val="frio"   onclick="toggleChip(this,'temp')">❄️ Lead Frio</button>
+              <button class="filter-chip hot" data-val="quente" onclick="toggleChip(this,'temp')">🔥 Lead
+                Quente</button>
+              <button class="filter-chip cold" data-val="frio" onclick="toggleChip(this,'temp')">❄️ Lead Frio</button>
             </div>
           </div>
 
           <div class="filter-group">
             <label>Status de Conversão</label>
             <div class="filter-btn-group" id="filter-status">
-              <button class="filter-chip" data-val="Agendamento Marcado" onclick="toggleChip(this,'status')">📅 Agendamento Marcado</button>
-              <button class="filter-chip" data-val="Em Atendimento"      onclick="toggleChip(this,'status')">💬 Em Atendimento</button>
-              <button class="filter-chip" data-val="Aguardando"          onclick="toggleChip(this,'status')">⏳ Aguardando</button>
+              <button class="filter-chip" data-val="aguardando" onclick="toggleChip(this,'status')">⏳
+                Aguardando</button>
+              <button class="filter-chip" data-val="Em Atendimento" onclick="toggleChip(this,'status')">💬 Em
+                Atendimento</button>
+              <button class="filter-chip" data-val="Agendamento Marcado" onclick="toggleChip(this,'status')">📅
+                Agendado</button>
             </div>
           </div>
 
@@ -651,7 +802,8 @@
           </div>
 
           <button class="btn-reset" onclick="resetFilters()">✕ Limpar filtros</button>
-          <button onclick="fetchLeads()" style="padding:8px 16px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:.82rem;cursor:pointer;align-self:flex-end;">
+          <button onclick="fetchLeads()"
+            style="padding:8px 16px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:.82rem;cursor:pointer;align-self:flex-end;">
             ↻ Atualizar
           </button>
         </div>
@@ -662,15 +814,20 @@
           <div class="view-toggle">
             <button class="active" id="btn-grid" onclick="setListView(false)" title="Grade">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
               </svg>
             </button>
             <button id="btn-list" onclick="setListView(true)" title="Lista">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-                <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
-                <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                <line x1="8" y1="6" x2="21" y2="6" />
+                <line x1="8" y1="12" x2="21" y2="12" />
+                <line x1="8" y1="18" x2="21" y2="18" />
+                <line x1="3" y1="6" x2="3.01" y2="6" />
+                <line x1="3" y1="12" x2="3.01" y2="12" />
+                <line x1="3" y1="18" x2="3.01" y2="18" />
               </svg>
             </button>
           </div>
@@ -688,18 +845,19 @@
   <!-- SCRIPTS (mesclados) -->
   <script>
     // ========== CONFIGURAÇÃO DOS WEBHOOKS N8N (CRM) ==========
-    const N8N_GET_WEBHOOK  = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/webhook-whatsapp-crm';          // 👈 altere para sua URL de GET
-    const N8N_POST_WEBHOOK = 'https://SEU_N8N.com/webhook/leads/update';   // 👈 altere para sua URL de POST/UPDATE
+    // No topo do seu <script>
+    const N8N_GET_WEBHOOK = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-leads';
+    const N8N_POST_WEBHOOK = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/whatsapp-captura'; // Use o webhook de captura que já tem a lógica de Update
 
     // ========== ESTADO GLOBAL (CRM) ==========
     let allLeads = [];
-    let filters  = { temp: '', status: '', assunto: '' };
+    let filters = { temp: '', status: '', assunto: '' };
     let listView = false;
 
     // ========== FUNÇÕES DE FILTRO (CRM) ==========
     function toggleChip(btn, key) {
       const group = btn.closest('.filter-btn-group').querySelectorAll('.filter-chip');
-      const val   = btn.dataset.val;
+      const val = btn.dataset.val;
       const already = btn.classList.contains('selected');
       group.forEach(c => c.classList.remove('selected'));
       if (!already) {
@@ -712,15 +870,15 @@
     }
 
     function applyFilters() {
-      const search  = document.getElementById('filter-search').value.toLowerCase();
-      const assunto = document.getElementById('filter-assunto').value;
-      const { temp, status } = filters;
+      const search = document.getElementById('filter-search').value.toLowerCase();
+      const { status } = filters; // Removido temperatura e assunto se não existirem no seu banco
 
       const filtered = allLeads.filter(l => {
-        if (temp   && l.temperatura !== temp)  return false;
-        if (status && l.status      !== status) return false;
-        if (assunto && l.assunto    !== assunto) return false;
-        if (search && !l.nome.toLowerCase().includes(search) && !l.whatsapp.includes(search)) return false;
+        if (status && l.status !== status) return false;
+        // Busca por Nome ou WhatsApp
+        if (search &&
+          !(l.name || '').toLowerCase().includes(search) &&
+          !(l.whatsapp || '').includes(search)) return false;
         return true;
       });
 
@@ -730,7 +888,7 @@
 
     function resetFilters() {
       filters = { temp: '', status: '', assunto: '' };
-      document.getElementById('filter-search').value  = '';
+      document.getElementById('filter-search').value = '';
       document.getElementById('filter-assunto').value = '';
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('selected'));
       applyFilters();
@@ -754,63 +912,60 @@
     }
 
     function buildLeadCard(lead) {
-      const initials = lead.nome.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
-      const avatarContent = lead.foto_url
-        ? `<img src="${escHtml(lead.foto_url)}" alt="${escHtml(lead.nome)}" onerror="this.parentElement.textContent='${initials}'">`
-        : initials;
+      // Gera iniciais baseadas no nome (ex: Kayo Melo -> KM)
+      const initials = (lead.name || 'L').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
 
-      const tempLabel   = lead.temperatura === 'quente' ? '🔥 Quente' : '❄️ Frio';
-      const statusClass = lead.status === 'Agendamento Marcado' ? 'agendado' : lead.status === 'Em Atendimento' ? 'atendimento' : 'aguardando';
-      const dataFmt     = lead.data ? new Date(lead.data).toLocaleDateString('pt-BR') : 'Sem data';
+      // Define a cor do status para o CSS
+      const statusClass = lead.status === 'Agendamento Marcado' ? 'agendado' :
+        lead.status === 'Em Atendimento' ? 'atendimento' : 'aguardando';
+
+      // Formata a data vinda da Data Table
+      const dataFmt = lead.data ? new Date(lead.data).toLocaleDateString('pt-BR', {
+        day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+      }) : 'Sem data';
 
       return `
-      <div class="lead-card ${escHtml(lead.temperatura)}" id="card-${escHtml(lead.id)}">
-        <div class="lead-card-header">
-          <div class="lead-avatar">${avatarContent}</div>
-          <div class="lead-info">
-            <div class="lead-name" title="${escHtml(lead.nome)}">${escHtml(lead.nome)}</div>
-            <div class="lead-whatsapp">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M11.5 2C6.262 2 2 6.262 2 11.5c0 1.821.476 3.536 1.315 5.027L2 22l5.605-1.299A9.456 9.456 0 0 0 11.5 21C16.738 21 21 16.738 21 11.5S16.738 2 11.5 2z" opacity=".3"/>
-              </svg>
-              ${formatWA(lead.whatsapp)}
-            </div>
-          </div>
+  <div class="lead-card" id="card-${escHtml(lead.whatsapp)}">
+    <div class="lead-card-header">
+      <div class="lead-avatar">${initials}</div>
+      <div class="lead-info">
+        <div class="lead-name" title="${escHtml(lead.name)}">${escHtml(lead.name)}</div>
+        <div class="lead-whatsapp">
+          <i class="fab fa-whatsapp"></i> ${formatWA(lead.whatsapp)}
         </div>
+      </div>
+    </div>
 
-        <div class="lead-tags">
-          <span class="tag ${escHtml(lead.temperatura)}">${tempLabel}</span>
-          <span class="tag ${statusClass}">${escHtml(lead.status)}</span>
-          <span class="tag assunto">${escHtml(lead.assunto)}</span>
-        </div>
+    <div class="lead-tags">
+      <span class="tag ${statusClass}">${escHtml(lead.status || 'aguardando')}</span>
+    </div>
 
-        <div class="lead-subject">${escHtml(lead.resumo || lead.assunto)}</div>
+    <div class="lead-subject">${escHtml(lead.resumo || 'Sem resumo disponível')}</div>
 
-        <div class="lead-footer">
-          <span class="lead-date">📅 ${dataFmt}</span>
-          <div class="lead-actions">
-            <button class="btn-icon whatsapp" title="Abrir WhatsApp" onclick="openWhatsApp('${escHtml(lead.whatsapp)}')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
-              </svg>
-            </button>
-            <select class="lead-status-select" title="Alterar status" onchange="updateLeadStatus('${escHtml(lead.id)}','status',this.value)">
-              <option ${lead.status==='Aguardando'?'selected':''}>Aguardando</option>
-              <option ${lead.status==='Em Atendimento'?'selected':''}>Em Atendimento</option>
-              <option ${lead.status==='Agendamento Marcado'?'selected':''}>Agendamento Marcado</option>
-            </select>
-          </div>
-        </div>
-      </div>`;
+    <div class="lead-footer">
+      <span class="lead-date">📅 ${dataFmt}</span>
+      <div class="lead-actions">
+        <button class="btn-icon whatsapp" title="Abrir WhatsApp" onclick="openWhatsApp('${escHtml(lead.whatsapp)}')">
+          <i class="fab fa-whatsapp"></i>
+        </button>
+        <select class="lead-status-select" onchange="updateLeadStatus('${escHtml(lead.whatsapp)}','status',this.value)">
+          <option value="aguardando" ${lead.status === 'aguardando' ? 'selected' : ''}>Aguardando</option>
+          <option value="Em Atendimento" ${lead.status === 'Em Atendimento' ? 'selected' : ''}>Em Atendimento</option>
+          <option value="Agendamento Marcado" ${lead.status === 'Agendamento Marcado' ? 'selected' : ''}>Agendado</option>
+        </select>
+      </div>
+    </div>
+  </div>`;
     }
 
     // ========== ATUALIZAÇÃO DE STATUS (CRM) ==========
-    async function updateLeadStatus(leadId, field, value) {
-      const lead = allLeads.find(l => l.id === leadId);
-      if (!lead) return;
-      lead[field] = value;   // atualização otimista
-
-      const payload = { id: leadId, [field]: value };
+    async function updateLeadStatus(whatsapp, field, value) {
+      const payload = {
+        whatsapp: whatsapp, // Chave para o n8n encontrar o lead
+        [field]: value,
+        resumo: "Status alterado via Dashboard", // Opcional: manter o resumo atual
+        data: new Date().toISOString()
+      };
 
       try {
         const res = await fetch(N8N_POST_WEBHOOK, {
@@ -818,53 +973,63 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        showToast('✅ Status atualizado com sucesso', 'success');
-        applyFilters();  // re-renderiza
-      } catch (err) {
-        showToast('❌ Erro ao atualizar — tente novamente', 'error');
-        console.error('Erro ao atualizar lead:', err);
-      }
+        // ... restante do código (toast, etc)
+      } catch (err) { /* ... */ }
     }
 
     // ========== CARREGAR LEADS DO WEBHOOK (CRM) ==========
     async function fetchLeads() {
-      showLeadsSkeleton();
-      try {
-        const res = await fetch(N8N_GET_WEBHOOK, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        allLeads = Array.isArray(data) ? data : data.leads || [];
-        applyFilters();
-        showToast(`✅ ${allLeads.length} leads carregados`, 'success');
-      } catch (err) {
-        console.warn('Webhook indisponível — carregando dados de demonstração.', err);
-        allLeads = DEMO_LEADS;
-        applyFilters();
-        showToast('⚠️ Modo demo — configure o webhook n8n', '');
-      }
+  showLeadsSkeleton();
+  try {
+    const res = await fetch(N8N_GET_WEBHOOK, {
+      method: 'GET',
+      mode: 'cors',
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const rawData = await res.json();
+
+    // O nó Aggregate do n8n geralmente coloca os itens dentro de rawData.data ou rawData[0].data
+    // Esta lógica garante que pegamos o array de leads corretamente
+    if (Array.isArray(rawData)) {
+        allLeads = rawData; 
+    } else if (rawData.data && Array.isArray(rawData.data)) {
+        allLeads = rawData.data;
+    } else if (rawData.items && Array.isArray(rawData.items)) {
+        allLeads = rawData.items;
+    } else {
+        allLeads = [rawData]; // Caso venha apenas um objeto
     }
+
+    applyFilters();
+    showToast(`✅ ${allLeads.length} leads carregados`, 'success');
+  } catch (err) {
+    console.warn('Erro na requisição real — carregando demonstração.', err);
+    allLeads = DEMO_LEADS;
+    applyFilters();
+    showToast('⚠️ Modo demonstração ativo', '');
+  }
+}
 
     // ========== UTILITÁRIOS (CRM) ==========
     function escHtml(s) {
-      return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
     function formatWA(num) {
-      const n = String(num).replace(/\D/g,'');
-      return n.length >= 12 ? `+${n.slice(0,2)} (${n.slice(2,4)}) ${n.slice(4,9)}-${n.slice(9)}` : num;
+      const n = String(num).replace(/\D/g, '');
+      return n.length >= 12 ? `+${n.slice(0, 2)} (${n.slice(2, 4)}) ${n.slice(4, 9)}-${n.slice(9)}` : num;
     }
     function openWhatsApp(num) {
-      window.open(`https://wa.me/${String(num).replace(/\D/g,'')}`, '_blank');
+      window.open(`https://wa.me/${String(num).replace(/\D/g, '')}`, '_blank');
     }
     function setListView(isList) {
       listView = isList;
       const grid = document.getElementById('leads-container');
       grid.classList.toggle('list-view', isList);
       document.getElementById('btn-grid').classList.toggle('active', !isList);
-      document.getElementById('btn-list').classList.toggle('active',  isList);
+      document.getElementById('btn-list').classList.toggle('active', isList);
     }
     function showLeadsSkeleton() {
       const c = document.getElementById('leads-container');
@@ -884,20 +1049,20 @@
     function showToast(msg, type) {
       const t = document.getElementById('toast');
       t.textContent = msg;
-      t.className   = 'show ' + (type || '');
+      t.className = 'show ' + (type || '');
       setTimeout(() => t.className = '', 3000);
     }
 
     // ========== DADOS DE DEMONSTRAÇÃO (CRM) ==========
     const DEMO_LEADS = [
-      { id:'l1', nome:'Ana Paula Ferreira',   whatsapp:'5511999110001', foto_url:'', assunto:'Previdenciário', temperatura:'quente', status:'Em Atendimento',      data:'2024-05-15T09:00:00Z', resumo:'Cliente quer revisar aposentadoria por invalidez negada pelo INSS. Processo urgente.' },
-      { id:'l2', nome:'Carlos Eduardo Lima',   whatsapp:'5521988220002', foto_url:'', assunto:'Trabalhista',   temperatura:'quente', status:'Agendamento Marcado',  data:'2024-05-15T10:30:00Z', resumo:'Rescisão sem justa causa com verbas pendentes. Agendou consulta para amanhã.' },
-      { id:'l3', nome:'Fernanda Costa',        whatsapp:'5531977330003', foto_url:'', assunto:'Cível',         temperatura:'frio',   status:'Aguardando',           data:'2024-05-14T14:00:00Z', resumo:'Dano moral por negativação indevida. Aguardando documentação.' },
-      { id:'l4', nome:'Roberto Souza Junior',  whatsapp:'5541966440004', foto_url:'', assunto:'Família',       temperatura:'frio',   status:'Aguardando',           data:'2024-05-13T11:00:00Z', resumo:'Divórcio consensual com guarda compartilhada.' },
-      { id:'l5', nome:'Juliana Martins',       whatsapp:'5551955550005', foto_url:'', assunto:'Previdenciário',temperatura:'quente', status:'Agendamento Marcado',  data:'2024-05-15T08:00:00Z', resumo:'Auxílio-doença indeferido. Documentos médicos em mãos.' },
-      { id:'l6', nome:'Paulo Roberto Alves',   whatsapp:'5561944660006', foto_url:'', assunto:'Criminal',      temperatura:'quente', status:'Em Atendimento',       data:'2024-05-15T07:30:00Z', resumo:'Réu primário em processo de furto qualificado. Quer acordo.' },
-      { id:'l7', nome:'Mariana Oliveira',      whatsapp:'5571933770007', foto_url:'', assunto:'Tributário',    temperatura:'frio',   status:'Aguardando',           data:'2024-05-12T16:00:00Z', resumo:'Empresa com débitos fiscais quer parcelamento.' },
-      { id:'l8', nome:'Diego Henrique Nunes',  whatsapp:'5581922880008', foto_url:'', assunto:'Imobiliário',   temperatura:'frio',   status:'Em Atendimento',       data:'2024-05-14T15:00:00Z', resumo:'Distrato de compra de imóvel na planta. Construtora recusando reembolso.' },
+      { id: 'l1', nome: 'Ana Paula Ferreira', whatsapp: '5511999110001', foto_url: '', assunto: 'Previdenciário', temperatura: 'quente', status: 'Em Atendimento', data: '2024-05-15T09:00:00Z', resumo: 'Cliente quer revisar aposentadoria por invalidez negada pelo INSS. Processo urgente.' },
+      { id: 'l2', nome: 'Carlos Eduardo Lima', whatsapp: '5521988220002', foto_url: '', assunto: 'Trabalhista', temperatura: 'quente', status: 'Agendamento Marcado', data: '2024-05-15T10:30:00Z', resumo: 'Rescisão sem justa causa com verbas pendentes. Agendou consulta para amanhã.' },
+      { id: 'l3', nome: 'Fernanda Costa', whatsapp: '5531977330003', foto_url: '', assunto: 'Cível', temperatura: 'frio', status: 'Aguardando', data: '2024-05-14T14:00:00Z', resumo: 'Dano moral por negativação indevida. Aguardando documentação.' },
+      { id: 'l4', nome: 'Roberto Souza Junior', whatsapp: '5541966440004', foto_url: '', assunto: 'Família', temperatura: 'frio', status: 'Aguardando', data: '2024-05-13T11:00:00Z', resumo: 'Divórcio consensual com guarda compartilhada.' },
+      { id: 'l5', nome: 'Juliana Martins', whatsapp: '5551955550005', foto_url: '', assunto: 'Previdenciário', temperatura: 'quente', status: 'Agendamento Marcado', data: '2024-05-15T08:00:00Z', resumo: 'Auxílio-doença indeferido. Documentos médicos em mãos.' },
+      { id: 'l6', nome: 'Paulo Roberto Alves', whatsapp: '5561944660006', foto_url: '', assunto: 'Criminal', temperatura: 'quente', status: 'Em Atendimento', data: '2024-05-15T07:30:00Z', resumo: 'Réu primário em processo de furto qualificado. Quer acordo.' },
+      { id: 'l7', nome: 'Mariana Oliveira', whatsapp: '5571933770007', foto_url: '', assunto: 'Tributário', temperatura: 'frio', status: 'Aguardando', data: '2024-05-12T16:00:00Z', resumo: 'Empresa com débitos fiscais quer parcelamento.' },
+      { id: 'l8', nome: 'Diego Henrique Nunes', whatsapp: '5581922880008', foto_url: '', assunto: 'Imobiliário', temperatura: 'frio', status: 'Em Atendimento', data: '2024-05-14T15:00:00Z', resumo: 'Distrato de compra de imóvel na planta. Construtora recusando reembolso.' },
     ];
 
     // ========== FUNÇÕES DO SISTEMA (TEMA, SIDEBAR, MOBILE) ==========
@@ -953,4 +1118,5 @@
     });
   </script>
 </body>
+
 </html>
