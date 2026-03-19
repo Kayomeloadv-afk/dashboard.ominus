@@ -847,7 +847,7 @@
     // ========== CONFIGURAÇÃO DOS WEBHOOKS N8N (CRM) ==========
     // No topo do seu <script>
     const N8N_GET_WEBHOOK = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-leads';
-    const N8N_POST_WEBHOOK = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/whatsapp-captura'; // Use o webhook de captura que já tem a lógica de Update
+    const N8N_POST_WEBHOOK = ''; // Use o webhook de captura que já tem a lógica de Update
 
     // ========== ESTADO GLOBAL (CRM) ==========
     let allLeads = [];
@@ -979,37 +979,23 @@
 
     // ========== CARREGAR LEADS DO WEBHOOK (CRM) ==========
     async function fetchLeads() {
-  showLeadsSkeleton();
+  // ... seu código de skeleton ...
   try {
     const res = await fetch(N8N_GET_WEBHOOK, {
       method: 'GET',
-      mode: 'cors',
-      headers: { 'Accept': 'application/json' }
+      headers: { 'ngrok-skip-browser-warning': 'true' }
     });
 
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-    const rawData = await res.json();
-
-    // O nó Aggregate do n8n geralmente coloca os itens dentro de rawData.data ou rawData[0].data
-    // Esta lógica garante que pegamos o array de leads corretamente
-    if (Array.isArray(rawData)) {
-        allLeads = rawData; 
-    } else if (rawData.data && Array.isArray(rawData.data)) {
-        allLeads = rawData.data;
-    } else if (rawData.items && Array.isArray(rawData.items)) {
-        allLeads = rawData.items;
-    } else {
-        allLeads = [rawData]; // Caso venha apenas um objeto
-    }
+    const response = await res.json();
+    
+    // Agora os dados chegam dentro de .body.data por causa da nova estrutura do nó Code
+    allLeads = response.body?.data || [];
 
     applyFilters();
-    showToast(`✅ ${allLeads.length} leads carregados`, 'success');
   } catch (err) {
-    console.warn('Erro na requisição real — carregando demonstração.', err);
+    console.error('Erro:', err);
     allLeads = DEMO_LEADS;
     applyFilters();
-    showToast('⚠️ Modo demonstração ativo', '');
   }
 }
 
