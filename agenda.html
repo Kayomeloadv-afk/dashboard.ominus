@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Agenda Jurídica | Compromissos e Reuniões</title>
+    <style>
+        :root {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --border-light: #e9eef3;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --primary: #7c3aed;
+      --primary-dark: #6d28d9;
+      --primary-soft: #ede9fe;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+      --card-hover-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+      --sidebar-bg: #ffffff;
+      --header-bg: rgba(255, 255, 255, 0.8);
+    }
+    .dark {
+      --bg-base: #0a0a0f;
+      --bg-surface: #12121a;
+      --border-light: #23232e;
+      --text-main: #f1f5f9;
+      --text-muted: #9ca3af;
+      --primary: #a78bfa;
+      --primary-dark: #8b5cf6;
+      --primary-soft: #2d2a3e;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --card-hover-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.4);
+      --sidebar-bg: #0f0f14;
+      --header-bg: rgba(15, 15, 20, 0.85);
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .bg-background { background-color: var(--bg-base); }
+    .bg-card { background-color: var(--bg-surface); }
+    .border-border { border-color: var(--border-light); }
+    .text-foreground { color: var(--text-main); }
+    .text-muted-foreground { color: var(--text-muted); }
+    .bg-primary\/10 { background-color: rgba(124, 58, 237, 0.1); }
+    .dark .bg-primary\/10 { background-color: rgba(139, 92, 246, 0.15); }
+    .bg-primary { background-color: var(--primary); }
+    .hover\:bg-primary\/90:hover { background-color: var(--primary-dark); }
+    .text-primary { color: var(--primary); }
+    .border-primary\/15 { border-color: rgba(124, 58, 237, 0.15); }
+    .shadow-card { box-shadow: var(--card-shadow); }
+    .hover\:shadow-card-hover:hover { box-shadow: var(--card-hover-shadow); }
+    .sidebar-transition { transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+    .backdrop-blur-sm { backdrop-filter: blur(8px); }
+
+    .sidebar-hidden {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 20;
+      display: none;
+    }
+    .sidebar-overlay.show { display: block; }
+
+    .open-sidebar-btn {
+      border: 1px solid var(--border-light);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .top-clock {
+      margin-bottom: 10px;
+      padding: 12px 14px;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-surface);
+      box-shadow: var(--card-shadow);
+    }
+    .top-clock .clock-text { font-size: 0.95rem; color: var(--text-muted); }
+    .top-clock .clock-time { font-weight: 700; color: var(--primary); }
+
+    @media (min-width: 1024px) {
+      #sidebar {
+        transform: none !important;
+        position: relative;
+      }
+      .sidebar-overlay { display: none !important; }
+      .open-sidebar-btn { display: none; }
+    }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 10px; }
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease-out;
+    }
+    .collapsible-content.open {
+      max-height: 320px;
+      transition: max-height 0.35s ease-in;
+    }
+    .rotate-icon {
+      transition: transform 0.2s;
+    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f4f6;
+            padding: 24px 20px;
+            color: #111827;
+        }
+
+        /* Container principal */
+        .agenda-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        /* Cabeçalho */
+        .header {
+            background: white;
+            padding: 24px 28px;
+            border-bottom: 1px solid #e9eef3;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #5b21b6, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .header p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 6px;
+        }
+
+        /* Layout dois painéis */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .calendar-panel {
+            flex: 2;
+            min-width: 280px;
+            padding: 24px 20px 28px 28px;
+            border-right: 1px solid #eef2f6;
+        }
+        .events-panel {
+            flex: 1.2;
+            min-width: 280px;
+            background: #fafcff;
+            padding: 24px 28px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navegação do mês */
+        .month-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .month-year {
+            font-size: 1.65rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #1f2937;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .nav-btn {
+            background: #f3f4f6;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #374151;
+        }
+        .nav-btn:hover {
+            background: #e5e7eb;
+            transform: scale(0.97);
+        }
+        .nav-btn:active {
+            background: #d1d5db;
+        }
+
+        /* Dias da semana */
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 600;
+            color: #6c7280;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+        .weekday {
+            padding: 8px 0;
+        }
+
+        /* Grade do calendário */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+        .cal-day {
+            background: white;
+            border-radius: 20px;
+            padding: 12px 6px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid #f0f2f5;
+            font-weight: 500;
+            position: relative;
+            aspect-ratio: 1 / 0.9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .cal-day:hover {
+            background: #f9f5ff;
+            border-color: #c4b5fd;
+            transform: translateY(-2px);
+        }
+        .day-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .event-indicator {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 10px;
+        }
+        .dot-meeting { background: #3b82f6; }
+        .dot-task { background: #10b981; }
+        .other-month {
+            color: #9ca3af;
+            background: #fefefe;
+        }
+        .selected-day {
+            background: #ede9fe;
+            border: 2px solid #8b5cf6;
+            box-shadow: 0 2px 6px rgba(139, 92, 246, 0.2);
+        }
+        .today {
+            background: #fff7ed;
+            border: 1px solid #f59e0b;
+            position: relative;
+        }
+        .today .day-number {
+            color: #f59e0b;
+            font-weight: 800;
+        }
+
+        /* Área de eventos do dia */
+        .selected-date-header {
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-left: 4px solid #8b5cf6;
+            padding-left: 14px;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        .event-list {
+            flex: 1;
+            max-height: 380px;
+            overflow-y: auto;
+            margin-bottom: 24px;
+        }
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid #edf2f7;
+            transition: 0.1s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .event-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .event-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .event-meta {
+            display: flex;
+            gap: 10px;
+            font-size: 0.7rem;
+            color: #5b6e8c;
+        }
+        .event-badge {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .badge-reuniao {
+            background: #eef2ff;
+            color: #2563eb;
+        }
+        .badge-tarefa {
+            background: #e0f2fe;
+            color: #0e7b4e;
+        }
+        .delete-event {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #9ca3af;
+            padding: 4px 8px;
+            border-radius: 30px;
+            transition: 0.1s;
+        }
+        .delete-event:hover {
+            color: #ef4444;
+            background: #fee2e2;
+        }
+        .empty-events {
+            text-align: center;
+            color: #9ca3af;
+            padding: 28px 0;
+            font-size: 0.85rem;
+        }
+
+        /* Formulário adicionar */
+        .add-event-form {
+            margin-top: 16px;
+            border-top: 1px solid #eef2f6;
+            padding-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            font-size: 0.85rem;
+            background: white;
+            transition: 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 2px rgba(139,92,246,0.2);
+        }
+        .btn-add {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: 0.85rem;
+        }
+        .btn-add:hover {
+            background: #6d28d9;
+            transform: scale(0.98);
+        }
+        hr {
+            margin: 16px 0;
+            border-color: #eef2f6;
+        }
+
+        @media (max-width: 780px) {
+            .dashboard {
+                flex-direction: column;
+            }
+            .calendar-panel {
+                border-right: none;
+                border-bottom: 1px solid #eef2f6;
+                padding: 20px;
+            }
+            .events-panel {
+                padding: 24px 20px;
+            }
+            .cal-day {
+                padding: 8px 2px;
+                font-size: 0.8rem;
+            }
+            .day-number {
+                font-size: 0.9rem;
+            }
+        }
+        footer {
+            text-align: center;
+            padding: 20px 28px;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            border-top: 1px solid #eef2f6;
+            background: white;
+        }
+        .weekdays {
+            font-size: 0.7rem;
+        }
+    </style>
+</head>
+<body class="bg-background antialiased">
+<div class="agenda-container">
+     <aside id="sidebar" class="fixed lg:relative z-30 w-[280px] h-full bg-[var(--sidebar-bg)] border-r border-border backdrop-blur-sm sidebar-transition sidebar-hidden lg:translate-x-0 lg:flex flex-col shrink-0 shadow-xl lg:shadow-none">
+      <div class="flex flex-col h-full">
+        <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-violet-400 bg-clip-text text-transparent">SITEJUR</div>
+            <span class="text-[11px] font-mono bg-primary/10 text-primary px-2 py-0.5 rounded-full">kM</span>
+          </div>
+          <button id="closeSidebarBtn" class="lg:hidden text-muted-foreground hover:text-foreground p-1">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <div class="p-4 border-b border-border flex items-center gap-3 flex-wrap">
+          <div class="h-9 w-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary font-bold">KM</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-sm truncate">kayomelo.adv</p>
+            <span class="inline-flex items-center rounded-full border border-primary/15 bg-primary/10 text-primary text-[10px] px-2 py-0.5 font-semibold mt-1">Dono · Vitalício</span>
+          </div>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4 px-2 space-y-1">
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+            <span>Início</span>
+          </a>
+          <div class="nav-group">
+            <button class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground transition-all group">
+              <div class="flex items-center gap-3"><i data-lucide="users" class="w-4 h-4"></i><span>Clientes e Agenda</span></div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="crm.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg">Clientes (CRM)</a>
+              <a href="agenda.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg">Agenda</a>
+            </div>
+          </div>
+          <div class="nav-group">
+            <button class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground">
+              <div class="flex items-center gap-3"><i data-lucide="pen-tool" class="w-4 h-4"></i><span>Documentos</span></div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="#" class="block px-3 py-2 text-sm">Propostas</a>
+              <a href="#" class="block px-3 py-2 text-sm">Contratos</a>
+              <a href="#" class="block px-3 py-2 text-sm">Minutas IA</a>
+            </div>
+          </div>
+          <div class="nav-group">
+            <button class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground">
+              <div class="flex items-center gap-3"><i data-lucide="wrench" class="w-4 h-4"></i><span>Ferramentas</span></div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="#" class="block px-3 py-2 text-sm">Calculadora de Honorários</a>
+              <a href="#" class="block px-3 py-2 text-sm">Precificação Inteligente</a>
+              <a href="#" class="block px-3 py-2 text-sm">Dashboard Analytics</a>
+            </div>
+          </div>
+          <div class="nav-group">
+            <button class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground">
+              <div class="flex items-center gap-3"><i data-lucide="globe" class="w-4 h-4"></i><span>Marketing</span></div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="#" class="block px-3 py-2 text-sm">Landing Pages</a>
+              <a href="#" class="block px-3 py-2 text-sm">Link na Bio</a>
+              <a href="#" class="block px-3 py-2 text-sm">SEO Jurídico</a>
+            </div>
+          </div>
+          <div class="nav-group">
+            <button class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground">
+              <div class="flex items-center gap-3"><i data-lucide="dollar-sign" class="w-4 h-4"></i><span>Financeiro</span></div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="#" class="block px-3 py-2 text-sm">Fluxo de Caixa</a>
+              <a href="#" class="block px-3 py-2 text-sm">Relatórios</a>
+              <a href="#" class="block px-3 py-2 text-sm">Comissões</a>
+            </div>
+          </div>
+          <div class="pt-4 mt-2 border-t border-border">
+            <div class="nav-group">
+              <button class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)]">
+                <div class="flex items-center gap-3"><i data-lucide="settings" class="w-4 h-4"></i><span>Configurações</span></div>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+              </button>
+              <div class="collapsible-content pl-9 mt-1 space-y-1">
+                <a href="#" class="block px-3 py-2 text-sm">Perfil do escritório</a>
+                <a href="#" class="block px-3 py-2 text-sm">Membros da equipe</a>
+                <a href="#" class="block px-3 py-2 text-sm">Integrações</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="p-3 border-t border-border mt-auto space-y-1">
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground transition-all">
+            <i data-lucide="user" class="w-4 h-4"></i>
+            <span>Conta</span>
+            <span class="ml-auto text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded-full">Vitalício</span>
+          </a>
+          <button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-muted-foreground hover:bg-[var(--border-light)] hover:text-red-400 transition-all">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+            <span>Sair</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+    <div class="header">
+        <button id="openSidebarBtn" class="open-sidebar-btn">☰ Menu</button>
+        <h1>📅 Agenda Jurídica</h1>
+        <p>Reuniões, tarefas e compromissos organizados com inteligência</p>
+    </div>
+    <div class="dashboard">
+        <!-- Calendário -->
+        <div class="calendar-panel">
+            <div class="top-clock">
+              <div class="clock-text" id="realTimeDate">--/--/----</div>
+              <div class="clock-text">Agora: <span class="clock-time" id="realTimeClock">00:00:00</span></div>
+            </div>
+            <div class="month-nav">
+                <div class="month-year" id="monthYearDisplay">Março 2026</div>
+                <div class="nav-buttons">
+                    <button class="nav-btn" id="prevMonthBtn">◀ Mês anterior</button>
+                    <button class="nav-btn" id="nextMonthBtn">Próximo mês ▶</button>
+                </div>
+            </div>
+            <div class="weekdays">
+                <div class="weekday">DOM</div><div class="weekday">SEG</div><div class="weekday">TER</div>
+                <div class="weekday">QUA</div><div class="weekday">QUI</div><div class="weekday">SEX</div><div class="weekday">SÁB</div>
+            </div>
+            <div id="calendarGrid" class="calendar-grid"></div>
+        </div>
+
+        <!-- Painel de eventos do dia -->
+        <div class="events-panel">
+            <div class="selected-date-header" id="selectedDateTitle">23 de março de 2026</div>
+            <div id="eventsListContainer" class="event-list">
+                <!-- eventos serão inseridos via js -->
+                <div class="empty-events">Nenhum evento neste dia</div>
+            </div>
+            <div class="add-event-form">
+                <h4 style="font-size: 0.9rem; margin-bottom: 12px; font-weight: 600;">➕ Adicionar compromisso</h4>
+                <div class="form-group">
+                    <input type="text" id="eventTitle" placeholder="Título do evento (ex: Reunião com cliente)" autocomplete="off">
+                </div>
+                <div class="form-group" style="display: flex; gap: 8px;">
+                    <select id="eventType">
+                        <option value="reuniao">📌 Reunião</option>
+                        <option value="tarefa">✅ Tarefa</option>
+                    </select>
+                    <input type="time" id="eventTime" placeholder="Horário (opcional)">
+                </div>
+                <button id="addEventBtn" class="btn-add">Salvar compromisso</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        💾 Dados salvos automaticamente no seu navegador | Agenda inteligente para advogados
+    </footer>
+</div>
+
+<script>
+
+    // Estrutura de eventos: chave "yyyy-mm-dd" -> array de eventos
+    let eventsDB = {};
+
+    // Data atual (hoje) e data selecionada (inicia com hoje)
+    let currentDate = new Date(); // hoje
+    let selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    let displayYear = currentDate.getFullYear();
+    let displayMonth = currentDate.getMonth(); // 0-index
+
+    function updateClock() {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        const timeStr = now.toLocaleTimeString('pt-BR');
+        const dateEl = document.getElementById('realTimeDate');
+        const clockEl = document.getElementById('realTimeClock');
+        if (dateEl) dateEl.textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+        if (clockEl) clockEl.textContent = timeStr;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Carregar dados do localStorage
+
+
+    function loadEvents() {
+        const stored = localStorage.getItem("juridic_agenda_events");
+        if (stored) {
+            eventsDB = JSON.parse(stored);
+        } else {
+            // Dados de exemplo com base na imagem (23 março 2026 com alguns eventos de demonstração)
+            // criamos alguns eventos apenas para ilustração, mas vazio inicialmente pode ser criado.
+            // mas para demonstração, adiciono um exemplo amigável
+            const todayStr = getDateKey(new Date());
+            if (!eventsDB[todayStr]) eventsDB[todayStr] = [];
+            // Adicionar se não existir um evento de exemplo somente para mostrar usabilidade
+            // sem poluir, só se estiver vazio geral.
+            if (Object.keys(eventsDB).length === 0) {
+                const sampleDate = "2026-03-23";
+                eventsDB[sampleDate] = [
+                    { id: Date.now()+1, title: "Reunião com sócios", type: "reuniao", time: "10:30" },
+                    { id: Date.now()+2, title: "Elaborar contrato", type: "tarefa", time: "14:00" }
+                ];
+                const sampleDate2 = "2026-03-25";
+                eventsDB[sampleDate2] = [
+                    { id: Date.now()+3, title: "Análise de processo", type: "tarefa", time: "09:00" }
+                ];
+            }
+        }
+        saveEvents();
+    }
+    function saveEvents() {
+        localStorage.setItem("juridic_agenda_events", JSON.stringify(eventsDB));
+    }
+
+    // Função auxiliar: formata data como YYYY-MM-DD
+    function getDateKey(dateObj) {
+        let y = dateObj.getFullYear();
+        let m = String(dateObj.getMonth() + 1).padStart(2, '0');
+        let d = String(dateObj.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    // Obter eventos de uma data
+    function getEventsForDate(dateObj) {
+        const key = getDateKey(dateObj);
+        return eventsDB[key] ? [...eventsDB[key]] : [];
+    }
+
+    // Adicionar evento
+    function addEvent(dateObj, title, type, time) {
+        if (!title.trim()) {
+            alert("Por favor, informe o título do compromisso.");
+            return false;
+        }
+        const key = getDateKey(dateObj);
+        if (!eventsDB[key]) eventsDB[key] = [];
+        const newEvent = {
+            id: Date.now() + Math.random(),
+            title: title.trim(),
+            type: type,
+            time: time || ""
+        };
+        eventsDB[key].push(newEvent);
+        saveEvents();
+        return true;
+    }
+
+    // Remover evento
+    function removeEvent(dateObj, eventId) {
+        const key = getDateKey(dateObj);
+        if (eventsDB[key]) {
+            eventsDB[key] = eventsDB[key].filter(ev => ev.id !== eventId);
+            if (eventsDB[key].length === 0) delete eventsDB[key];
+            saveEvents();
+            return true;
+        }
+        return false;
+    }
+
+    // Renderizar calendário
+    function renderCalendar() {
+        const firstDayOfMonth = new Date(displayYear, displayMonth, 1);
+        const startWeekday = firstDayOfMonth.getDay(); // 0=domingo
+        const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
+        
+        const prevMonthDays = new Date(displayYear, displayMonth, 0).getDate();
+        const today = new Date();
+        const todayKey = getDateKey(today);
+        
+        let gridHtml = '';
+        let totalCells = 42; // 6 linhas
+        
+        for (let i = 0; i < totalCells; i++) {
+            let cellDate = new Date(displayYear, displayMonth, 1);
+            let dayNumber = i - startWeekday + 1;
+            let isCurrentMonth = (dayNumber >= 1 && dayNumber <= daysInMonth);
+            let yearTemp = displayYear;
+            let monthTemp = displayMonth;
+            let actualDay;
+            
+            if (isCurrentMonth) {
+                actualDay = dayNumber;
+            } else if (dayNumber < 1) {
+                // dias do mês anterior
+                actualDay = prevMonthDays + dayNumber;
+                let prevMonth = displayMonth - 1;
+                let prevYear = displayYear;
+                if (prevMonth < 0) {
+                    prevMonth = 11;
+                    prevYear = displayYear - 1;
+                }
+                yearTemp = prevYear;
+                monthTemp = prevMonth;
+            } else {
+                // próximo mês
+                actualDay = dayNumber - daysInMonth;
+                let nextMonth = displayMonth + 1;
+                let nextYear = displayYear;
+                if (nextMonth > 11) {
+                    nextMonth = 0;
+                    nextYear = displayYear + 1;
+                }
+                yearTemp = nextYear;
+                monthTemp = nextMonth;
+            }
+            
+            const cellDateObj = new Date(yearTemp, monthTemp, actualDay);
+            const cellKey = getDateKey(cellDateObj);
+            const eventsOfDay = eventsDB[cellKey] || [];
+            const hasMeeting = eventsOfDay.some(ev => ev.type === 'reuniao');
+            const hasTask = eventsOfDay.some(ev => ev.type === 'tarefa');
+            
+            let additionalClasses = '';
+            if (!isCurrentMonth) additionalClasses += ' other-month';
+            
+            // Dia selecionado
+            const selectedKey = getDateKey(selectedDate);
+            if (cellKey === selectedKey) additionalClasses += ' selected-day';
+            
+            // Dia atual (hoje)
+            if (cellKey === todayKey) additionalClasses += ' today';
+            
+            gridHtml += `<div class="cal-day ${additionalClasses}" data-date="${cellKey}">
+                            <div class="day-number">${actualDay}</div>
+                            <div class="event-indicator">
+                                ${hasMeeting ? '<div class="indicator-dot dot-meeting" title="Reunião"></div>' : ''}
+                                ${hasTask ? '<div class="indicator-dot dot-task" title="Tarefa"></div>' : ''}
+                            </div>
+                         </div>`;
+        }
+        document.getElementById('calendarGrid').innerHTML = gridHtml;
+        
+        // Atualizar título do mês
+        const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+        document.getElementById('monthYearDisplay').innerText = `${monthNames[displayMonth]} ${displayYear}`;
+        
+        // Adicionar eventos de clique em cada dia
+        document.querySelectorAll('.cal-day').forEach(dayDiv => {
+            dayDiv.addEventListener('click', (e) => {
+                const dateKey = dayDiv.getAttribute('data-date');
+                if (dateKey) {
+                    const [year, month, day] = dateKey.split('-').map(Number);
+                    const newSelected = new Date(year, month-1, day);
+                    selectedDate = newSelected;
+                    renderCalendar();       // re-render para destacar
+                    renderEventsForSelected();
+                }
+            });
+        });
+    }
+    
+    // Renderizar eventos do dia selecionado
+    function renderEventsForSelected() {
+        const events = getEventsForDate(selectedDate);
+        const container = document.getElementById('eventsListContainer');
+        const titleSpan = document.getElementById('selectedDateTitle');
+        const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' };
+        titleSpan.innerText = selectedDate.toLocaleDateString('pt-BR', optionsDate);
+        
+        if (!events.length) {
+            container.innerHTML = `<div class="empty-events">📭 Nenhum evento neste dia</div>`;
+            return;
+        }
+        
+        let html = '';
+        events.forEach(ev => {
+            const badgeClass = ev.type === 'reuniao' ? 'badge-reuniao' : 'badge-tarefa';
+            const typeLabel = ev.type === 'reuniao' ? '📌 Reunião' : '✅ Tarefa';
+            const timeHtml = ev.time ? `<span>🕒 ${ev.time}</span>` : '';
+            html += `
+                <div class="event-card" data-event-id="${ev.id}">
+                    <div class="event-info">
+                        <div class="event-title">${escapeHtml(ev.title)}</div>
+                        <div class="event-meta">
+                            <span class="event-badge ${badgeClass}">${typeLabel}</span>
+                            ${timeHtml}
+                        </div>
+                    </div>
+                    <button class="delete-event" data-id="${ev.id}">🗑️</button>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+        
+        // Adicionar listeners de delete
+        document.querySelectorAll('.delete-event').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const eventId = Number(btn.getAttribute('data-id'));
+                if (confirm('Remover este compromisso?')) {
+                    removeEvent(selectedDate, eventId);
+                    renderEventsForSelected();
+                    renderCalendar(); // atualizar indicadores visuais
+                }
+            });
+        });
+    }
+    
+    // Helper para escapar HTML
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    // Lógica de navegação de mês
+    function changeMonth(delta) {
+        let newMonth = displayMonth + delta;
+        let newYear = displayYear;
+        if (newMonth < 0) {
+            newMonth = 11;
+            newYear--;
+        } else if (newMonth > 11) {
+            newMonth = 0;
+            newYear++;
+        }
+        displayYear = newYear;
+        displayMonth = newMonth;
+        renderCalendar();
+        // manter o selectedDate dentro do mês visível? não obrigatório, mas mantém seleção
+        // se selectedDate não pertencer ao mês, ainda pode mostrar, mas fica ok.
+    }
+    
+    // Inicialização e eventos de botões
+    document.addEventListener('DOMContentLoaded', () => {
+        loadEvents();
+
+        // Sidebar mobile
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const openBtn = document.getElementById('openSidebarBtn');
+        const closeBtn = document.getElementById('closeSidebarBtn');
+
+        function openSidebar() {
+            sidebar?.classList.remove('sidebar-hidden');
+            overlay?.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar?.classList.add('sidebar-hidden');
+            overlay?.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        openBtn?.addEventListener('click', openSidebar);
+        closeBtn?.addEventListener('click', closeSidebar);
+        overlay?.addEventListener('click', closeSidebar);
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                sidebar?.classList.remove('sidebar-hidden');
+                overlay?.classList.remove('show');
+                document.body.style.overflow = '';
+            } else {
+                sidebar?.classList.add('sidebar-hidden');
+            }
+        });
+
+        if (window.innerWidth >= 1024) {
+            sidebar?.classList.remove('sidebar-hidden');
+        } else {
+            sidebar?.classList.add('sidebar-hidden');
+        }
+
+        // Definir data atual como selecionada e display month igual ao mês do selectedDate
+        displayYear = selectedDate.getFullYear();
+        displayMonth = selectedDate.getMonth();
+        renderCalendar();
+        renderEventsForSelected();
+        
+        // Botões mês
+        document.getElementById('prevMonthBtn').addEventListener('click', () => changeMonth(-1));
+        document.getElementById('nextMonthBtn').addEventListener('click', () => changeMonth(1));
+        
+        // Botão adicionar evento
+        const addBtn = document.getElementById('addEventBtn');
+        addBtn.addEventListener('click', () => {
+            const titleInput = document.getElementById('eventTitle');
+            const typeSelect = document.getElementById('eventType');
+            const timeInput = document.getElementById('eventTime');
+            
+            const title = titleInput.value.trim();
+            const type = typeSelect.value;
+            const time = timeInput.value;
+            
+            if (!title) {
+                alert("Digite o título do compromisso.");
+                return;
+            }
+            
+            const success = addEvent(selectedDate, title, type, time);
+            if (success) {
+                titleInput.value = '';
+                timeInput.value = '';
+                renderEventsForSelected();
+                renderCalendar();  // atualiza bolinhas indicadoras
+            } else {
+                alert("Erro ao adicionar evento.");
+            }
+        });
+        
+        // opcional: permitir tecla Enter no input
+        document.getElementById('eventTitle').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addBtn.click();
+        });
+    });
+    
+    // Exportação de funções para debug (opcional)
+</script>
+</body>
+</html>
