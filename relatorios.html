@@ -271,9 +271,7 @@
       </div>
     </aside>
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden transition-opacity"></div>
-
-    <!-- MAIN CONTENT -->
-    <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
+     <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
       <header
         class="sticky top-0 z-10 backdrop-blur-md border-b border-border bg-[var(--header-bg)] px-5 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -292,165 +290,39 @@
             KM</div>
         </div>
       </header>
-
-      <div class="p-5 md:p-6 lg:p-7 space-y-7">
-        <div>
-          <h2 class="text-2xl font-bold">Bem-vindo, kayomelo.adv!</h2>
-          <p class="text-muted-foreground mt-1">Aqui está um resumo das suas atividades jurídicas.</p>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4">
-          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-            <div class="flex justify-between items-start">
-              <h3 class="text-sm font-medium">Landing Pages</h3><i data-lucide="file-text"
-                class="w-4 h-4 text-muted-foreground"></i>
-            </div>
-            <div class="text-2xl font-bold mt-2">1</div>
-            <p class="text-xs text-muted-foreground mt-1">0 publicadas</p>
-          </div>
-          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-            <div class="flex justify-between">
-              <h3 class="text-sm font-medium">Link na Bio</h3><i data-lucide="link-2"
-                class="w-4 h-4 text-muted-foreground"></i>
-            </div>
-            <div class="text-2xl font-bold mt-2">0</div>
-            <p class="text-xs text-muted-foreground">0 publicados</p>
-          </div>
-          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-            <div class="flex justify-between">
-              <h3 class="text-sm font-medium">Clientes</h3><i data-lucide="users" class="w-4 h-4"></i>
-            </div>
-            <div id="clientes-count" class="text-2xl font-bold mt-2">0</div>
-          </div>
-          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-            <div class="flex justify-between">
-              <h3 class="text-sm font-medium">Visualizações</h3><i data-lucide="eye" class="w-4 h-4"></i>
-            </div>
-            <div class="text-2xl font-bold mt-2">0</div>
-            <p class="text-xs text-muted-foreground">total views</p>
-          </div>
-          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-            <div class="flex justify-between">
-              <h3 class="text-sm font-medium">Reuniões marcadas</h3><i data-lucide="mouse-pointer-click"
-                class="w-4 h-4"></i>
-            </div>
-            <div class="text-2xl font-bold mt-2">0</div>
-          </div>
-          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-            <div class="flex justify-between">
-              <h3 class="text-sm font-medium">Conversão</h3><i data-lucide="trending-up" class="w-4 h-4"></i>
-            </div>
-            <div class="text-2xl font-bold mt-2">0%</div>
-            <p class="text-xs text-muted-foreground">CTR geral</p>
-          </div>
-        </div>
-
-        <div>
-          <h3 class="text-lg font-semibold mb-3">Status dos serviços</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-              <p class="text-sm font-medium mb-3">Bot Telegram (Transcrição)</p>
-              <div class="flex items-center justify-between">
-                <span id="status-telegram" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
-                <button onclick="toggleService('telegram')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
-              </div>
-            </div>
-            <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-              <p class="text-sm font-medium mb-3">Atendente Virtual (WhatsApp)</p>
-              <div class="flex items-center justify-between">
-                <span id="status-whatsapp" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
-                <button onclick="toggleService('whatsapp')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
-              </div>
-            </div>
-            <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-              <p class="text-sm font-medium mb-3">Bot-Noticias</p>
-              <div class="flex items-center justify-between">
-                <span id="status-noticias" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
-                <button onclick="toggleService('noticias')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
-              </div>
-            </div>
-            <a href="#" class="group rounded-2xl border border-border bg-card p-3 text-center hover:border-primary/50">
-              <div
-                class="p-2 rounded-xl bg-primary/10 text-primary w-fit mx-auto group-hover:bg-primary group-hover:text-white">
-                <i data-lucide="file-pen" class="w-5 h-5"></i>
-              </div>
-              <p class="text-xs font-medium mt-2">Nova Proposta</p>
-            </a>
-            <a href="#" class="group rounded-2xl border border-border bg-card p-3 text-center hover:border-primary/50">
-              <div
-                class="p-2 rounded-xl bg-primary/10 text-primary w-fit mx-auto group-hover:bg-primary group-hover:text-white">
-                <i data-lucide="calculator" class="w-5 h-5"></i>
-              </div>
-              <p class="text-xs font-medium mt-2">Honorários</p>
-            </a>
-            <a href="agenda.html"
-              class="group rounded-2xl border border-border bg-card p-3 text-center hover:border-primary/50">
-              <div
-                class="p-2 rounded-xl bg-primary/10 text-primary w-fit mx-auto group-hover:bg-primary group-hover:text-white">
-                <i data-lucide="calendar-days" class="w-5 h-5"></i>
-              </div>
-              <p class="text-xs font-medium mt-2">Agendamento</p>
-            </a>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all">
-            <div class="p-4 flex justify-between items-center border-b border-border">
-              <div>
-                <h3 class="font-semibold">Landing Pages</h3>
-                <p class="text-xs text-muted-foreground">Suas páginas recentes</p>
-              </div>
-              <a href="#" class="text-xs text-primary flex items-center gap-1">Ver todas <i data-lucide="arrow-right"
-                  class="w-3 h-3"></i></a>
-            </div>
-            <div class="p-4">
-              <div class="flex items-center justify-between p-3 rounded-xl bg-[var(--border-light)]/50">
-                <div>
-                  <p class="font-medium text-sm truncate">kayo-melo-advogados-negativa-d-mmdkne11</p>
-                  <p class="text-xs text-muted-foreground">05/03/2026</p>
+                <div class="rounded-2xl overflow-hidden shadow-sm border border-border bg-card">
+                    <div class="p-4 border-b border-border flex justify-between items-center">
+                        <h3 class="text-sm font-bold text-foreground uppercase tracking-wider">
+                            Histórico de Atendimentos
+                        </h3>
+                        <button onclick="loadReports()"
+                            class="text-primary hover:text-primary-dark transition-transform active:scale-95">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead class="bg-[var(--border-light)]/50 border-b border-border">
+                                <tr>
+                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase">Reunião /
+                                        Cliente</th>
+                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase text-center">
+                                        Resumo</th>
+                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase">Data</th>
+                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase text-center">PDF
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="reports-list" class="divide-y divide-border text-foreground">
+                                <tr>
+                                    <td colspan="4" class="px-6 py-10 text-center text-muted-foreground">
+                                        Clique em atualizar para carregar dados...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <span class="text-[11px] px-2 py-0.5 rounded-full bg-secondary/20 border border-border">Rascunho</span>
-              </div>
-            </div>
-          </div>
-          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all">
-            <div class="p-4 flex justify-between items-center border-b border-border">
-              <div>
-                <h3 class="font-semibold">CRM</h3>
-                <p class="text-xs text-muted-foreground">Pipeline de clientes</p>
-              </div>
-              <a href="#" class="text-xs text-primary flex items-center gap-1">Abrir CRM <i data-lucide="arrow-right"
-                  class="w-3 h-3"></i></a>
-            </div>
-            <div class="p-6 text-center">
-              <i data-lucide="users" class="w-10 h-10 mx-auto text-muted-foreground/40 mb-2"></i>
-              <p class="text-sm text-muted-foreground">Nenhum cliente cadastrado</p>
-              <button
-                class="mt-3 inline-flex items-center gap-1 bg-primary text-white text-sm px-4 py-1.5 rounded-xl hover:bg-primary-dark transition">+
-                Adicionar cliente</button>
-            </div>
-          </div>
-          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all">
-            <div class="p-4 flex justify-between items-center border-b border-border">
-              <div>
-                <h3 class="font-semibold">Agenda</h3>
-                <p class="text-xs text-muted-foreground">Próximos compromissos</p>
-              </div>
-              <a href="#" class="text-xs text-primary flex items-center gap-1">Abrir Agenda <i data-lucide="arrow-right"
-                  class="w-3 h-3"></i></a>
-            </div>
-            <div class="p-6 text-center">
-              <i data-lucide="calendar-days" class="w-10 h-10 mx-auto text-muted-foreground/40 mb-2"></i>
-              <p class="text-sm text-muted-foreground">Nenhum compromisso agendado</p>
-              <button
-                class="mt-3 inline-flex items-center gap-1 bg-primary text-white text-sm px-4 py-1.5 rounded-xl hover:bg-primary-dark transition">+
-                Agendar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <footer
         class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
         <p>Super Inteligênc<span class="text-primary font-semibold">[IA]</span>. Todos os direitos reservados.</p>
@@ -459,13 +331,10 @@
           Visite nosso site</a>
       </footer>
     </main>
-  </div>
-
-  <script>
-    const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
-    const WEBHOOK_TOGGLE_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticiasPost";
-    const WEBHOOK_TOGGLE_TELEGRAM = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/WEBHOOK_TOGGLE_TELEGRAM";
-    document.addEventListener('DOMContentLoaded', function () {
+     <script>
+        const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis";
+        const WEBHOOK_GERAR_PDF = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/gerar-pdf";
+   document.addEventListener('DOMContentLoaded', function () {
       // Inicializa os ícones
       if (typeof lucide !== 'undefined') lucide.createIcons();
 
@@ -533,74 +402,112 @@
         });
       });
 
-      // Busca a quantidade de leads/CRMs do webhook (mesma fonte do crm.html)
-      const N8N_GET_WEBHOOK = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-leads';
-      async function fetchCrmCount() {
-        try {
-          const res = await fetch(N8N_GET_WEBHOOK, { headers: { 'ngrok-skip-browser-warning': 'true' } });
-          const json = await res.json();
-          const leads = json.body?.data || [];
-          const countEl = document.getElementById('clientes-count');
-          if (countEl) countEl.textContent = String(leads.length || 0);
-        } catch (err) {
-          console.error('Erro ao buscar contagem CRM:', err);
-          const countEl = document.getElementById('clientes-count');
-          if (countEl) countEl.textContent = '0';
-        }
-      }
-
-      // Chama ao carregar a página
-      fetchCrmCount();
+      // Carrega relatórios ao carregar a página
+      loadReports();
+    
     });
-    function updateStatusUI(service) {
-            const statusLabel = document.getElementById(`status-${service}`);
-            if (currentServiceStatus[service]) {
-                statusLabel.innerText = "ATIVO";
-                statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
-            } else {
-                statusLabel.innerText = "INATIVO";
-                statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
-            }
+    async function loadReports() {
+    const tableBody = document.getElementById('reports-list');
+    if (!tableBody) return;
+
+    tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-muted-foreground animate-pulse">Buscando dados em Ominus Tech...</td></tr>`;
+
+    try {
+        const response = await fetch(WEBHOOK_GET_REPORTS, {
+            method: 'GET',
+            headers: { 'ngrok-skip-browser-warning': 'true' }
+        });
+
+        if (!response.ok) throw new Error('Falha na resposta do servidor');
+        
+        const rawData = await response.json();
+        console.log("Dados Brutos do n8n:", rawData);
+
+        // Ajuste fundamental: Captura os dados se vierem dentro de 'data' ou 'json'
+        let items = [];
+        if (rawData.data && Array.isArray(rawData.data)) {
+            items = rawData.data; // Formato observado no seu console
+        } else if (Array.isArray(rawData)) {
+            items = rawData.map(item => item.json || item);
+        } else if (rawData.json && Array.isArray(rawData.json)) {
+            items = rawData.json;
         }
-        let currentServiceStatus = {
-            telegram: false,
-            whatsapp: false,
-            noticias: false // novo serviço de notícias
-        };
-        async function toggleService(service) {
-            const statusLabel = document.getElementById(`status-${service}`);
-            const originalText = statusLabel.innerText;
 
-            // escolher webhook específico para notícias
-            const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : service === 'telegram' ? WEBHOOK_TOGGLE_TELEGRAM : WEBHOOK_TOGGLE;
+        tableBody.innerHTML = ''; 
 
+        if (items.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-muted-foreground">Nenhum relatório encontrado.</td></tr>`;
+            return;
+        }
+
+        items.forEach(fields => {
+            // Ignora linhas nulas (como o ID 2 da sua tabela)
+            if (!fields || (!fields.Reuniao && !fields.id)) return;
+
+            const row = document.createElement('tr');
+            row.className = 'hover:bg-[var(--border-light)]/50 transition-colors border-b border-border';
+
+            const titulo = fields.Reuniao || 'Relatório Sem Título';
+            const status = fields.acao || fields.Resumo || 'PENDENTE';
+            
+            // Formatação de data robusta
+            let dataExibicao = '---';
+            if (fields.Data) {
+                const d = new Date(fields.Data);
+                dataExibicao = !isNaN(d.getTime()) ? d.toLocaleDateString('pt-BR') : fields.Data.split('T')[0];
+            }
+
+            const safeFields = JSON.stringify(fields).replace(/'/g, "&apos;");
+
+            row.innerHTML = `
+                <td class="px-6 py-4 text-sm font-medium text-foreground">${titulo}</td>
+                <td class="px-6 py-4 text-sm text-foreground">
+
+                        ${status}
+
+                <td class="px-6 py-4 text-sm text-muted-foreground font-mono">${dataExibicao}</td>
+                <td class="px-6 py-4 text-center">
+                    <button onclick='gerarPDF(${safeFields})' 
+                        class="text-primary hover:text-primary-dark transition-transform active:scale-90">
+                        <i data-lucide="file-pdf" class="w-4 h-4"></i>
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error('Erro detalhado:', error);
+        tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-red-500">Erro ao processar dados. Verifique o console.</td></tr>`;
+    }
+}
+
+        // 3. Função de gerar PDF (FORA da loadReports para ter escopo global)
+        async function gerarPDF(dados) {
             try {
-                statusLabel.innerText = "PROCESSANDO...";
-                statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
-
-                const response = await fetch(webhookUrl, {
+                const response = await fetch(WEBHOOK_GERAR_PDF, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        servico: service,
-                        acao: currentServiceStatus[service] ? 'false' : 'true',
-                        timestamp: new Date().toISOString()
-                    })
+                    body: JSON.stringify(dados)
                 });
 
-                if (response.ok) {
-                    currentServiceStatus[service] = !currentServiceStatus[service];
-                    updateStatusUI(service);
-                } else {
-                    throw new Error('Falha na comunicação');
-                }
+                if (!response.ok) throw new Error('Erro no servidor n8n');
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                const nomeArquivo = dados.Reuniao ? dados.Reuniao.replace(/\s+/g, '_') : 'Relatorio';
+                a.download = `Relatorio_${nomeArquivo}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
             } catch (error) {
-                console.error("Erro ao alternar serviço:", error);
-                alert("Erro ao comunicar com o n8n. Verifique o console.");
-                updateStatusUI(service);
+                console.error("Erro PDF:", error);
+                alert("Falha ao gerar PDF. O n8n está ativo?");
             }
         }
-        
   </script>
 </body>
 

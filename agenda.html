@@ -1,167 +1,112 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Agenda Jurídica | Compromissos e Reuniões</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Agenda</title>
+  <!-- Google Fonts + Tailwind + Lucide -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+ <style>
         :root {
-      --bg-base: #f8fafc;
-      --bg-surface: #ffffff;
-      --border-light: #e9eef3;
-      --text-main: #0f172a;
-      --text-muted: #475569;
-      --primary: #7c3aed;
-      --primary-dark: #6d28d9;
-      --primary-soft: #ede9fe;
-      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
-      --card-hover-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
-      --sidebar-bg: #ffffff;
-      --header-bg: rgba(255, 255, 255, 0.8);
-    }
-    .dark {
-      --bg-base: #0a0a0f;
-      --bg-surface: #12121a;
-      --border-light: #23232e;
-      --text-main: #f1f5f9;
-      --text-muted: #9ca3af;
-      --primary: #a78bfa;
-      --primary-dark: #8b5cf6;
-      --primary-soft: #2d2a3e;
-      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      --card-hover-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.4);
-      --sidebar-bg: #0f0f14;
-      --header-bg: rgba(15, 15, 20, 0.85);
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-base);
-      color: var(--text-main);
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
-    .bg-background { background-color: var(--bg-base); }
-    .bg-card { background-color: var(--bg-surface); }
-    .border-border { border-color: var(--border-light); }
-    .text-foreground { color: var(--text-main); }
-    .text-muted-foreground { color: var(--text-muted); }
-    .bg-primary\/10 { background-color: rgba(124, 58, 237, 0.1); }
-    .dark .bg-primary\/10 { background-color: rgba(139, 92, 246, 0.15); }
-    .bg-primary { background-color: var(--primary); }
-    .hover\:bg-primary\/90:hover { background-color: var(--primary-dark); }
-    .text-primary { color: var(--primary); }
-    .border-primary\/15 { border-color: rgba(124, 58, 237, 0.15); }
-    .shadow-card { box-shadow: var(--card-shadow); }
-    .hover\:shadow-card-hover:hover { box-shadow: var(--card-hover-shadow); }
-    .sidebar-transition { transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-    .backdrop-blur-sm { backdrop-filter: blur(8px); }
-
-    .sidebar-hidden {
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-    }
-
-    .sidebar-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: 20;
-      display: none;
-    }
-    .sidebar-overlay.show { display: block; }
-
-    .open-sidebar-btn {
-      border: 1px solid var(--border-light);
-      background: var(--bg-surface);
-      color: var(--text-main);
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .top-clock {
-      margin-bottom: 10px;
-      padding: 12px 14px;
-      border: 1px solid var(--border-light);
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--bg-surface);
-      box-shadow: var(--card-shadow);
-    }
-    .top-clock .clock-text { font-size: 0.95rem; color: var(--text-muted); }
-    .top-clock .clock-time { font-weight: 700; color: var(--primary); }
-
-    @media (min-width: 1024px) {
-      #sidebar {
-        transform: none !important;
-        position: relative;
-      }
-      .sidebar-overlay { display: none !important; }
-      .open-sidebar-btn { display: none; }
-    }
-
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 10px; }
-    .collapsible-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.25s ease-out;
-    }
-    .collapsible-content.open {
-      max-height: 320px;
-      transition: max-height 0.35s ease-in;
-    }
-    .rotate-icon {
-      transition: transform 0.2s;
-    }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --border-light: #e9eef3;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --primary: #7c3aed;
+            --primary-dark: #6d28d9;
+            --primary-soft: #ede9fe;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+            --card-hover-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+            --sidebar-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.8);
         }
-
+        .dark {
+            --bg-base: #0a0a0f;
+            --bg-surface: #12121a;
+            --border-light: #23232e;
+            --text-main: #f1f5f9;
+            --text-muted: #9ca3af;
+            --primary: #a78bfa;
+            --primary-dark: #8b5cf6;
+            --primary-soft: #2d2a3e;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --card-hover-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.4);
+            --sidebar-bg: #0f0f14;
+            --header-bg: rgba(15, 15, 20, 0.85);
+        }
         body {
-            background: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            transition: background-color 0.2s ease, color 0.2s ease;
+            margin: 0;
             padding: 24px 20px;
-            color: #111827;
         }
+        .bg-background { background-color: var(--bg-base); }
+        .bg-card { background-color: var(--bg-surface); }
+        .border-border { border-color: var(--border-light); }
+        .text-foreground { color: var(--text-main); }
+        .text-muted-foreground { color: var(--text-muted); }
+        .bg-primary\/10 { background-color: rgba(124, 58, 237, 0.1); }
+        .dark .bg-primary\/10 { background-color: rgba(139, 92, 246, 0.15); }
+        .bg-primary { background-color: var(--primary); }
+        .hover\:bg-primary\/90:hover { background-color: var(--primary-dark); }
+        .text-primary { color: var(--primary); }
+        .border-primary\/15 { border-color: rgba(124, 58, 237, 0.15); }
+        .shadow-card { box-shadow: var(--card-shadow); }
+        .hover\:shadow-card-hover:hover { box-shadow: var(--card-hover-shadow); }
+        .sidebar-transition { transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+        .backdrop-blur-sm { backdrop-filter: blur(8px); }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 10px; }
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease-out;
+        }
+        .collapsible-content.open {
+            max-height: 320px;
+            transition: max-height 0.35s ease-in;
+        }
+        .rotate-icon {
+            transition: transform 0.2s;
+        }
+    </style>
 
-        /* Container principal */
+    <!-- Estilos específicos do calendário (usando as variáveis do tema) -->
+    <style>
+        /* Container principal da agenda */
         .agenda-container {
             max-width: 1300px;
             margin: 0 auto;
-            background: white;
+            background: var(--bg-surface);
             border-radius: 32px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
             overflow: hidden;
             transition: all 0.2s;
+            border: 1px solid var(--border-light);
         }
 
         /* Cabeçalho */
         .header {
-            background: white;
+            background: var(--bg-surface);
             padding: 24px 28px;
-            border-bottom: 1px solid #e9eef3;
+            border-bottom: 1px solid var(--border-light);
         }
         .header h1 {
             font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #5b21b6, #7c3aed);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -0.3px;
         }
         .header p {
-            color: #6b7280;
+            color: var(--text-muted);
             font-size: 0.9rem;
             margin-top: 6px;
         }
@@ -175,12 +120,12 @@
             flex: 2;
             min-width: 280px;
             padding: 24px 20px 28px 28px;
-            border-right: 1px solid #eef2f6;
+            border-right: 1px solid var(--border-light);
         }
         .events-panel {
             flex: 1.2;
             min-width: 280px;
-            background: #fafcff;
+            background: var(--bg-surface);
             padding: 24px 28px;
             display: flex;
             flex-direction: column;
@@ -199,15 +144,15 @@
             font-size: 1.65rem;
             font-weight: 700;
             letter-spacing: -0.5px;
-            color: #1f2937;
+            color: var(--text-main);
         }
         .nav-buttons {
             display: flex;
             gap: 12px;
         }
         .nav-btn {
-            background: #f3f4f6;
-            border: none;
+            background: var(--bg-base);
+            border: 1px solid var(--border-light);
             padding: 8px 14px;
             border-radius: 40px;
             font-weight: 500;
@@ -217,14 +162,11 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            color: #374151;
+            color: var(--text-main);
         }
         .nav-btn:hover {
-            background: #e5e7eb;
-            transform: scale(0.97);
-        }
-        .nav-btn:active {
-            background: #d1d5db;
+            background: var(--primary-soft);
+            border-color: var(--primary);
         }
 
         /* Dias da semana */
@@ -233,7 +175,7 @@
             grid-template-columns: repeat(7, 1fr);
             text-align: center;
             font-weight: 600;
-            color: #6c7280;
+            color: var(--text-muted);
             font-size: 0.8rem;
             margin-bottom: 12px;
             padding: 0 4px;
@@ -249,13 +191,13 @@
             gap: 6px;
         }
         .cal-day {
-            background: white;
+            background: var(--bg-surface);
             border-radius: 20px;
             padding: 12px 6px 8px;
             text-align: center;
             cursor: pointer;
             transition: all 0.15s;
-            border: 1px solid #f0f2f5;
+            border: 1px solid var(--border-light);
             font-weight: 500;
             position: relative;
             aspect-ratio: 1 / 0.9;
@@ -265,8 +207,8 @@
             justify-content: flex-start;
         }
         .cal-day:hover {
-            background: #f9f5ff;
-            border-color: #c4b5fd;
+            background: var(--primary-soft);
+            border-color: var(--primary);
             transform: translateY(-2px);
         }
         .day-number {
@@ -289,18 +231,22 @@
         .dot-meeting { background: #3b82f6; }
         .dot-task { background: #10b981; }
         .other-month {
-            color: #9ca3af;
-            background: #fefefe;
+            color: var(--text-muted);
+            background: var(--bg-base);
+            opacity: 0.7;
         }
         .selected-day {
-            background: #ede9fe;
-            border: 2px solid #8b5cf6;
+            background: var(--primary-soft);
+            border: 2px solid var(--primary);
             box-shadow: 0 2px 6px rgba(139, 92, 246, 0.2);
         }
         .today {
             background: #fff7ed;
             border: 1px solid #f59e0b;
-            position: relative;
+        }
+        .dark .today {
+            background: #2d2a1e;
+            border-color: #f59e0b;
         }
         .today .day-number {
             color: #f59e0b;
@@ -311,10 +257,10 @@
         .selected-date-header {
             font-size: 1.3rem;
             font-weight: 700;
-            border-left: 4px solid #8b5cf6;
+            border-left: 4px solid var(--primary);
             padding-left: 14px;
             margin-bottom: 20px;
-            color: #1e293b;
+            color: var(--text-main);
         }
         .event-list {
             flex: 1;
@@ -323,12 +269,12 @@
             margin-bottom: 24px;
         }
         .event-card {
-            background: white;
+            background: var(--bg-surface);
             border-radius: 20px;
             padding: 12px 16px;
             margin-bottom: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-            border: 1px solid #edf2f7;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-light);
             transition: 0.1s;
             display: flex;
             justify-content: space-between;
@@ -342,12 +288,13 @@
         .event-title {
             font-weight: 700;
             font-size: 0.95rem;
+            color: var(--text-main);
         }
         .event-meta {
             display: flex;
             gap: 10px;
             font-size: 0.7rem;
-            color: #5b6e8c;
+            color: var(--text-muted);
         }
         .event-badge {
             font-size: 0.65rem;
@@ -360,16 +307,24 @@
             background: #eef2ff;
             color: #2563eb;
         }
+        .dark .badge-reuniao {
+            background: #1e2a3a;
+            color: #60a5fa;
+        }
         .badge-tarefa {
             background: #e0f2fe;
             color: #0e7b4e;
+        }
+        .dark .badge-tarefa {
+            background: #1e2a2a;
+            color: #34d399;
         }
         .delete-event {
             background: none;
             border: none;
             font-size: 1.2rem;
             cursor: pointer;
-            color: #9ca3af;
+            color: var(--text-muted);
             padding: 4px 8px;
             border-radius: 30px;
             transition: 0.1s;
@@ -378,9 +333,12 @@
             color: #ef4444;
             background: #fee2e2;
         }
+        .dark .delete-event:hover {
+            background: #3b1e1e;
+        }
         .empty-events {
             text-align: center;
-            color: #9ca3af;
+            color: var(--text-muted);
             padding: 28px 0;
             font-size: 0.85rem;
         }
@@ -388,7 +346,7 @@
         /* Formulário adicionar */
         .add-event-form {
             margin-top: 16px;
-            border-top: 1px solid #eef2f6;
+            border-top: 1px solid var(--border-light);
             padding-top: 20px;
         }
         .form-group {
@@ -397,19 +355,20 @@
         .form-group input, .form-group select {
             width: 100%;
             padding: 10px 14px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-light);
             border-radius: 24px;
             font-size: 0.85rem;
-            background: white;
+            background: var(--bg-surface);
+            color: var(--text-main);
             transition: 0.2s;
         }
         .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: #8b5cf6;
-            box-shadow: 0 0 0 2px rgba(139,92,246,0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
         }
         .btn-add {
-            background: #7c3aed;
+            background: var(--primary);
             color: white;
             border: none;
             width: 100%;
@@ -421,12 +380,33 @@
             font-size: 0.85rem;
         }
         .btn-add:hover {
-            background: #6d28d9;
+            background: var(--primary-dark);
             transform: scale(0.98);
         }
-        hr {
-            margin: 16px 0;
-            border-color: #eef2f6;
+
+        /* Toggle de tema */
+        .theme-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 10px 16px;
+            cursor: pointer;
+            box-shadow: var(--card-shadow);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-main);
+            transition: 0.2s;
+        }
+        .theme-toggle:hover {
+            background: var(--primary-soft);
+            border-color: var(--primary);
         }
 
         @media (max-width: 780px) {
@@ -435,7 +415,7 @@
             }
             .calendar-panel {
                 border-right: none;
-                border-bottom: 1px solid #eef2f6;
+                border-bottom: 1px solid var(--border-light);
                 padding: 20px;
             }
             .events-panel {
@@ -443,7 +423,6 @@
             }
             .cal-day {
                 padding: 8px 2px;
-                font-size: 0.8rem;
             }
             .day-number {
                 font-size: 0.9rem;
@@ -453,18 +432,16 @@
             text-align: center;
             padding: 20px 28px;
             font-size: 0.7rem;
-            color: #94a3b8;
-            border-top: 1px solid #eef2f6;
-            background: white;
-        }
-        .weekdays {
-            font-size: 0.7rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-light);
+            background: var(--bg-surface);
         }
     </style>
 </head>
 <body class="bg-background antialiased">
-<div class="agenda-container">
-     <aside id="sidebar" class="fixed lg:relative z-30 w-[280px] h-full bg-[var(--sidebar-bg)] border-r border-border backdrop-blur-sm sidebar-transition sidebar-hidden lg:translate-x-0 lg:flex flex-col shrink-0 shadow-xl lg:shadow-none">
+  <div class="min-h-screen flex relative">
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed lg:relative z-30 w-[280px] h-full bg-[var(--sidebar-bg)] border-r border-border backdrop-blur-sm transition-all duration-300 ease-out lg:translate-x-0 -translate-x-full lg:flex flex-col shrink-0 shadow-xl lg:shadow-none">
       <div class="flex flex-col h-full">
         <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
           <div class="flex items-center gap-2">
@@ -483,7 +460,7 @@
           </div>
         </div>
         <nav class="flex-1 overflow-y-auto py-4 px-2 space-y-1">
-          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">
+          <a href="teste2.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">
             <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
             <span>Início</span>
           </a>
@@ -499,7 +476,7 @@
           </div>
           <div class="nav-group">
             <button class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground">
-              <div class="flex items-center gap-3"><i data-lucide="pen-tool" class="w-4 h-4"></i><span>Documentos</span></div>
+              <div class="flex items-center gap-3"><i data-lucide="pen-tool" class="w-4 h-4"></i><span>Automações</span></div>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
             <div class="collapsible-content pl-9 mt-1 space-y-1">
@@ -568,61 +545,85 @@
         </div>
       </div>
     </aside>
-    <div id="sidebarOverlay" class="sidebar-overlay"></div>
-    <div class="header">
-        <button id="openSidebarBtn" class="open-sidebar-btn">☰ Menu</button>
-        <h1>📅 Agenda Jurídica</h1>
-        <p>Reuniões, tarefas e compromissos organizados com inteligência</p>
-    </div>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden transition-opacity"></div>
+    <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
+      <header
+        class="sticky top-0 z-10 backdrop-blur-md border-b border-border bg-[var(--header-bg)] px-5 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <button id="openSidebarBtn" class="lg:hidden p-1.5 rounded-lg hover:bg-[var(--border-light)] text-foreground">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+          <h1 class="text-xl font-bold tracking-tight">Painel</h1>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="themeToggle" class="p-2 rounded-full hover:bg-[var(--border-light)] transition-all">
+            <i data-lucide="sun" class="w-5 h-5 dark:hidden"></i>
+            <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+          </button>
+          <div
+            class="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold text-sm">
+            KM</div>
+        </div>
+      </header>
     <div class="dashboard">
         <!-- Calendário -->
-        <div class="calendar-panel">
-            <div class="top-clock">
-              <div class="clock-text" id="realTimeDate">--/--/----</div>
-              <div class="clock-text">Agora: <span class="clock-time" id="realTimeClock">00:00:00</span></div>
-            </div>
-            <div class="month-nav">
-                <div class="month-year" id="monthYearDisplay">Março 2026</div>
-                <div class="nav-buttons">
-                    <button class="nav-btn" id="prevMonthBtn">◀ Mês anterior</button>
-                    <button class="nav-btn" id="nextMonthBtn">Próximo mês ▶</button>
-                </div>
-            </div>
-            <div class="weekdays">
-                <div class="weekday">DOM</div><div class="weekday">SEG</div><div class="weekday">TER</div>
-                <div class="weekday">QUA</div><div class="weekday">QUI</div><div class="weekday">SEX</div><div class="weekday">SÁB</div>
-            </div>
-            <div id="calendarGrid" class="calendar-grid"></div>
+        <div class="agenda-container">
+        <div class="header">
+            <h1>Agenda Jurídica</h1>
+            <p>Reuniões, tarefas e compromissos organizados com inteligência</p>
         </div>
+        <div class="dashboard">
+            <!-- Calendário -->
+            <div class="calendar-panel">
+                <div class="month-nav">
+                    <div class="month-year" id="monthYearDisplay">Março 2026</div>
+                    <div class="nav-buttons">
+                        <button class="nav-btn" id="prevMonthBtn">◀ Mês anterior</button>
+                        <button class="nav-btn" id="nextMonthBtn">Próximo mês ▶</button>
+                    </div>
+                </div>
+                <div class="weekdays">
+                    <div class="weekday">DOM</div><div class="weekday">SEG</div><div class="weekday">TER</div>
+                    <div class="weekday">QUA</div><div class="weekday">QUI</div><div class="weekday">SEX</div><div class="weekday">SÁB</div>
+                </div>
+                <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
 
-        <!-- Painel de eventos do dia -->
-        <div class="events-panel">
-            <div class="selected-date-header" id="selectedDateTitle">23 de março de 2026</div>
-            <div id="eventsListContainer" class="event-list">
-                <!-- eventos serão inseridos via js -->
-                <div class="empty-events">Nenhum evento neste dia</div>
-            </div>
-            <div class="add-event-form">
-                <h4 style="font-size: 0.9rem; margin-bottom: 12px; font-weight: 600;">➕ Adicionar compromisso</h4>
-                <div class="form-group">
-                    <input type="text" id="eventTitle" placeholder="Título do evento (ex: Reunião com cliente)" autocomplete="off">
+            <!-- Painel de eventos do dia -->
+            <div class="events-panel">
+                <div class="selected-date-header" id="selectedDateTitle">23 de março de 2026</div>
+                <div id="eventsListContainer" class="event-list">
+                    <div class="empty-events">Nenhum evento neste dia</div>
                 </div>
-                <div class="form-group" style="display: flex; gap: 8px;">
-                    <select id="eventType">
-                        <option value="reuniao">📌 Reunião</option>
-                        <option value="tarefa">✅ Tarefa</option>
-                    </select>
-                    <input type="time" id="eventTime" placeholder="Horário (opcional)">
+                <div class="add-event-form">
+                    <h4 style="font-size: 0.9rem; margin-bottom: 12px; font-weight: 600;">➕ Adicionar compromisso</h4>
+                    <div class="form-group">
+                        <input type="text" id="eventTitle" placeholder="Título do evento (ex: Reunião com cliente)" autocomplete="off">
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 8px;">
+                        <select id="eventType">
+                            <option value="reuniao">📌 Reunião</option>
+                            <option value="tarefa">✅ Tarefa</option>
+                        </select>
+                        <input type="time" id="eventTime" placeholder="Horário (opcional)">
+                    </div>
+                    <button id="addEventBtn" class="btn-add">Salvar compromisso</button>
                 </div>
-                <button id="addEventBtn" class="btn-add">Salvar compromisso</button>
             </div>
         </div>
+        <footer>
+            💾 Dados salvos automaticamente no seu navegador | Agenda inteligente para advogados
+        </footer>
     </div>
-    <footer>
-        💾 Dados salvos automaticamente no seu navegador | Agenda inteligente para advogados
-    </footer>
 </div>
-
+   <footer
+        class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+        <p>Super Inteligênc<span class="text-primary font-semibold">[IA]</span>. Todos os direitos reservados.</p>
+        <a href="#" target="_blank"
+          class="inline-flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 hover:bg-[var(--border-light)] transition">🌐
+          Visite nosso site</a>
+      </footer>
+    </main>
 <script>
 
     // Estrutura de eventos: chave "yyyy-mm-dd" -> array de eventos
@@ -978,6 +979,75 @@
     });
     
     // Exportação de funções para debug (opcional)
-</script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializa os ícones
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      // Theme toggle
+      const themeToggle = document.getElementById('themeToggle');
+      const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+
+      themeToggle?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        localStorage.setItem('theme', theme);
+        if (typeof lucide !== 'undefined') lucide.createIcons(); // recria ícones para trocar sun/moon
+      });
+
+      // Sidebar mobile
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const openBtn = document.getElementById('openSidebarBtn');
+      const closeBtn = document.getElementById('closeSidebarBtn');
+
+      function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+      openBtn?.addEventListener('click', openSidebar);
+      closeBtn?.addEventListener('click', closeSidebar);
+      overlay?.addEventListener('click', closeSidebar);
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) {
+          closeSidebar();
+          sidebar.classList.remove('-translate-x-full');
+          overlay.classList.add('hidden');
+          document.body.style.overflow = '';
+        } else {
+          if (!sidebar.classList.contains('-translate-x-full')) {
+            // se estiver aberto, mantém, mas não força fechamento
+          } else {
+            sidebar.classList.add('-translate-x-full');
+          }
+        }
+      });
+      if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
+      else sidebar.classList.add('-translate-x-full');
+
+      // Accordion
+      const toggleButtons = document.querySelectorAll('.nav-toggle');
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const parentGroup = btn.closest('.nav-group');
+          const content = parentGroup.querySelector('.collapsible-content');
+          const icon = btn.querySelector('.rotate-icon');
+          content.classList.toggle('open');
+          if (icon) {
+            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
