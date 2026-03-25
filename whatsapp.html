@@ -134,8 +134,8 @@
       transition: max-height 0.35s ease-in;
     }
 
-    .rotate-icon {
-      transition: transform 0.2s;
+    .placeholder-muted-foreground::placeholder {
+      color: var(--text-muted);
     }
   </style>
 </head>
@@ -290,47 +290,76 @@
             KM</div>
         </div>
       </header>
-       <div class="space-y-6">
-            <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-              <p class="text-sm font-medium mb-3">Bot Telegram (Transcrição)</p>
+      <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+              <p class="text-sm font-medium mb-3">Atendente Virtual (WhatsApp)</p>
               <div class="flex items-center justify-between">
-                <span id="status-telegram" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
-                <button onclick="toggleService('telegram')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
+                <span id="status-whatsapp" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
+                <button onclick="toggleService('whatsapp')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
               </div>
             </div>
-            <div class="rounded-2xl overflow-hidden shadow-sm border border-border bg-card">
-                    <div class="p-4 border-b border-border flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-foreground uppercase tracking-wider">
-                            Histórico de Atendimentos
-                        </h3>
-                        <button onclick="loadReports()"
-                            class="text-primary hover:text-primary-dark transition-transform active:scale-95">
-                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-                        </button>
+       <div class="space-y-1">
+                    <!-- Card: Prompt da IA -->
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div
+                                class="p-3 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-xl shadow-sm">
+                                <i class="fas fa-robot text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-foreground">Personalidade do Atendente</h4>
+                                <p class="text-sm text-muted-foreground">Defina o prompt / instruções para a IA no WhatsApp</p>
+                            </div>
+                        </div>
+                        <textarea id="ai-prompt" rows="5"
+                            class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground"
+                            placeholder="Ex: Você é um assistente jurídico especializado em direito civil. Seja cordial, objetivo e colete nome, telefone e motivo do contato antes de passar para o humano...">Você é a assistente virtual da Ominus tech. Recepcione clientes com empatia, identifique a área de interesse (trabalhista, cível, etc.) e colete nome e telefone. Nunca dê consultoria jurídica, apenas agende reuniões.</textarea>
+                        <div class="flex justify-end mt-4">
+                            <button onclick="savePrompt()"
+                                class="px-6 py-2.5 bg-gradient-to-r from-blue-700 to-blue-800 text-white font-medium rounded-xl hover:from-blue-800 hover:to-blue-900 transition shadow-md flex items-center gap-2">
+                                <i class="fas fa-save"></i> Salvar prompt
+                            </button>
+                        </div>
                     </div>
-                    <div class="overflow-x-auto overflow-y-auto max-h-[60vh]">
-                        <table class="min-w-[900px] w-full text-left border-collapse">
-                            <thead class="bg-[var(--border-light)]/50 border-b border-border">
-                                <tr>
-                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase">Reunião /
-                                        Cliente</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase text-center">
-                                        Resumo</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase">Data</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase text-center">PDF
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="reports-list" class="divide-y divide-border text-foreground">
-                                <tr>
-                                    <td colspan="4" class="px-6 py-10 text-center text-muted-foreground">
-                                        Clique em atualizar para carregar dados...
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                    <!-- Card: Conexão WhatsApp (Evolution API) -->
+                    <div class="glass-card p-8 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div
+                                class="p-3 bg-gradient-to-br from-green-100 to-green-200 text-green-700 rounded-xl shadow-sm">
+                                <i class="fab fa-whatsapp text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-foreground">Conectar instância WhatsApp</h4>
+                                <p class="text-sm text-muted-foreground">Digite o nome da instância e gere o QR Code</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-medium text-foreground mb-1">Nome da Instância</label>
+                                <input type="text" id="instance-name" placeholder="Ex: Ominus_Advocacia"
+                                    class="w-full px-4 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                            </div>
+                            <button onclick="generateQRCode()"
+                                class="w-full py-3.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl hover:from-green-700 hover:to-emerald-800 transition shadow-lg flex items-center justify-center gap-2">
+                                <i class="fas fa-qrcode"></i> Gerar QR Code
+                            </button>
+                        </div>
+
+                        <div id="qr-container"
+                            class="hidden mt-8 flex flex-col items-center justify-center p-6 border-2 border-dashed border-white/50 rounded-xl bg-white/30">
+                            <div id="qr-placeholder" class="text-muted-foreground text-center">
+                                <i class="fas fa-spinner fa-pulse text-3xl mb-2"></i>
+                                <p class="text-sm">Aguardando resposta da API...</p>
+                            </div>
+                            <img id="qr-code-img" class="hidden max-w-xs shadow-xl rounded-xl border-4 border-white"
+                                src="" alt="QR Code WhatsApp">
+                            <p id="connection-status-text"
+                                class="mt-4 text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full">
+                                Status: desconectado</p>
+                        </div>
                     </div>
-                </div>    
+                </div>
       <footer
         class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
         <p>Super Inteligênc<span class="text-primary font-semibold">[IA]</span>. Todos os direitos reservados.</p>
@@ -339,12 +368,12 @@
           Visite nosso site</a>
       </footer>
     </main>
-     <script>
-      const WEBHOOK_TOGGLE_TELEGRAM = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/WEBHOOK_TOGGLE_TELEGRAM";
-        const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis";
-        const WEBHOOK_GERAR_PDF = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/gerar-pdf";
-        
-        document.addEventListener('DOMContentLoaded', function () {
+    <script>
+        const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
+         const WEBHOOK_QR_CODE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/generate-qr";
+        const WEBHOOK_SAVE_PROMPT = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-prompt";
+       
+    document.addEventListener('DOMContentLoaded', function () {
       // Inicializa os ícones
       if (typeof lucide !== 'undefined') lucide.createIcons();
 
@@ -411,130 +440,8 @@
           }
         });
       });
-
-      // Carrega relatórios ao carregar a página
-      loadReports();
-    
     });
-    async function loadReports() {
-    const tableBody = document.getElementById('reports-list');
-    if (!tableBody) return;
-
-    tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-muted-foreground animate-pulse">Buscando dados em Ominus Tech...</td></tr>`;
-
-    try {
-        const response = await fetch(WEBHOOK_GET_REPORTS, {
-            method: 'GET',
-            headers: { 'ngrok-skip-browser-warning': 'true' }
-        });
-
-        if (!response.ok) throw new Error('Falha na resposta do servidor');
-        
-        const rawData = await response.json();
-        console.log("Dados Brutos do n8n:", rawData);
-
-        // Ajuste fundamental: Captura os dados se vierem dentro de 'data' ou 'json'
-        let items = [];
-        if (rawData.data && Array.isArray(rawData.data)) {
-            items = rawData.data; // Formato observado no seu console
-        } else if (Array.isArray(rawData)) {
-            items = rawData.map(item => item.json || item);
-        } else if (rawData.json && Array.isArray(rawData.json)) {
-            items = rawData.json;
-        }
-
-        console.log("Items extraídos:", items);
-
-        tableBody.innerHTML = ''; 
-
-        if (items.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-muted-foreground">Nenhum relatório encontrado.</td></tr>`;
-            return;
-        }
-
-        items.forEach(fields => {
-            // Ignora linhas nulas (como o ID 2 da sua tabela)
-            console.log("Processando item:", fields);
-            if (!fields || (!fields.Reuniao && !fields.id)) return;
-
-            const row = document.createElement('tr');
-            row.className = 'hover:bg-[var(--border-light)]/50 transition-colors border-b border-border';
-
-            const titulo = fields.Reuniao || 'Relatório Sem Título';
-            const status = fields.acao || fields.Resumo || 'PENDENTE';
-            
-            // Formatação de data robusta
-            let dataExibicao = '---';
-            if (fields.Data) {
-                const d = new Date(fields.Data);
-                dataExibicao = !isNaN(d.getTime()) ? d.toLocaleDateString('pt-BR') : fields.Data.split('T')[0];
-            }
-
-            const cellTitulo = document.createElement('td');
-            cellTitulo.className = 'px-6 py-4 text-sm font-medium text-foreground';
-            cellTitulo.textContent = titulo;
-
-            const cellStatus = document.createElement('td');
-            cellStatus.className = 'px-6 py-4 text-sm text-foreground';
-            cellStatus.textContent = status;
-
-            const cellData = document.createElement('td');
-            cellData.className = 'px-6 py-4 text-sm text-muted-foreground font-mono';
-            cellData.textContent = dataExibicao;
-
-            const cellAction = document.createElement('td');
-            cellAction.className = 'px-6 py-4 text-center';
-
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'text-red-500 hover:text-red-700 transition-transform active:scale-90 bg-red-50 hover:bg-red-100 px-2 py-1 rounded';
-            button.addEventListener('click', () => {
-                console.log("Clicou no botão PDF para:", fields);
-                gerarPDF(fields);
-            });
-            button.innerHTML = 'PDF'; // Temporário para testar visibilidade
-
-            cellAction.appendChild(button);
-            row.append(cellTitulo, cellStatus, cellData, cellAction);
-            tableBody.appendChild(row);
-        });
-
-        // Recria ícones após adicionar linhas
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-
-    } catch (error) {
-        console.error('Erro detalhado:', error);
-        tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-red-500">Erro ao processar dados. Verifique o console.</td></tr>`;
-    }
-}
-
-        // 3. Função de gerar PDF (FORA da loadReports para ter escopo global)
-        async function gerarPDF(dados) {
-            try {
-                const response = await fetch(WEBHOOK_GERAR_PDF, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dados)
-                });
-
-                if (!response.ok) throw new Error('Erro no servidor n8n');
-
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                const nomeArquivo = dados.Reuniao ? dados.Reuniao.replace(/\s+/g, '_') : 'Relatorio';
-                a.download = `Relatorio_${nomeArquivo}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            } catch (error) {
-                console.error("Erro PDF:", error);
-                alert("Falha ao gerar PDF. O n8n está ativo?");
-            }
-        }
-        function updateStatusUI(service) {
+    function updateStatusUI(service) {
             const statusLabel = document.getElementById(`status-${service}`);
             if (currentServiceStatus[service]) {
                 statusLabel.innerText = "ATIVO";
@@ -545,7 +452,7 @@
             }
         }
         let currentServiceStatus = {
-            telegram: false // novo serviço de notícias
+            whatsapp: false// novo serviço de notícias
         };
         async function toggleService(service) {
             const statusLabel = document.getElementById(`status-${service}`);
@@ -580,8 +487,85 @@
                 updateStatusUI(service);
             }
         }
-        
-  </script>
+        async function generateQRCode() {
+            const instanceName = document.getElementById('instance-name').value;
+            if (!instanceName) {
+                alert("Por favor, digite o nome da instância.");
+                return;
+            }
+
+            const qrContainer = document.getElementById('qr-container');
+            const qrPlaceholder = document.getElementById('qr-placeholder');
+            const qrImg = document.getElementById('qr-code-img');
+            const statusText = document.getElementById('connection-status-text');
+
+            qrContainer.classList.remove('hidden');
+            qrPlaceholder.classList.remove('hidden');
+            qrImg.classList.add('hidden');
+            statusText.innerText = "Status: Aguardando...";
+            statusText.className = "mt-4 text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full";
+
+            try {
+                const response = await fetch(WEBHOOK_QR_CODE, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ instanceName: instanceName })
+                });
+
+                const data = await response.json();
+
+                if (data && data.qrcode) {
+                    qrImg.src = data.qrcode;
+                    qrImg.classList.remove('hidden');
+                    qrPlaceholder.classList.add('hidden');
+                    statusText.innerText = "Status: QR Code gerado. Escaneie com o WhatsApp.";
+                    statusText.className = "mt-4 text-sm font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full";
+                } else {
+                    throw new Error("Formato de QR Code inválido");
+                }
+            } catch (error) {
+                console.error("Erro ao gerar QR Code:", error);
+                statusText.innerText = "Status: Erro na API.";
+                statusText.className = "mt-4 text-sm font-medium text-rose-700 bg-rose-50 px-3 py-1 rounded-full";
+                qrPlaceholder.innerHTML = `<p class="text-rose-500 text-xs font-bold">Falha ao obter QR Code do n8n</p>`;
+            }
+        }
+        async function savePrompt() {
+            const promptText = document.getElementById('ai-prompt').value;
+            if (!promptText.trim()) {
+                alert("Por favor, escreva um prompt para a IA.");
+                return;
+            }
+
+            const btn = event.currentTarget;
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Salvando...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(WEBHOOK_SAVE_PROMPT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: promptText, timestamp: new Date().toISOString() })
+                });
+
+                if (response.ok) {
+                    btn.innerHTML = '<i class="fas fa-check"></i> Salvo!';
+                    setTimeout(() => {
+                        btn.innerHTML = originalHtml;
+                        btn.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error('Erro no servidor');
+                }
+            } catch (error) {
+                console.error("Erro ao salvar prompt:", error);
+                alert("Não foi possível salvar o prompt. Verifique o webhook.");
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
+        }
+ </script>
 </body>
 
 </html>
