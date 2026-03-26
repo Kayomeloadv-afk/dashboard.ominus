@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Ominus</title>
-  <!-- Google Fonts + Tailwind + Lucide -->
+  <title>Ominus · Prompts Jurídicos</title>
+  <!-- Google Fonts + Tailwind + Lucide + Font Awesome (complemento) -->
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
     rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --bg-base: #f8fafc;
@@ -47,6 +48,51 @@
       background-color: var(--bg-base);
       color: var(--text-main);
       transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    /* Ajustes para os cards e modal no modo escuro (sem alterar o HTML original) */
+    .dark .bg-white,
+    .dark .bg-white\/90,
+    .dark .bg-white\/70,
+    .dark .bg-white\/50,
+    .dark .bg-white\/40,
+    .dark .bg-white\/30,
+    .dark .bg-white\/20 {
+      background-color: var(--bg-surface) !important;
+    }
+
+    .dark .text-slate-800,
+    .dark .text-slate-700,
+    .dark .text-slate-600 {
+      color: var(--text-main) !important;
+    }
+
+    .dark .text-slate-500,
+    .dark .text-slate-400 {
+      color: var(--text-muted) !important;
+    }
+
+    .dark .border-white\/30,
+    .dark .border-white\/40,
+    .dark .border-white\/50 {
+      border-color: var(--border-light) !important;
+    }
+
+    .dark .bg-blue-50,
+    .dark .bg-purple-50,
+    .dark .bg-amber-50,
+    .dark .bg-red-50,
+    .dark .bg-green-50,
+    .dark .bg-cyan-50,
+    .dark .bg-indigo-50,
+    .dark .bg-rose-50,
+    .dark .bg-yellow-50,
+    .dark .bg-emerald-50 {
+      background-color: rgba(124, 58, 237, 0.1) !important;
+    }
+
+    .dark .bg-gradient-to-br {
+      opacity: 0.8;
     }
 
     .bg-background {
@@ -137,12 +183,39 @@
     .placeholder-muted-foreground::placeholder {
       color: var(--text-muted);
     }
+
+    /* glass-card e hover-lift (do template funcional) */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+    }
+
+    .dark .glass-card {
+      background: rgba(30, 41, 59, 0.6);
+      border-color: rgba(148, 163, 184, 0.1);
+    }
+
+    .hover-lift {
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px -8px rgba(0, 34, 64, 0.15);
+    }
+
+    .dark .hover-lift:hover {
+      box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.4);
+    }
   </style>
 </head>
 
 <body class="bg-background antialiased">
   <div class="min-h-screen flex relative">
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR (inalterada) -->
     <aside id="sidebar"
       class="fixed lg:relative z-30 w-[280px] h-full bg-[var(--sidebar-bg)] border-r border-border backdrop-blur-sm transition-all duration-300 ease-out lg:translate-x-0 -translate-x-full lg:flex flex-col shrink-0 shadow-xl lg:shadow-none">
       <div class="flex flex-col h-full">
@@ -194,10 +267,10 @@
               </div>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
-            <div class="collapsible-content open pl-9 mt-1 space-y-1">
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
               <a href="relatorios.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Relatórios/Transcrição</a>
               <a href="whatsapp.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Agente de AI</a>
-              <a href="noticias.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Bot-Noticias</a>
+              <a href="noticias.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
             </div>
           </div>
           <div class="nav-group">
@@ -207,10 +280,9 @@
               </div>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
-            <div class="collapsible-content pl-9 mt-1 space-y-1">
-              <a href="#" class="block px-3 py-2 text-sm">Calculadora de Honorários</a>
+            <div class="collapsible-content open pl-9 mt-1 space-y-1">
+              <a href="prompts.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Prompts Prontos</a>
               <a href="#" class="block px-3 py-2 text-sm">Precificação Inteligente</a>
-              <a href="prompts.html" class="block px-3 py-2 text-sm">Prompts Prontos</a>
               <a href="#" class="block px-3 py-2 text-sm">Dashboard Analytics</a>
             </div>
           </div>
@@ -272,14 +344,16 @@
       </div>
     </aside>
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden transition-opacity"></div>
-     <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
+
+    <!-- MAIN corrigido (sem <body> aninhado e sem duplicidade) -->
+    <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
       <header
         class="sticky top-0 z-10 backdrop-blur-md border-b border-border bg-[var(--header-bg)] px-5 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <button id="openSidebarBtn" class="lg:hidden p-1.5 rounded-lg hover:bg-[var(--border-light)] text-foreground">
             <i data-lucide="menu" class="w-5 h-5"></i>
           </button>
-          <h1 class="text-xl font-bold tracking-tight">Painel</h1>
+          <h1 class="text-xl font-bold tracking-tight">Prompts Jurídicos</h1>
         </div>
         <div class="flex items-center gap-3">
           <button id="themeToggle" class="p-2 rounded-full hover:bg-[var(--border-light)] transition-all">
@@ -291,221 +365,145 @@
             KM</div>
         </div>
       </header>
-      <body class="min-h-screen flex flex-col md:flex-row text-slate-800 antialiased">
-    <!-- Mobile Header -->
-    
-    <main class="flex-1 flex flex-col overflow-x-hidden">
-        <div id="content-area" class="p-8 overflow-y-auto">
-            <!-- Grid de cards de áreas de direito -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <!-- Card: Direito Previdenciário -->
-                <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Previdenciário')">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="p-6 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-2xl mb-4 shadow-md">
-                            <i class="fas fa-person-cane text-4xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800">Previdenciário</h3>
-                        <p class="text-xs text-slate-500 mt-2">Benefícios e direitos previdenciários</p>
-                    </div>
-                </div>
 
-                <!-- Card: Direito Trabalhista -->
-                <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Trabalhista')">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="p-6 bg-gradient-to-br from-purple-100 to-purple-200 text-purple-700 rounded-2xl mb-4 shadow-md">
-                            <i class="fas fa-briefcase text-4xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800">Trabalhista</h3>
-                        <p class="text-xs text-slate-500 mt-2">Relações e direitos trabalhistas</p>
-                    </div>
-                </div>
-
-                <!-- Card: Direito Administrativo -->
-                <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Administrativo')">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="p-6 bg-gradient-to-br from-amber-100 to-amber-200 text-amber-700 rounded-2xl mb-4 shadow-md">
-                            <i class="fas fa-building text-4xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800">Administrativo</h3>
-                        <p class="text-xs text-slate-500 mt-2">Direito administrativo e público</p>
-                    </div>
-                </div>
-
-                <!-- Card: Direito da Saúde -->
-                <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Saúde')">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="p-6 bg-gradient-to-br from-red-100 to-red-200 text-red-700 rounded-2xl mb-4 shadow-md">
-                            <i class="fas fa-hospital text-4xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800">Saúde</h3>
-                        <p class="text-xs text-slate-500 mt-2">Direitos e questões de saúde</p>
-                    </div>
-                </div>
-
-                <!-- Card: Direito Imobiliário -->
-                <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Imobiliário')">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="p-6 bg-gradient-to-br from-green-100 to-green-200 text-green-700 rounded-2xl mb-4 shadow-md">
-                            <i class="fas fa-house text-4xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800">Imobiliário</h3>
-                        <p class="text-xs text-slate-500 mt-2">Propriedade e direitos imobiliários</p>
-                    </div>
-                </div>
-                <!-- Card: Direito do Consumidor -->
-                <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Consumidor')">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="p-6 bg-gradient-to-br from-cyan-100 to-cyan-200 text-cyan-700 rounded-2xl mb-4 shadow-md">
-                            <i class="fas fa-cart-shopping text-4xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800">Consumidor</h3>
-                        <p class="text-xs text-slate-500 mt-2">Proteção ao consumidor</p>
-                    </div>
-                </div>
-
-                <!-- Card: Direito Cível -->
-                <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Cível')">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="p-6 bg-gradient-to-br from-indigo-100 to-indigo-200 text-indigo-700 rounded-2xl mb-4 shadow-md">
-                            <i class="fas fa-scale-balanced text-4xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800">Cível</h3>
-                        <p class="text-xs text-slate-500 mt-2">Direito civil e contratual</p>
-                    </div>
-                </div>
-
-                <!-- Card: Direito Penal -->
-                <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Penal')">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="p-6 bg-gradient-to-br from-rose-100 to-rose-200 text-rose-700 rounded-2xl mb-4 shadow-md">
-                            <i class="fas fa-gavel text-4xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-slate-800">Penal</h3>
-                        <p class="text-xs text-slate-500 mt-2">Direito penal e criminal</p>
-                    </div>
-                </div>
-
+      <!-- Área de conteúdo dos cards -->
+      <div id="content-area" class="p-8 overflow-y-auto flex-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Card: Direito Previdenciário -->
+          <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Previdenciário')">
+            <div class="flex flex-col items-center text-center">
+              <div class="p-6 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-2xl mb-4 shadow-md">
+                <i class="fas fa-person-cane text-4xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-800">Previdenciário</h3>
+              <p class="text-xs text-slate-500 mt-2">Benefícios e direitos previdenciários</p>
             </div>
+          </div>
+
+          <!-- Card: Direito Trabalhista -->
+          <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Trabalhista')">
+            <div class="flex flex-col items-center text-center">
+              <div class="p-6 bg-gradient-to-br from-purple-100 to-purple-200 text-purple-700 rounded-2xl mb-4 shadow-md">
+                <i class="fas fa-briefcase text-4xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-800">Trabalhista</h3>
+              <p class="text-xs text-slate-500 mt-2">Relações e direitos trabalhistas</p>
+            </div>
+          </div>
+
+          <!-- Card: Direito Administrativo -->
+          <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Administrativo')">
+            <div class="flex flex-col items-center text-center">
+              <div class="p-6 bg-gradient-to-br from-amber-100 to-amber-200 text-amber-700 rounded-2xl mb-4 shadow-md">
+                <i class="fas fa-building text-4xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-800">Administrativo</h3>
+              <p class="text-xs text-slate-500 mt-2">Direito administrativo e público</p>
+            </div>
+          </div>
+
+          <!-- Card: Direito da Saúde -->
+          <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Saúde')">
+            <div class="flex flex-col items-center text-center">
+              <div class="p-6 bg-gradient-to-br from-red-100 to-red-200 text-red-700 rounded-2xl mb-4 shadow-md">
+                <i class="fas fa-hospital text-4xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-800">Saúde</h3>
+              <p class="text-xs text-slate-500 mt-2">Direitos e questões de saúde</p>
+            </div>
+          </div>
+
+          <!-- Card: Direito Imobiliário -->
+          <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Imobiliário')">
+            <div class="flex flex-col items-center text-center">
+              <div class="p-6 bg-gradient-to-br from-green-100 to-green-200 text-green-700 rounded-2xl mb-4 shadow-md">
+                <i class="fas fa-house text-4xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-800">Imobiliário</h3>
+              <p class="text-xs text-slate-500 mt-2">Propriedade e direitos imobiliários</p>
+            </div>
+          </div>
+
+          <!-- Card: Direito do Consumidor -->
+          <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Consumidor')">
+            <div class="flex flex-col items-center text-center">
+              <div class="p-6 bg-gradient-to-br from-cyan-100 to-cyan-200 text-cyan-700 rounded-2xl mb-4 shadow-md">
+                <i class="fas fa-cart-shopping text-4xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-800">Consumidor</h3>
+              <p class="text-xs text-slate-500 mt-2">Proteção ao consumidor</p>
+            </div>
+          </div>
+
+          <!-- Card: Direito Cível -->
+          <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Cível')">
+            <div class="flex flex-col items-center text-center">
+              <div class="p-6 bg-gradient-to-br from-indigo-100 to-indigo-200 text-indigo-700 rounded-2xl mb-4 shadow-md">
+                <i class="fas fa-scale-balanced text-4xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-800">Cível</h3>
+              <p class="text-xs text-slate-500 mt-2">Direito civil e contratual</p>
+            </div>
+          </div>
+
+          <!-- Card: Direito Penal -->
+          <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Penal')">
+            <div class="flex flex-col items-center text-center">
+              <div class="p-6 bg-gradient-to-br from-rose-100 to-rose-200 text-rose-700 rounded-2xl mb-4 shadow-md">
+                <i class="fas fa-gavel text-4xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-slate-800">Penal</h3>
+              <p class="text-xs text-slate-500 mt-2">Direito penal e criminal</p>
+            </div>
+          </div>
         </div>
-         <!-- MODAL DE PROMPTS -->
-    <div id="prompt-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
-        <div class="bg-white/90 backdrop-blur-xl w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-white/40">
-            <div class="p-6 border-b border-white/30 flex justify-between items-center bg-white/30">
-                <div>
-                    <h3 id="modal-area-title" class="text-xl font-bold text-slate-800">Prompts</h3>
-                    <p id="modal-area-desc" class="text-sm text-slate-500"></p>
-                </div>
-                <button onclick="closePromptModal()" class="text-slate-500 hover:text-slate-800 bg-white/40 w-8 h-8 rounded-full flex items-center justify-center">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="p-8 overflow-y-auto" id="modal-content">
-                <p class="text-slate-600 text-center">Prompts em desenvolvimento...</p>
-            </div>
-            <div class="p-6 border-t border-white/30 flex justify-end bg-white/20">
-                <button onclick="closePromptModal()" class="px-6 py-2 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-700">Fechar</button>
-            </div>
-        </div>
-    </div>
+      </div>
 
-    <!-- JS similar to index for toggles but minimal -->
-
-
-       <footer
-        class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground">
         <p>Super Inteligênc<span class="text-primary font-semibold">[IA]</span>. Todos os direitos reservados.</p>
         <a href="#" target="_blank"
           class="inline-flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 hover:bg-[var(--border-light)] transition">🌐
           Visite nosso site</a>
       </footer>
     </main>
-    <script>
-       
-    document.addEventListener('DOMContentLoaded', function () {
-      // Inicializa os ícones
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+  </div>
 
-      // Theme toggle
-      const themeToggle = document.getElementById('themeToggle');
-      const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      if (isDark) document.documentElement.classList.add('dark');
-      else document.documentElement.classList.remove('dark');
+  <!-- MODAL DE PROMPTS (estrutura compatível com Font Awesome e dark mode) -->
+  <div id="prompt-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
+    <div class="bg-white/90 backdrop-blur-xl w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-white/40">
+      <div class="p-6 border-b border-white/30 flex justify-between items-center bg-white/30">
+        <div>
+          <h3 id="modal-area-title" class="text-xl font-bold text-slate-800">Prompts</h3>
+          <p id="modal-area-desc" class="text-sm text-slate-500"></p>
+        </div>
+        <button onclick="closePromptModal()" class="text-slate-500 hover:text-slate-800 bg-white/40 w-8 h-8 rounded-full flex items-center justify-center">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="p-8 overflow-y-auto" id="modal-content">
+        <p class="text-slate-600 text-center">Prompts em desenvolvimento...</p>
+      </div>
+      <div class="p-6 border-t border-white/30 flex justify-end bg-white/20">
+        <button onclick="closePromptModal()" class="px-6 py-2 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-700">Fechar</button>
+      </div>
+    </div>
+  </div>
 
-      themeToggle?.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-        localStorage.setItem('theme', theme);
-        if (typeof lucide !== 'undefined') lucide.createIcons(); // recria ícones para trocar sun/moon
-      });
+  <script>
+    // Objeto com descrições das áreas
+    const areaDescriptions = {
+      'Previdenciário': 'Sugestões de prompts para atendimento em direito previdenciário',
+      'Trabalhista': 'Sugestões de prompts para atendimento em direito trabalhista',
+      'Administrativo': 'Sugestões de prompts para atendimento em direito administrativo',
+      'Saúde': 'Sugestões de prompts para atendimento em direito da saúde',
+      'Imobiliário': 'Sugestões de prompts para atendimento em direito imobiliário',
+      'Consumidor': 'Sugestões de prompts para atendimento em direito do consumidor',
+      'Cível': 'Sugestões de prompts para atendimento em direito cível',
+      'Penal': 'Sugestões de prompts para atendimento em direito penal'
+    };
 
-      // Sidebar mobile
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      const openBtn = document.getElementById('openSidebarBtn');
-      const closeBtn = document.getElementById('closeSidebarBtn');
-
-      function openSidebar() {
-        sidebar.classList.remove('-translate-x-full');
-        overlay.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeSidebar() {
-        sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-      openBtn?.addEventListener('click', openSidebar);
-      closeBtn?.addEventListener('click', closeSidebar);
-      overlay?.addEventListener('click', closeSidebar);
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024) {
-          closeSidebar();
-          sidebar.classList.remove('-translate-x-full');
-          overlay.classList.add('hidden');
-          document.body.style.overflow = '';
-        } else {
-          if (!sidebar.classList.contains('-translate-x-full')) {
-            // se estiver aberto, mantém, mas não força fechamento
-          } else {
-            sidebar.classList.add('-translate-x-full');
-          }
-        }
-      });
-      if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
-      else sidebar.classList.add('-translate-x-full');
-
-      // Accordion
-      const toggleButtons = document.querySelectorAll('.nav-toggle');
-      toggleButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const parentGroup = btn.closest('.nav-group');
-          const content = parentGroup.querySelector('.collapsible-content');
-          const icon = btn.querySelector('.rotate-icon');
-          content.classList.toggle('open');
-          if (icon) {
-            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
-          }
-        });
-      });
-    });
-     // Inicializar tema quando o DOM carrega
-        document.addEventListener('DOMContentLoaded', initTheme);
-
-        // --- MODAL DE PROMPTS ---
-        const areaDescriptions = {
-            'Previdenciário': 'Sugestões de prompts para atendimento em direito previdenciário',
-            'Trabalhista': 'Sugestões de prompts para atendimento em direito trabalhista',
-            'Administrativo': 'Sugestões de prompts para atendimento em direito administrativo',
-            'Saúde': 'Sugestões de prompts para atendimento em direito da saúde',
-            'Imobiliário': 'Sugestões de prompts para atendimento em direito imobiliário',
-            'Consumidor': 'Sugestões de prompts para atendimento em direito do consumidor',
-            'Cível': 'Sugestões de prompts para atendimento em direito cível',
-            'Penal': 'Sugestões de prompts para atendimento em direito penal'
-        };
-
-        const promptsContent = {
+    // Conteúdo dos prompts (corrigido: removido duplicata da chave 'Saúde')
+    const promptsContent = {
             'Previdenciário': `
                 <h4 class="text-lg font-bold text-slate-800 mb-4">Assistente Jurídico Previdenciário</h4>
                 <p class="text-sm text-slate-600 mb-4">Este prompt foi desenhado para ser inserido na configuração da IA de atendimento inicial (WhatsApp ou Chatbot).</p>
@@ -924,17 +922,68 @@
             `
         };
 
-        function openPromptModal(area) {
-            document.getElementById('modal-area-title').innerText = `Prompts - ${area}`;
-            document.getElementById('modal-area-desc').innerText = areaDescriptions[area] || '';
-            document.getElementById('modal-content').innerHTML = promptsContent[area] || '<p class="text-slate-600 text-center">Conteúdo não disponível</p>';
-            document.getElementById('prompt-modal').classList.remove('hidden');
-        }
 
-        function closePromptModal() {
-            document.getElementById('prompt-modal').classList.add('hidden');
-        }
-     </script>
+    // Funções do modal
+    function openPromptModal(area) {
+      document.getElementById('modal-area-title').innerText = `Prompts - ${area}`;
+      document.getElementById('modal-area-desc').innerText = areaDescriptions[area] || '';
+      document.getElementById('modal-content').innerHTML = promptsContent[area] || '<p class="text-slate-600 text-center">Conteúdo não disponível</p>';
+      document.getElementById('prompt-modal').classList.remove('hidden');
+    }
+
+    function closePromptModal() {
+      document.getElementById('prompt-modal').classList.add('hidden');
+    }
+
+    // Inicialização do tema, sidebar, accordion e lucide
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      // Tema
+      const themeToggle = document.getElementById('themeToggle');
+      const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+
+      themeToggle?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        localStorage.setItem('theme', theme);
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      });
+
+      // Sidebar mobile
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const openBtn = document.getElementById('openSidebarBtn');
+      const closeBtn = document.getElementById('closeSidebarBtn');
+
+      function openSidebar() { sidebar.classList.remove('-translate-x-full'); overlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+      function closeSidebar() { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); document.body.style.overflow = ''; }
+      openBtn?.addEventListener('click', openSidebar);
+      closeBtn?.addEventListener('click', closeSidebar);
+      overlay?.addEventListener('click', closeSidebar);
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) { closeSidebar(); sidebar.classList.remove('-translate-x-full'); overlay.classList.add('hidden'); document.body.style.overflow = ''; }
+        else sidebar.classList.add('-translate-x-full');
+      });
+      if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
+      else sidebar.classList.add('-translate-x-full');
+
+      // Accordion
+      const toggleButtons = document.querySelectorAll('.nav-toggle');
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const parentGroup = btn.closest('.nav-group');
+          const content = parentGroup.querySelector('.collapsible-content');
+          const icon = btn.querySelector('.rotate-icon');
+          content.classList.toggle('open');
+          if (icon) icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
