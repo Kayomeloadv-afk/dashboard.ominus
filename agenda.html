@@ -626,6 +626,8 @@
     </main>
 <script>
 
+    const WEBHOOK_URL = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-agenda-event";
+    const DELETE_WEBHOOK_URL = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/delete-agenda-event"; // Substitua pela URL do seu webhook n8n
     // Estrutura de eventos: chave "yyyy-mm-dd" -> array de eventos
     let eventsDB = {};
 
@@ -677,6 +679,7 @@
         }
         saveEvents();
     }
+    
     function saveEvents() {
         localStorage.setItem("juridic_agenda_events", JSON.stringify(eventsDB));
     }
@@ -696,35 +699,70 @@
     }
 
     // Adicionar evento
-    function addEvent(dateObj, title, type, time) {
-        if (!title.trim()) {
-            alert("Por favor, informe o título do compromisso.");
-            return false;
-        }
-        const key = getDateKey(dateObj);
-        if (!eventsDB[key]) eventsDB[key] = [];
-        const newEvent = {
-            id: Date.now() + Math.random(),
-            title: title.trim(),
-            type: type,
-            time: time || ""
-        };
-        eventsDB[key].push(newEvent);
+    // Substitua sua função addEvent por esta:
+async function addEvent(dateObj, title, type, time) {
+    const dateKey = getDateKey(dateObj);
+    const eventData = { title, type, date: dateKey, time: time || "00:00" };
+
+    try {
+        // 1. Envia para o n8n e espera a resposta com o ID do Google
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
+            body: JSON.stringify(eventData)
+        });
+        
+        const result = await response.json();
+        const googleId = result.id; // n8n deve retornar o ID aqui
+
+        // 2. Salva localmente incluindo o ID do Google
+        if (!eventsDB[dateKey]) eventsDB[dateKey] = [];
+        eventsDB[dateKey].push({ 
+            id: Date.now(), 
+            googleEventId: googleId, // ID fundamental para o delete direto
+            ...eventData 
+        });
+        
         saveEvents();
         return true;
-    }
-
-    // Remover evento
-    function removeEvent(dateObj, eventId) {
-        const key = getDateKey(dateObj);
-        if (eventsDB[key]) {
-            eventsDB[key] = eventsDB[key].filter(ev => ev.id !== eventId);
-            if (eventsDB[key].length === 0) delete eventsDB[key];
-            saveEvents();
-            return true;
-        }
+    } catch (e) {
+        console.error("Erro ao criar evento:", e);
         return false;
     }
+}
+
+    // Remover evento
+    async function removeEvent(dateObj, eventId) {
+    const key = getDateKey(dateObj);
+    const eventToDelete = eventsDB[key]?.find(ev => ev.id === eventId);
+
+    if (eventToDelete && eventToDelete.googleEventId) {
+        // Envia o ID DIRETAMENTE para o webhook de deleção
+        const payload = { googleEventId: eventToDelete.googleEventId };
+
+        console.log("Deletando ID direto no Google:", payload.googleEventId);
+
+        try {
+            await fetch(DELETE_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'ngrok-skip-browser-warning': 'true' 
+                },
+                body: JSON.stringify(payload)
+            });
+        } catch (e) {
+            console.error("Erro no delete:", e);
+        }
+    }
+
+    // Limpeza local
+    eventsDB[key] = eventsDB[key].filter(ev => ev.id !== eventId);
+    if (eventsDB[key].length === 0) delete eventsDB[key];
+    saveEvents();
+    renderCalendar();
+    renderEventsForSelected();
+}
 
     // Renderizar calendário
     function renderCalendar() {
@@ -853,15 +891,16 @@
         
         // Adicionar listeners de delete
         document.querySelectorAll('.delete-event').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const eventId = Number(btn.getAttribute('data-id'));
-                if (confirm('Remover este compromisso?')) {
-                    removeEvent(selectedDate, eventId);
-                    renderEventsForSelected();
-                    renderCalendar(); // atualizar indicadores visuais
-                }
-            });
+           btn.addEventListener('click', async (e) => { // Adicionado async aqui
+    e.stopPropagation();
+    const eventId = Number(btn.getAttribute('data-id'));
+    
+    if (confirm('Remover este compromisso do sistema e do Google Calendar?')) {
+        await removeEvent(selectedDate, eventId); // Adicionado await aqui
+        renderEventsForSelected();
+        renderCalendar(); 
+    }
+});
         });
     }
     
@@ -1048,6 +1087,130 @@
         });
       });
     });
+    // 1. Nova função para buscar dados do n8n (Google Calendar)
+async function syncWithGoogle() {
+    try {
+        const response = await fetch('https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-agenda-events', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'ngrok-skip-browser-warning': 'true' // Pula a tela de bloqueio do Ngrok
+            }
+        });
+        
+        const cloudEvents = await response.json();
+        
+        // Mescla os eventos que vieram do Google com o que está no localStorage
+        eventsDB = { ...eventsDB, ...cloudEvents };
+        
+        // Atualiza a tela com os dados novos
+        renderCalendar();
+        renderEventsForSelected();
+        console.log("Agenda sincronizada com Google Calendar via n8n");
+    } catch (e) {
+        console.error("Erro na sincronização com n8n:", e);
+    }
+}
+
+// 2. O bloco de inicialização corrigido
+document.addEventListener('DOMContentLoaded', () => {
+    // Carrega o que está no navegador (LocalStorage)
+    loadEvents(); 
+
+    // Inicia a busca no Google Calendar (n8n)
+    syncWithGoogle();
+
+    // --- AQUI COMEÇA O "RESTANTE DO SEU CÓDIGO" ORIGINAL ---
+    // (Mantive abaixo as funções de interface que você enviou no script)
+
+    // Configuração do Relógio
+    displayYear = selectedDate.getFullYear();
+    displayMonth = selectedDate.getMonth();
+    renderCalendar();
+    renderEventsForSelected();
+    
+    // Botões de navegação do mês
+    document.getElementById('prevMonthBtn').addEventListener('click', () => changeMonth(-1));
+    document.getElementById('nextMonthBtn').addEventListener('click', () => changeMonth(1));
+    
+    // Lógica do botão de Adicionar Evento
+    const addBtn = document.getElementById('addEventBtn');
+    addBtn.addEventListener('click', () => {
+        const titleInput = document.getElementById('eventTitle');
+        const typeSelect = document.getElementById('eventType');
+        const timeInput = document.getElementById('eventTime');
+        
+        const title = titleInput.value.trim();
+        const type = typeSelect.value;
+        const time = timeInput.value;
+        
+        if (!title) {
+            alert("Digite o título do compromisso.");
+            return;
+        }
+        
+        // Esta função agora envia para o n8n (conforme configuramos no passo anterior)
+        addEvent(selectedDate, title, type, time).then(success => {
+            if (success) {
+                titleInput.value = '';
+                timeInput.value = '';
+                renderEventsForSelected();
+                renderCalendar();
+            }
+        });
+    });
+
+    // Inicialização de Temas e Sidebar (Lucide icons, Dark mode, etc)
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    // ... (restante dos event listeners da sua sidebar e tema)
+});
+async function removeEvent(dateObj, eventId) {
+    const key = getDateKey(dateObj); // Gera a chave YYYY-MM-DD
+    if (!eventsDB[key]) return false;
+
+    // 1. Localiza o evento no banco local antes de deletar
+    const eventToDelete = eventsDB[key].find(ev => ev.id === eventId);
+    
+    if (eventToDelete) {
+        // --- BLOCO SOLICITADO ---
+        const payload = {
+            title: eventToDelete.title,
+            date: key,  // 'key' já contém o formato YYYY-MM-DD que o n8n espera
+            time: eventToDelete.time
+        };
+
+        console.log("Enviando para deleção:", payload); // Para você conferir no console
+
+        try {
+            await fetch(DELETE_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 'true'
+                },
+                body: JSON.stringify(payload) // Enviando o objeto corrigido
+            });
+            console.log("Solicitação de exclusão enviada ao n8n com sucesso.");
+        } catch (e) {
+            console.error("Erro ao comunicar exclusão com n8n:", e);
+        }
+        // --- FIM DO BLOCO ---
+    }
+
+    // 2. Remove do banco de dados local (localStorage) para atualizar a interface
+    eventsDB[key] = eventsDB[key].filter(ev => ev.id !== eventId);
+    
+    // Limpa a chave se não houver mais eventos no dia
+    if (eventsDB[key].length === 0) {
+        delete eventsDB[key];
+    }
+    
+    saveEvents(); // Atualiza o localStorage
+    renderCalendar(); // Atualiza as bolinhas no calendário
+    renderEventsForSelected(); // Atualiza a lista lateral
+    
+    return true;
+}
   </script>
 </body>
 </html>
