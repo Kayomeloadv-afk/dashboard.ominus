@@ -614,6 +614,29 @@
     #toast.error {
       border-left: 4px solid var(--danger);
     }
+    .w-80.h-80 {
+            width: 5rem;
+            /* Ajuste o valor conforme necessário */
+            height: 5rem;
+            /* Ajuste o valor conforme necessário */
+        }
+
+        /* Estilos para o tema claro (padrão) */
+        /* Tema claro (padrão) */
+.logo-dark {
+    display: none;
+}
+.logo-light {
+    display: block;
+}
+
+/* Tema escuro (quando a classe .dark está no html) */
+html.dark .logo-dark {
+    display: block;
+}
+html.dark .logo-light {
+    display: none;
+}
   </style>
 </head>
 
@@ -625,7 +648,8 @@
       <div class="flex flex-col h-full">
         <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
           <div class="flex items-center gap-2">
-            
+            <img src="assets/fundo preto (branco) recorte.png"  class="logo-dark w-80 h-80">
+                        <img src="assets/fundo branco (preta) (1) recorte.png"  class="logo-light w-80 h-80">
           </div>
           <button id="closeSidebarBtn" class="lg:hidden text-muted-foreground hover:text-foreground p-1">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -850,12 +874,8 @@
       </div>
 
       <!-- Footer -->
-      <footer
-        class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
-        <p>Super Inteligênc<span class="text-primary font-semibold">[IA]</span>. Todos os direitos reservados.</p>
-        <a href="#" target="_blank"
-          class="inline-flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 hover:bg-[var(--border-light)] transition">🌐
-          Visite nosso site</a>
+      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+       
       </footer>
     </main>
 

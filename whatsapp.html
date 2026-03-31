@@ -137,6 +137,29 @@
     .placeholder-muted-foreground::placeholder {
       color: var(--text-muted);
     }
+    .w-80.h-80 {
+            width: 5rem;
+            /* Ajuste o valor conforme necessário */
+            height: 5rem;
+            /* Ajuste o valor conforme necessário */
+        }
+
+        /* Estilos para o tema claro (padrão) */
+        /* Tema claro (padrão) */
+.logo-dark {
+    display: none;
+}
+.logo-light {
+    display: block;
+}
+
+/* Tema escuro (quando a classe .dark está no html) */
+html.dark .logo-dark {
+    display: block;
+}
+html.dark .logo-light {
+    display: none;
+}
   </style>
 </head>
 
@@ -148,7 +171,8 @@
       <div class="flex flex-col h-full">
         <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
           <div class="flex items-center gap-2">
-          
+          <img src="assets/fundo preto (branco) recorte.png"  class="logo-dark w-80 h-80">
+                        <img src="assets/fundo branco (preta) (1) recorte.png"  class="logo-light w-80 h-80">
               
           </div>
           <button id="closeSidebarBtn" class="lg:hidden text-muted-foreground hover:text-foreground p-1">
@@ -358,12 +382,8 @@
                         </div>
                     </div>
                 </div>
-      <footer
-        class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
-        <p>Super Inteligênc<span class="text-primary font-semibold">[IA]</span>. Todos os direitos reservados.</p>
-        <a href="#" target="_blank"
-          class="inline-flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 hover:bg-[var(--border-light)] transition">🌐
-          Visite nosso site</a>
+      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+       
       </footer>
     </main>
     <script>
@@ -439,52 +459,93 @@
         });
       });
     });
-    function updateStatusUI(service) {
-            const statusLabel = document.getElementById(`status-${service}`);
-            if (currentServiceStatus[service]) {
-                statusLabel.innerText = "ATIVO";
-                statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
-            } else {
-                statusLabel.innerText = "INATIVO";
-                statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
-            }
+    let currentServiceStatus = {
+    whatsapp: false
+};
+
+// 1. Função para salvar o estado atual no localStorage
+function saveStatusToStorage() {
+    localStorage.setItem('serviceStatus', JSON.stringify(currentServiceStatus));
+}
+
+// 2. Função para recuperar o estado do localStorage ao carregar a página
+function loadStatusFromStorage() {
+    const savedStatus = localStorage.getItem('serviceStatus');
+    
+    if (savedStatus) {
+        // Mescla os status salvos no storage com o objeto atual
+        // Isso evita erros caso você adicione um novo serviço no futuro
+        currentServiceStatus = { ...currentServiceStatus, ...JSON.parse(savedStatus) };
+    }
+
+    // Atualiza a interface visual para todos os serviços na página atual
+    for (const service in currentServiceStatus) {
+        const statusLabel = document.getElementById(`status-${service}`);
+        // Verifica se o elemento existe na página atual antes de tentar atualizar
+        if (statusLabel) { 
+            updateStatusUI(service);
         }
-        let currentServiceStatus = {
-            whatsapp: false// novo serviço de notícias
-        };
-        async function toggleService(service) {
-            const statusLabel = document.getElementById(`status-${service}`);
-            const originalText = statusLabel.innerText;
+    }
+}
 
-            // escolher webhook específico para notícias
-            const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : service === 'telegram' ? WEBHOOK_TOGGLE_TELEGRAM : WEBHOOK_TOGGLE;
+function updateStatusUI(service) {
+    const statusLabel = document.getElementById(`status-${service}`);
+    
+    // Proteção caso o elemento não exista na página HTML atual
+    if (!statusLabel) return; 
 
-            try {
-                statusLabel.innerText = "PROCESSANDO...";
-                statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
+    if (currentServiceStatus[service]) {
+        statusLabel.innerText = "ATIVO";
+        statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
+    } else {
+        statusLabel.innerText = "INATIVO";
+        statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
+    }
+}
 
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        servico: service,
-                        acao: currentServiceStatus[service] ? 'false' : 'true',
-                        timestamp: new Date().toISOString()
-                    })
-                });
+async function toggleService(service) {
+    const statusLabel = document.getElementById(`status-${service}`);
+    const originalText = statusLabel.innerText;
 
-                if (response.ok) {
-                    currentServiceStatus[service] = !currentServiceStatus[service];
-                    updateStatusUI(service);
-                } else {
-                    throw new Error('Falha na comunicação');
-                }
-            } catch (error) {
-                console.error("Erro ao alternar serviço:", error);
-                alert("Erro ao comunicar com o n8n. Verifique o console.");
-                updateStatusUI(service);
-            }
+    // escolher webhook específico para notícias
+    const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : service === 'telegram' ? WEBHOOK_TOGGLE_TELEGRAM : WEBHOOK_TOGGLE;
+
+    try {
+        statusLabel.innerText = "PROCESSANDO...";
+        statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
+
+        const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                servico: service,
+                acao: currentServiceStatus[service] ? 'false' : 'true',
+                timestamp: new Date().toISOString()
+            })
+        });
+
+        if (response.ok) {
+            // Alterna o valor no objeto
+            currentServiceStatus[service] = !currentServiceStatus[service];
+            
+            // 3. Salva o novo valor no LocalStorage
+            saveStatusToStorage();
+            
+            // Atualiza o botão
+            updateStatusUI(service);
+        } else {
+            throw new Error('Falha na comunicação');
         }
+    } catch (error) {
+        console.error("Erro ao alternar serviço:", error);
+        alert("Erro ao comunicar com o n8n. Verifique o console.");
+        // Reverte a UI para o estado anterior em caso de erro no n8n
+        updateStatusUI(service); 
+    }
+}
+
+// 4. Executa a função de carregamento assim que a página HTML estiver pronta
+
         async function generateQRCode() {
             const instanceName = document.getElementById('instance-name').value;
             if (!instanceName) {
@@ -563,6 +624,15 @@
                 btn.disabled = false;
             }
         }
+    document.addEventListener("DOMContentLoaded", () => {
+    loadStatusFromStorage();
+});
+
+window.addEventListener('storage', (event) => {
+    if (event.key === 'serviceStatus') {
+        loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
+    }
+});
  </script>
 </body>
 
