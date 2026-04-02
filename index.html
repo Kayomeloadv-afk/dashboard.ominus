@@ -2,1084 +2,707 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ominus tech · Automação Jurídica</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/.png">
-    <!-- Tailwind + plugins -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
-        rel="stylesheet">
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            font-family: 'Inter', sans-serif;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ominus</title>
+  <!-- Google Fonts + Tailwind + Lucide -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --border-light: #e9eef3;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --primary: #7c3aed;
+      --primary-dark: #6d28d9;
+      --primary-soft: #ede9fe;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+      --card-hover-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+      --sidebar-bg: #ffffff;
+      --header-bg: rgba(255, 255, 255, 0.8);
+    }
+
+    .dark {
+      --bg-base: #0a0a0f;
+      --bg-surface: #12121a;
+      --border-light: #23232e;
+      --text-main: #f1f5f9;
+      --text-muted: #9ca3af;
+      --primary: #a78bfa;
+      --primary-dark: #8b5cf6;
+      --primary-soft: #2d2a3e;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --card-hover-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.4);
+      --sidebar-bg: #0f0f14;
+      --header-bg: rgba(15, 15, 20, 0.85);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .bg-background {
+      background-color: var(--bg-base);
+    }
+
+    .bg-card {
+      background-color: var(--bg-surface);
+    }
+
+    .border-border {
+      border-color: var(--border-light);
+    }
+
+    .text-foreground {
+      color: var(--text-main);
+    }
+
+    .text-muted-foreground {
+      color: var(--text-muted);
+    }
+
+    .bg-primary\/10 {
+      background-color: rgba(124, 58, 237, 0.1);
+    }
+
+    .dark .bg-primary\/10 {
+      background-color: rgba(139, 92, 246, 0.15);
+    }
+
+    .bg-primary {
+      background-color: var(--primary);
+    }
+
+    .hover\:bg-primary\/90:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .text-primary {
+      color: var(--primary);
+    }
+
+    .border-primary\/15 {
+      border-color: rgba(124, 58, 237, 0.15);
+    }
+
+    .shadow-card {
+      box-shadow: var(--card-shadow);
+    }
+
+    .hover\:shadow-card-hover:hover {
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .sidebar-transition {
+      transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .backdrop-blur-sm {
+      backdrop-filter: blur(8px);
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-light);
+      border-radius: 10px;
+    }
+
+    .collapsible-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease-out;
+    }
+
+    .collapsible-content.open {
+      max-height: 320px;
+      transition: max-height 0.35s ease-in;
+    }
+
+    .rotate-icon {
+      transition: transform 0.2s;
+    }
+     .w-80.h-80 {
+            width: 5rem;
+            /* Ajuste o valor conforme necessário */
+            height: 5rem;
+            /* Ajuste o valor conforme necessário */
         }
 
-        body {
-            background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
-        }
+        /* Estilos para o tema claro (padrão) */
+        /* Tema claro (padrão) */
+.logo-dark {
+    display: none;
+}
+.logo-light {
+    display: block;
+}
 
-        .glass-sidebar {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
-        }
-
-        .hover-lift {
-            transition: transform 0.15s ease, box-shadow 0.2s ease;
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 32px -8px rgba(0, 34, 64, 0.15);
-        }
-
-        /* scrollbar personalizada */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #e2e8f0;
-            border-radius: 12px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #94a3b8;
-            border-radius: 12px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
-
-        /* sidebar retrátil */
-        .sidebar-collapsed {
-            width: 4rem !important;
-        }
-
-        .sidebar-collapsed .nav-text,
-        .sidebar-collapsed .user-info,
-        .sidebar-collapsed .sidebar-header-text {
-            display: none;
-        }
-
-        .sidebar-collapsed .p-8 {
-            padding: 1rem !important;
-            /* reduce padding when collapsed */
-        }
-
-        .sidebar-collapsed nav a {
-            justify-content: center;
-        }
-
-        .sidebar-collapsed nav a i {
-            margin-right: 0 !important;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #e2e8f0;
-            border-radius: 12px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #94a3b8;
-            border-radius: 12px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
-
-        /* TEMA DARK MODE */
-        body.dark-theme {
-            background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
-            color: #e2e8f0;
-        }
-
-        body.dark-theme .glass-sidebar {
-            background: rgba(2, 6, 23, 0.95);
-        }
-
-        body.dark-theme .glass-card {
-            background: rgba(30, 41, 59, 0.6);
-            border-color: rgba(148, 163, 184, 0.1);
-            color: #e2e8f0;
-        }
-
-        body.dark-theme .text-slate-800 {
-            color: #e2e8f0;
-        }
-
-        body.dark-theme .text-slate-600 {
-            color: #cbd5e1;
-        }
-
-        body.dark-theme .text-slate-500 {
-            color: #94a3b8;
-        }
-
-        body.dark-theme .text-slate-300 {
-            color: #cbd5e1;
-        }
-
-        body.dark-theme .bg-white\/70 {
-            background: rgba(15, 23, 42, 0.9);
-        }
-
-        body.dark-theme .bg-white\/50 {
-            background: rgba(30, 41, 59, 0.5);
-        }
-
-        body.dark-theme .border-white\/30 {
-            border-color: rgba(71, 85, 105, 0.3);
-        }
-
-        body.dark-theme .border-b {
-            border-color: rgba(71, 85, 105, 0.3);
-        }
-
-        body.dark-theme .bg-emerald-50 {
-            background: rgba(5, 150, 105, 0.1);
-        }
-
-        body.dark-theme .text-emerald-700 {
-            color: #6ee7b7;
-        }
-
-        body.dark-theme .text-emerald-600 {
-            color: #6ee7b7;
-        }
-
-        body.dark-theme .bg-slate-100\/50 {
-            background: rgba(71, 85, 105, 0.1);
-        }
-
-        body.dark-theme .bg-slate-100 {
-            background: rgba(71, 85, 105, 0.15);
-        }
-
-        body.dark-theme .bg-blue-600 {
-            background: #3b82f6;
-        }
-
-        body.dark-theme .hover\:bg-white\/20:hover {
-            background: rgba(148, 163, 184, 0.1);
-        }
-
-        body.dark-theme ::-webkit-scrollbar-track {
-            background: #1e293b;
-        }
-
-        body.dark-theme ::-webkit-scrollbar-thumb {
-            background: #475569;
-        }
-
-        body.dark-theme ::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
-
-        .theme-toggle {
-            transition: transform 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(20deg);
-        }
-
-        /* sidebar theme inspired by CRM page */
-        :root {
-            --sidebar-bg-color: #1a1d27;
-            --sidebar-border-color: #2a2f45;
-            --sidebar-accent-color: #6c63ff;
-            --sidebar-text-color: #e2e8f0;
-        }
-
-        .glass-sidebar {
-            background: var(--sidebar-bg-color) !important;
-            border-right: 1px solid var(--sidebar-border-color);
-            color: var(--sidebar-text-color);
-        }
-
-        .glass-sidebar a {
-            color: var(--sidebar-text-color);
-        }
-
-        .glass-sidebar .sidebar-active {
-            background: rgba(108, 99, 255, 0.2);
-        }
-
-        .glass-sidebar a:hover {
-            background: rgba(108, 99, 255, 0.1);
-        }
-
-        .glass-sidebar i {
-            color: var(--sidebar-accent-color);
-        }
-
-        #mobile-menu a {
-            color: var(--sidebar-text-color);
-        }
-
-        #mobile-menu a:hover {
-            color: var(--sidebar-accent-color);
-        }
-    </style>
+/* Tema escuro (quando a classe .dark está no html) */
+html.dark .logo-dark {
+    display: block;
+}
+html.dark .logo-light {
+    display: none;
+}
+  </style>
 </head>
 
-<body class="min-h-screen flex flex-col md:flex-row text-slate-800 antialiased">
-
-    <!-- Mobile Header -->
-    <div
-        class="md:hidden bg-slate-900/90 backdrop-blur-sm text-white p-4 flex justify-between items-center sticky top-0 z-50">
-        <h1 class="text-xl font-bold text-blue-300 tracking-tight">Ominus tech</h1>
-        <button onclick="toggleMobileMenu()" class="text-2xl">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-
-    <!-- Mobile Menu Overlay (glass) -->
-    <div id="mobile-menu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-xl z-[60] hidden flex-col p-8">
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-2xl font-bold text-blue-300">Ominus tech</h1>
-            <button onclick="toggleMobileMenu()" class="text-2xl text-white">
-                <i class="fas fa-times"></i>
-            </button>
+<body class="bg-background antialiased">
+  <div class="min-h-screen flex relative">
+    <!-- SIDEBAR -->
+    <aside id="sidebar"
+      class="fixed lg:relative z-30 w-[280px] h-full bg-[var(--sidebar-bg)] border-r border-border backdrop-blur-sm transition-all duration-300 ease-out lg:translate-x-0 -translate-x-full lg:flex flex-col shrink-0 shadow-xl lg:shadow-none">
+      <div class="flex flex-col h-full">
+        <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
+          <div class="flex items-center gap-2">
+              <img src="assets/fundo preto (branco) recorte.png"  class="logo-dark w-80 h-80">
+                        <img src="assets/fundo branco (preta) (1) recorte.png"  class="logo-light w-80 h-80">
+          </div>
+          <button id="closeSidebarBtn" class="lg:hidden text-muted-foreground hover:text-foreground p-1">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
         </div>
-        <nav class="space-y-6">
-            <a href="#" onclick="showPage('overview'); toggleMobileMenu()"
-                class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Visão
-                Geral</a>
-            <a href="#" onclick="showPage('reports'); toggleMobileMenu()"
-                class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Relatórios</a>
-            <a href="#" onclick="showPage('whatsapp'); toggleMobileMenu()"
-                class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Config.
-                WhatsApp</a>
-            <a href="#" onclick="showPage('Bot-Noticias'); toggleMobileMenu()"
-                class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Config.
-                noticias</a>
-            <a href="crm.html"
-                class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">CRM de
-                Leads</a>
-            <a href="prompts.html"
-                class="block text-xl text-slate-300 py-2 border-b border-slate-700 hover:text-white transition">Prompts
-                Salvos</a>
-        </nav>
-    </div>
-
-    <!-- Sidebar Desktop (glass) -->
-    <aside class="w-72 glass-sidebar text-white flex-shrink-0 hidden md:flex flex-col transition-all duration-300">
-        <div class="p-8 relative">
-            <h1 class="text-3xl font-light tracking-tight text-blue-300 sidebar-header-text">Ominus<span
-                    class="font-bold text-white">tech</span></h1>
-            <p class="text-xs text-slate-400 uppercase tracking-widest mt-1 sidebar-header-text">Sistemas Jurídicos</p>
-            <!-- botão de retrair/expandir -->
-            <button id="sidebar-toggle-btn" onclick="toggleSidebar()"
-                class="absolute top-4 right-4 text-slate-300 hover:text-white">
-                <i class="fas fa-angle-left"></i>
-            </button>
+        <div class="p-4 border-b border-border flex items-center gap-3 flex-wrap">
+          <div class="h-9 w-9 rounded-xl bg-primary/20 flex items-center justify-center text-primary font-bold">KM</div>
+          <div class="flex-1 min-w-0">
+            <p class="font-semibold text-sm truncate">kayomelo.adv</p>
+            <span
+              class="inline-flex items-center rounded-full border border-primary/15 bg-primary/10 text-primary text-[10px] px-2 py-0.5 font-semibold mt-1">Dono
+              · Vitalício</span>
+          </div>
         </div>
-
-        <nav class="mt-4 flex-1 space-y-1 px-4">
-            <a href="#" onclick="showPage('overview')" id="nav-overview"
-                class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all sidebar-active">
-                <i class="fas fa-chart-line w-5 mr-3 text-blue-400"></i>
-                <span class="font-medium nav-text">Visão Geral</span>
-            </a>
-            <a href="#" onclick="showPage('reports')" id="nav-reports"
-                class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
-                <i class="fas fa-file-contract w-5 mr-3 text-indigo-400"></i>
-                <span class="font-medium nav-text">Relatórios</span>
-            </a>
-            <a href="#" onclick="showPage('whatsapp')" id="nav-whatsapp"
-                class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
-                <i class="fab fa-whatsapp w-5 mr-3 text-green-400"></i>
-                <span class="font-medium nav-text">Config. WhatsApp</span>
-            </a>
-            <a href="#" onclick="showPage('Bot-Noticias')" id="nav-noticias"
-                class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
-                <i class="fas fa-newspaper w-5 mr-3 text-red-400"></i>
-                <span class="font-medium nav-text">Config. Notícias</span>
-            </a>
-            <a href="crm.html" id="nav-crm"
-                class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
-                <i class="fas fa-users w-5 mr-3 text-purple-400"></i>
-                <span class="font-medium nav-text">CRM de Leads</span>
-            </a>
-            <a href="prompts.html" id="nav-prompts"
-                class="flex items-center px-4 py-3 rounded-xl text-slate-300 hover:bg-white/10 transition-all">
-                <i class="fas fa-save w-5 mr-3 text-yellow-400"></i>
-                <span class="font-medium nav-text">Prompts Salvos</span>
-            </a>
-        </nav>
-
-        <div class="p-6 border-t border-white/10 mt-auto">
-            <div class="flex items-center">
-                <div
-                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white font-bold shadow-lg">
-                    AD</div>
-                <div class="ml-3 user-info">
-                    <p class="text-sm font-medium">Dr. Advogado</p>
-                    <p class="text-xs text-slate-400">Plano Premium</p>
-                </div>
+        <nav class="flex-1 overflow-y-auto py-4 px-2 space-y-1">
+          <a href="index.html"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+            <span>Início</span>
+          </a>
+          <div class="nav-group">
+            <button
+              class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground transition-all group">
+              <div class="flex items-center gap-3"><i data-lucide="users" class="w-4 h-4"></i><span>Clientes e
+                  Agenda</span></div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="crm.html"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg">Clientes
+                (CRM)</a>
+              <a href="agenda.html"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg">Agenda</a>
             </div>
+          </div>
+          <div class="nav-group">
+            <button
+              class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground">
+              <div class="flex items-center gap-3"><i data-lucide="pen-tool" class="w-4 h-4"></i><span>Automações</span>
+              </div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="relatorios.html" class="block px-3 py-2 text-sm">Relatórios/Transcrição</a>
+              <a href="whatsapp.html" class="block px-3 py-2 text-sm">Agente de AI</a>
+              <a href="noticias.html" class="block px-3 py-2 text-sm">Bot-Noticias</a>
+            </div>
+          </div>
+          <div class="nav-group">
+            <button
+              class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground">
+              <div class="flex items-center gap-3"><i data-lucide="wrench" class="w-4 h-4"></i><span>Ferramentas</span>
+              </div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="prompts.html" class="block px-3 py-2 text-sm">Prompts Prontos</a>
+              <a href="#" class="block px-3 py-2 text-sm">Precificação Inteligente</a>
+              <a href="#" class="block px-3 py-2 text-sm">Dashboard Analytics</a>
+            </div>
+          </div>
+          <div class="nav-group">
+            <button
+              class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground">
+              <div class="flex items-center gap-3"><i data-lucide="globe" class="w-4 h-4"></i><span>Marketing</span>
+              </div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="#" class="block px-3 py-2 text-sm">Landing Pages</a>
+              <a href="#" class="block px-3 py-2 text-sm">Link na Bio</a>
+              <a href="#" class="block px-3 py-2 text-sm">SEO Jurídico</a>
+            </div>
+          </div>
+          <div class="nav-group">
+            <button
+              class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground">
+              <div class="flex items-center gap-3"><i data-lucide="dollar-sign"
+                  class="w-4 h-4"></i><span>Financeiro</span></div>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+            </button>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="#" class="block px-3 py-2 text-sm">Fluxo de Caixa</a>
+              <a href="#" class="block px-3 py-2 text-sm">Relatórios</a>
+              <a href="#" class="block px-3 py-2 text-sm">Comissões</a>
+            </div>
+          </div>
+          <div class="pt-4 mt-2 border-t border-border">
+            <div class="nav-group">
+              <button
+                class="nav-toggle w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)]">
+                <div class="flex items-center gap-3"><i data-lucide="settings"
+                    class="w-4 h-4"></i><span>Configurações</span></div>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
+              </button>
+              <div class="collapsible-content pl-9 mt-1 space-y-1">
+                <a href="#" class="block px-3 py-2 text-sm">Perfil do escritório</a>
+                <a href="#" class="block px-3 py-2 text-sm">Membros da equipe</a>
+                <a href="#" class="block px-3 py-2 text-sm">Integrações</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="p-3 border-t border-border mt-auto space-y-1">
+          <a href="#"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground transition-all">
+            <i data-lucide="user" class="w-4 h-4"></i>
+            <span>Conta</span>
+            <span class="ml-auto text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded-full">Vitalício</span>
+          </a>
+          <button
+            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-muted-foreground hover:bg-[var(--border-light)] hover:text-red-400 transition-all">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+            <span>Sair</span>
+          </button>
         </div>
+      </div>
     </aside>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden transition-opacity"></div>
 
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col overflow-x-hidden">
-        <!-- Header com glass effect -->
-        <header
-            class="h-20 bg-white/70 backdrop-blur-md border-b border-white/30 flex items-center justify-between px-8 sticky top-0 z-40">
-            <h2 id="page-title" class="text-2xl font-semibold text-slate-800">Visão Geral</h2>
-            <div class="flex items-center space-x-5">
-                <span
-                    class="flex items-center text-sm text-emerald-700 font-medium bg-emerald-50 px-3 py-1.5 rounded-full">
-                    <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></span>
-                    Sistemas Online
-                </span>
-                <button onclick="toggleTheme()"
-                    class="p-2 text-slate-500 hover:text-slate-800 bg-white/50 rounded-xl hover:bg-white transition theme-toggle"
-                    title="Alternar tema">
-                    <i class="fas fa-moon" id="theme-icon"></i>
-                </button>
-                <button
-                    class="p-2 text-slate-500 hover:text-slate-800 bg-white/50 rounded-xl hover:bg-white transition">
-                    <i class="fas fa-bell"></i>
-                </button>
-            </div>
-        </header>
-
-        <!-- Page Content Area -->
-        <div id="content-area" class="p-8 overflow-y-auto">
-
-            <!-- VISÃO GERAL -->
-            <section id="page-overview" class="space-y-8">
-                <!-- cards estatísticos com glass e hover -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="glass-card p-6 rounded-2xl hover-lift">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm text-slate-500 font-medium">Transcrição de Áudios</p>
-                                <h3 class="text-4xl font-bold mt-1 text-slate-800" id="stat-audios">0</h3>
-                            </div>
-                            <div
-                                class="p-4 bg-gradient-to-br from-blue-50 to-blue-100 text-blue-600 rounded-2xl shadow-inner">
-                                <i class="fas fa-microphone text-xl"></i>
-                            </div>
-                        </div>
-                        <p
-                            class="text-xs text-emerald-600 mt-4 font-medium bg-emerald-50/50 w-fit px-2 py-0.5 rounded-full">
-                            <i class="fas fa-arrow-up mr-1"></i> 12% desde o último mês
-                        </p>
-                    </div>
-                    <div class="glass-card p-6 rounded-2xl hover-lift">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm text-slate-500 font-medium">Leads Atendidos</p>
-                                <h3 class="text-4xl font-bold mt-1 text-slate-800" id="stat-leads">0</h3>
-                            </div>
-                            <div
-                                class="p-4 bg-gradient-to-br from-indigo-50 to-indigo-100 text-indigo-600 rounded-2xl shadow-inner">
-                                <i class="fas fa-user-tie text-xl"></i>
-                            </div>
-                        </div>
-                        <p
-                            class="text-xs text-emerald-600 mt-4 font-medium bg-emerald-50/50 w-fit px-2 py-0.5 rounded-full">
-                            <i class="fas fa-arrow-up mr-1"></i> 8% hoje
-                        </p>
-                    </div>
-                    <div class="glass-card p-6 rounded-2xl hover-lift">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm text-slate-500 font-medium">Reuniões Registradas</p>
-                                <h3 class="text-4xl font-bold mt-1 text-slate-800" id="stat-meetings">0</h3>
-                            </div>
-                            <div
-                                class="p-4 bg-gradient-to-br from-slate-100 to-slate-200 text-slate-600 rounded-2xl shadow-inner">
-                                <i class="fas fa-calendar-check text-xl"></i>
-                            </div>
-                        </div>
-                        <p
-                            class="text-xs text-slate-500 mt-4 font-medium bg-slate-100/50 w-fit px-2 py-0.5 rounded-full">
-                            Total acumulado</p>
-                    </div>
-                </div>
-
-                <!-- status dos serviços -->
-                <div class="glass-card rounded-2xl overflow-hidden">
-                    <div class="p-6 border-b border-white/30 bg-white/30">
-                        <h4 class="font-semibold text-slate-800 flex items-center"><i
-                                class="fas fa-diagram-project text-blue-600 mr-2"></i> Status dos Serviços</h4>
-                    </div>
-                    <div class="divide-y divide-white/20">
-                        <div class="p-6 flex items-center justify-between hover:bg-white/20 transition">
-                            <div class="flex items-center">
-                                <div
-                                    class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-700 to-blue-900 flex items-center justify-center text-white shadow-md">
-                                    <i class="fab fa-telegram-plane text-xl"></i>
-                                </div>
-                                <div class="ml-4">
-                                    <p class="font-medium text-slate-800">Bot Telegram (Transcrição)</p>
-                                    <p class="text-xs text-slate-500">Processamento de áudios e atas</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span id="status-telegram"
-                                    class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full shadow-sm">ATIVO</span>
-                                <button onclick="toggleService('telegram')"
-                                    class="px-4 py-2 bg-slate-800 text-white text-sm rounded-xl hover:bg-slate-700 transition shadow-md">Alternar</button>
-                            </div>
-                        </div>
-                        <div class="p-6 flex items-center justify-between hover:bg-white/20 transition">
-                            <div class="flex items-center">
-                                <div
-                                    class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-600 to-green-800 flex items-center justify-center text-white shadow-md">
-                                    <i class="fab fa-whatsapp text-xl"></i>
-                                </div>
-                                <div class="ml-4">
-                                    <p class="font-medium text-slate-800">Atendente Virtual (WhatsApp)</p>
-                                    <p class="text-xs text-slate-500">Triagem de leads e agendamentos</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span id="status-whatsapp"
-                                    class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full shadow-sm">INATIVO</span>
-                                <button onclick="toggleService('whatsapp')"
-                                    class="px-4 py-2 bg-slate-800 text-white text-sm rounded-xl hover:bg-slate-700 transition shadow-md">Alternar</button>
-                            </div>
-                        </div>
-                        <div class="p-6 flex items-center justify-between hover:bg-white/20 transition">
-                            <div class="flex items-center">
-                                <div
-                                    class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-white shadow-md">
-                                    <i class="fas fa-newspaper text-xl"></i>
-                                </div>
-                                <div class="ml-4">
-                                    <p class="font-medium text-slate-800">Bot-Noticias</p>
-                                    <p class="text-xs text-slate-500">Lançamento de Notícias Diarias</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <span id="status-noticias"
-                                    class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full shadow-sm">INATIVO</span>
-                                <button onclick="toggleService('noticias')"
-                                    class="px-4 py-2 bg-slate-800 text-white text-sm rounded-xl hover:bg-slate-700 transition shadow-md">Alternar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- RELATÓRIOS -->
-            <section id="page-reports" class="hidden space-y-6">
-                <div class="glass-card rounded-2xl overflow-hidden shadow-sm border border-white/20">
-                    <div class="p-4 bg-white/30 border-b border-white/30 flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-slate-600 uppercase tracking-wider">
-                            Histórico de Atendimentos
-                        </h3>
-                        <button onclick="loadReports()"
-                            class="text-blue-600 hover:text-blue-800 transition-transform active:scale-95">
-                            <i class="fas fa-sync-alt"></i>
-                        </button>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead class="bg-slate-50/50 border-b border-white/30">
-                                <tr>
-                                    <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase">Reunião /
-                                        Cliente</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase text-center">
-                                        Resumo</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase">Data</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase text-center">PDF
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="reports-list" class="divide-y divide-white/10 text-slate-700">
-                                <tr>
-                                    <td colspan="4" class="px-6 py-10 text-center text-slate-400">
-                                        Clique em atualizar para carregar dados...
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- WHATSAPP CONFIG (NOVA VERSÃO COM PROMPT) -->
-            <section id="page-whatsapp" class="hidden max-w-3xl mx-auto">
-                <div class="space-y-8">
-                    <!-- Card: Prompt da IA -->
-                    <div class="glass-card p-8 rounded-2xl">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div
-                                class="p-3 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-xl shadow-sm">
-                                <i class="fas fa-robot text-2xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold text-slate-800">Personalidade do Atendente</h4>
-                                <p class="text-sm text-slate-500">Defina o prompt / instruções para a IA no WhatsApp</p>
-                            </div>
-                        </div>
-                        <textarea id="ai-prompt" rows="5"
-                            class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-slate-700 placeholder-slate-400"
-                            placeholder="Ex: Você é um assistente jurídico especializado em direito civil. Seja cordial, objetivo e colete nome, telefone e motivo do contato antes de passar para o humano...">Você é a assistente virtual da Ominus tech. Recepcione clientes com empatia, identifique a área de interesse (trabalhista, cível, etc.) e colete nome e telefone. Nunca dê consultoria jurídica, apenas agende reuniões.</textarea>
-                        <div class="flex justify-end mt-4">
-                            <button onclick="savePrompt()"
-                                class="px-6 py-2.5 bg-gradient-to-r from-blue-700 to-blue-800 text-white font-medium rounded-xl hover:from-blue-800 hover:to-blue-900 transition shadow-md flex items-center gap-2">
-                                <i class="fas fa-save"></i> Salvar prompt
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Card: Conexão WhatsApp (Evolution API) -->
-                    <div class="glass-card p-8 rounded-2xl">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div
-                                class="p-3 bg-gradient-to-br from-green-100 to-green-200 text-green-700 rounded-xl shadow-sm">
-                                <i class="fab fa-whatsapp text-2xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold text-slate-800">Conectar instância WhatsApp</h4>
-                                <p class="text-sm text-slate-500">Digite o nome da instância e gere o QR Code</p>
-                            </div>
-                        </div>
-
-                        <div class="space-y-5">
-                            <div>
-                                <label class="block text-sm font-medium text-slate-700 mb-1">Nome da Instância</label>
-                                <input type="text" id="instance-name" placeholder="Ex: Ominus_Advocacia"
-                                    class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-green-400 focus:border-transparent outline-none transition shadow-sm">
-                            </div>
-                            <button onclick="generateQRCode()"
-                                class="w-full py-3.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl hover:from-green-700 hover:to-emerald-800 transition shadow-lg flex items-center justify-center gap-2">
-                                <i class="fas fa-qrcode"></i> Gerar QR Code
-                            </button>
-                        </div>
-
-                        <div id="qr-container"
-                            class="hidden mt-8 flex flex-col items-center justify-center p-6 border-2 border-dashed border-white/50 rounded-xl bg-white/30">
-                            <div id="qr-placeholder" class="text-slate-500 text-center">
-                                <i class="fas fa-spinner fa-pulse text-3xl mb-2"></i>
-                                <p class="text-sm">Aguardando resposta da API...</p>
-                            </div>
-                            <img id="qr-code-img" class="hidden max-w-xs shadow-xl rounded-xl border-4 border-white"
-                                src="" alt="QR Code WhatsApp">
-                            <p id="connection-status-text"
-                                class="mt-4 text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full">
-                                Status: desconectado</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- BOT-NOTICIAS CONFIG -->
-            <section id="page-Bot-Noticias" class="hidden max-w-3xl mx-auto">
-                <div class="glass-card p-8 rounded-2xl">
-                    <div class="flex items-center gap-3 mb-5">
-                        <div class="p-3 bg-gradient-to-br from-red-100 to-red-200 text-red-700 rounded-xl shadow-sm">
-                            <i class="fas fa-newspaper text-2xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold text-slate-800">Configuração Bot-Noticias</h4>
-                            <p class="text-sm text-slate-500">Defina o intervalo de verificação em horas</p>
-                        </div>
-                    </div>
-                    <div class="space-y-5">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Intervalo (horas)</label>
-                            <input type="number" id="news-interval" min="0" max="24" placeholder="Ex: 6"
-                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-red-400 focus:border-transparent outline-none transition shadow-sm">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Intervalo (minutos)</label>
-                            <input type="number" id="news-interval-min" min="0" max="59" placeholder="Ex: 30"
-                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-red-400 focus:border-transparent outline-none transition shadow-sm">
-                        </div>
-                        <button onclick="saveNewsInterval()"
-                            class="w-full py-3.5 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-xl hover:from-red-700 hover:to-red-800 transition shadow-lg flex items-center justify-center gap-2">
-                            <i class="fas fa-save"></i> Salvar intervalo
-                        </button>
-                    </div>
-                </div>
-            </section>
-
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
+      <header
+        class="sticky top-0 z-10 backdrop-blur-md border-b border-border bg-[var(--header-bg)] px-5 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <button id="openSidebarBtn" class="lg:hidden p-1.5 rounded-lg hover:bg-[var(--border-light)] text-foreground">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+          <h1 class="text-xl font-bold tracking-tight">Painel</h1>
         </div>
+        <div class="flex items-center gap-3">
+          <button id="themeToggle" class="p-2 rounded-full hover:bg-[var(--border-light)] transition-all">
+            <i data-lucide="sun" class="w-5 h-5 dark:hidden"></i>
+            <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+          </button>
+          <div
+            class="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold text-sm">
+            KM</div>
+        </div>
+      </header>
+
+      <div class="p-5 md:p-6 lg:p-7 space-y-7">
+        <div>
+          <h2 class="text-2xl font-bold">Bem-vindo, kayomelo.adv!</h2>
+          <p class="text-muted-foreground mt-1">Aqui está um resumo das suas atividades jurídicas.</p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-4">
+          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+            <div class="flex justify-between items-start">
+              <h3 class="text-sm font-medium">Landing Pages</h3><i data-lucide="file-text"
+                class="w-4 h-4 text-muted-foreground"></i>
+            </div>
+            <div class="text-2xl font-bold mt-2">1</div>
+            <p class="text-xs text-muted-foreground mt-1">0 publicadas</p>
+          </div>
+          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+            <div class="flex justify-between">
+              <h3 class="text-sm font-medium">Link na Bio</h3><i data-lucide="link-2"
+                class="w-4 h-4 text-muted-foreground"></i>
+            </div>
+            <div class="text-2xl font-bold mt-2">0</div>
+            <p class="text-xs text-muted-foreground">0 publicados</p>
+          </div>
+          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+            <div class="flex justify-between">
+              <h3 class="text-sm font-medium">Clientes</h3><i data-lucide="users" class="w-4 h-4"></i>
+            </div>
+            <div id="clientes-count" class="text-2xl font-bold mt-2">0</div>
+          </div>
+          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+            <div class="flex justify-between">
+              <h3 class="text-sm font-medium">Visualizações</h3><i data-lucide="eye" class="w-4 h-4"></i>
+            </div>
+            <div class="text-2xl font-bold mt-2">0</div>
+            <p class="text-xs text-muted-foreground">total views</p>
+          </div>
+          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+            <div class="flex justify-between">
+              <h3 class="text-sm font-medium">Reuniões marcadas</h3><i data-lucide="mouse-pointer-click"
+                class="w-4 h-4"></i>
+            </div>
+            <div id="agenda-count" class="text-2xl font-bold mt-2">0</div>
+          </div>
+          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+            <div class="flex justify-between">
+              <h3 class="text-sm font-medium">Conversão</h3><i data-lucide="trending-up" class="w-4 h-4"></i>
+            </div>
+            <div class="text-2xl font-bold mt-2">0%</div>
+            <p class="text-xs text-muted-foreground">CTR geral</p>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold mb-3">Status dos serviços</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+              <p class="text-sm font-medium mb-3">Bot Telegram (Transcrição)</p>
+              <div class="flex items-center justify-between">
+                <span id="status-telegram" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
+                <button onclick="toggleService('telegram')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+              <p class="text-sm font-medium mb-3">Atendente Virtual (WhatsApp)</p>
+              <div class="flex items-center justify-between">
+                <span id="status-whatsapp" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
+                <button onclick="toggleService('whatsapp')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+              <p class="text-sm font-medium mb-3">Bot-Noticias</p>
+              <div class="flex items-center justify-between">
+                <span id="status-noticias" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
+                <button onclick="toggleService('noticias')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
+              </div>
+            </div>
+            <a href="#" class="group rounded-2xl border border-border bg-card p-3 text-center hover:border-primary/50">
+              <div
+                class="p-2 rounded-xl bg-primary/10 text-primary w-fit mx-auto group-hover:bg-primary group-hover:text-white">
+                <i data-lucide="file-pen" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-medium mt-2">Nova Proposta</p>
+            </a>
+            <a href="#" class="group rounded-2xl border border-border bg-card p-3 text-center hover:border-primary/50">
+              <div
+                class="p-2 rounded-xl bg-primary/10 text-primary w-fit mx-auto group-hover:bg-primary group-hover:text-white">
+                <i data-lucide="calculator" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-medium mt-2">Honorários</p>
+            </a>
+            <a href="agenda.html"
+              class="group rounded-2xl border border-border bg-card p-3 text-center hover:border-primary/50">
+              <div
+                class="p-2 rounded-xl bg-primary/10 text-primary w-fit mx-auto group-hover:bg-primary group-hover:text-white">
+                <i data-lucide="calendar-days" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs font-medium mt-2">Agendamento</p>
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all">
+            <div class="p-4 flex justify-between items-center border-b border-border">
+              <div>
+                <h3 class="font-semibold">Landing Pages</h3>
+                <p class="text-xs text-muted-foreground">Suas páginas recentes</p>
+              </div>
+              <a href="#" class="text-xs text-primary flex items-center gap-1">Ver todas <i data-lucide="arrow-right"
+                  class="w-3 h-3"></i></a>
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between p-3 rounded-xl bg-[var(--border-light)]/50">
+                <div>
+                  <p class="font-medium text-sm truncate">kayo-melo-advogados-negativa-d-mmdkne11</p>
+                  <p class="text-xs text-muted-foreground">05/03/2026</p>
+                </div>
+                <span class="text-[11px] px-2 py-0.5 rounded-full bg-secondary/20 border border-border">Rascunho</span>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all">
+            <div class="p-4 flex justify-between items-center border-b border-border">
+              <div>
+                <h3 class="font-semibold">CRM</h3>
+                <p class="text-xs text-muted-foreground">Pipeline de clientes</p>
+              </div>
+              <a href="crm.html" class="text-xs text-primary flex items-center gap-1">Abrir CRM <i data-lucide="arrow-right"
+                  class="w-3 h-3"></i></a>
+            </div>
+            <div class="p-6 text-center">
+              
+            </div>
+          </div>
+          <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all">
+            <div class="p-4 flex justify-between items-center border-b border-border">
+              <div>
+                <h3 class="font-semibold">Agenda</h3>
+                <p class="text-xs text-muted-foreground">Próximos compromissos</p>
+              </div>
+              <a href="agenda.html" class="text-xs text-primary flex items-center gap-1">Abrir Agenda <i data-lucide="arrow-right"
+                  class="w-3 h-3"></i></a>
+            </div>
+            <div class="p-6 text-center">
+              <i data-lucide="calendar-days" class="w-10 h-10 mx-auto text-muted-foreground/40 mb-2"></i>
+              <p class="text-sm text-muted-foreground">Nenhum compromisso agendado</p>
+              <button
+                class="mt-3 inline-flex items-center gap-1 bg-primary text-white text-sm px-4 py-1.5 rounded-xl hover:bg-primary-dark transition">+
+                Agendar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+  
+      </footer>
     </main>
+  </div>
 
-    <!-- MODAL DE RELATÓRIO (glass) -->
-    <div id="report-modal"
-        class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
-        <div
-            class="bg-white/90 backdrop-blur-xl w-full max-w-3xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-white/40">
-            <div class="p-6 border-b border-white/30 flex justify-between items-center bg-white/30">
-                <div>
-                    <h3 id="modal-title" class="text-xl font-bold text-slate-800">Relatório de Reunião</h3>
-                    <p id="modal-date" class="text-sm text-slate-500"></p>
-                </div>
-                <button onclick="closeModal()"
-                    class="text-slate-500 hover:text-slate-800 bg-white/40 w-8 h-8 rounded-full flex items-center justify-center">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="p-8 overflow-y-auto space-y-6">
-                <div>
-                    <h4 class="text-xs font-bold text-blue-700 uppercase tracking-widest mb-2">Pontos Principais (IA)
-                    </h4>
-                    <div id="modal-summary"
-                        class="bg-blue-50/70 p-4 rounded-xl text-slate-700 leading-relaxed italic border-l-4 border-blue-500">
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Transcrição Completa
-                    </h4>
-                    <div id="modal-content" class="text-slate-700 leading-relaxed whitespace-pre-line"></div>
-                </div>
-            </div>
-            <div class="p-6 border-t border-white/30 flex justify-end bg-white/20">
-                <button onclick="closeModal()"
-                    class="px-6 py-2 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-700">Fechar</button>
-            </div>
-        </div>
-    </div>
-    <!-- LÓGICA JAVASCRIPT ATUALIZADA -->
-    <script>
-        // --- WEBHOOKS N8N (substitua pelos seus endpoints) ---
-        const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
-        const WEBHOOK_TOGGLE_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticiasPost";
-        const WEBHOOK_SET_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticias";
-        const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis";
-        const WEBHOOK_GERAR_PDF = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/gerar-pdf";
-        const WEBHOOK_QR_CODE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/generate-qr";
-        const WEBHOOK_SAVE_PROMPT = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-prompt"; // novo
+  <script>
+    const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
+    const WEBHOOK_TOGGLE_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticiasPost";
+    const WEBHOOK_TOGGLE_TELEGRAM = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/WEBHOOK_TOGGLE_TELEGRAM";
+    document.addEventListener('DOMContentLoaded', function () {
+      // Inicializa os ícones
+      if (typeof lucide !== 'undefined') lucide.createIcons();
 
-        // --- ESTADO ---
-        let currentServiceStatus = {
-            telegram: false,
-            whatsapp: false,
-            noticias: false // novo serviço de notícias
-        };
+      // Theme toggle
+      const themeToggle = document.getElementById('themeToggle');
+      const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
 
-        // --- NAVEGAÇÃO SPA ---
-        function showPage(pageId) {
-            // 1. Esconde todas as seções usando o seletor de section
-            document.querySelectorAll('section').forEach(section => section.classList.add('hidden'));
+      themeToggle?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        localStorage.setItem('theme', theme);
+        if (typeof lucide !== 'undefined') lucide.createIcons(); // recria ícones para trocar sun/moon
+      });
 
-            // 2. Mostra a seção correta (adicionando o prefixo page-)
-            const targetPage = document.getElementById(`page-${pageId}`);
-            if (targetPage) {
-                targetPage.classList.remove('hidden');
-            }
+      // Sidebar mobile
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const openBtn = document.getElementById('openSidebarBtn');
+      const closeBtn = document.getElementById('closeSidebarBtn');
 
-            // 3. Atualiza o Título
-            const titles = {
-                'overview': 'Visão Geral',
-                'reports': 'Relatórios de Reuniões',
-                'whatsapp': 'Configuração WhatsApp',
-                'Bot-Noticias': 'Configuração Notícias'
-            };
-            document.getElementById('page-title').innerText = titles[pageId] || 'Ominus Tech';
-
-            // No item 4 da sua função showPage, altere para:
-            document.querySelectorAll('aside nav a').forEach(nav => {
-                if (nav) nav.classList.remove('sidebar-active');
-            });
-            const activeNav = document.getElementById(`nav-${pageId}`);
-            if (activeNav) {
-                activeNav.classList.add('sidebar-active');
-            }
-
-            // 5. Carrega dados se for a página de relatórios
-            if (pageId === 'reports') {
-                loadReports();
-            }
+      function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+      openBtn?.addEventListener('click', openSidebar);
+      closeBtn?.addEventListener('click', closeSidebar);
+      overlay?.addEventListener('click', closeSidebar);
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) {
+          closeSidebar();
+          sidebar.classList.remove('-translate-x-full');
+          overlay.classList.add('hidden');
+          document.body.style.overflow = '';
+        } else {
+          if (!sidebar.classList.contains('-translate-x-full')) {
+            // se estiver aberto, mantém, mas não força fechamento
+          } else {
+            sidebar.classList.add('-translate-x-full');
+          }
         }
+      });
+      if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
+      else sidebar.classList.add('-translate-x-full');
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        }
-
-        // --- ALTERNAR TEMA (Dark Mode / Light Mode) ---
-        function toggleTheme() {
-            const body = document.body;
-            const isDarkMode = body.classList.contains('dark-theme');
-            const themeIcon = document.getElementById('theme-icon');
-
-            if (isDarkMode) {
-                // Mudar para light mode
-                body.classList.remove('dark-theme');
-                themeIcon.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'light');
-            } else {
-                // Mudar para dark mode
-                body.classList.add('dark-theme');
-                themeIcon.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        // Inicializar tema ao carregar a página
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            const themeIcon = document.getElementById('theme-icon');
-
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-theme');
-                themeIcon.className = 'fas fa-sun';
-            } else {
-                document.body.classList.remove('dark-theme');
-                themeIcon.className = 'fas fa-moon';
-            }
-        }
-
-        // Inicializar tema quando o DOM carrega
-        document.addEventListener('DOMContentLoaded', initTheme);
-
-        // --- ALTERNAR SERVIÇO (igual ao original, apenas visual aprimorado) ---
-        async function toggleService(service) {
-            const statusLabel = document.getElementById(`status-${service}`);
-            const originalText = statusLabel.innerText;
-
-            // escolher webhook específico para notícias
-            const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : WEBHOOK_TOGGLE;
-
-            try {
-                statusLabel.innerText = "PROCESSANDO...";
-                statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
-
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        servico: service,
-                        acao: currentServiceStatus[service] ? 'false' : 'true',
-                        timestamp: new Date().toISOString()
-                    })
-                });
-
-                if (response.ok) {
-                    currentServiceStatus[service] = !currentServiceStatus[service];
-                    updateStatusUI(service);
-                } else {
-                    throw new Error('Falha na comunicação');
-                }
-            } catch (error) {
-                console.error("Erro ao alternar serviço:", error);
-                alert("Erro ao comunicar com o n8n. Verifique o console.");
-                updateStatusUI(service);
-            }
-        }
-
-        function updateStatusUI(service) {
-            const statusLabel = document.getElementById(`status-${service}`);
-            if (currentServiceStatus[service]) {
-                statusLabel.innerText = "ATIVO";
-                statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
-            } else {
-                statusLabel.innerText = "INATIVO";
-                statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
-            }
-        }
-
-        // --- SALVAR PROMPT (nova função) ---
-        async function savePrompt() {
-            const promptText = document.getElementById('ai-prompt').value;
-            if (!promptText.trim()) {
-                alert("Por favor, escreva um prompt para a IA.");
-                return;
-            }
-
-            const btn = event.currentTarget;
-            const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Salvando...';
-            btn.disabled = true;
-
-            try {
-                const response = await fetch(WEBHOOK_SAVE_PROMPT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: promptText, timestamp: new Date().toISOString() })
-                });
-
-                if (response.ok) {
-                    btn.innerHTML = '<i class="fas fa-check"></i> Salvo!';
-                    setTimeout(() => {
-                        btn.innerHTML = originalHtml;
-                        btn.disabled = false;
-                    }, 2000);
-                } else {
-                    throw new Error('Erro no servidor');
-                }
-            } catch (error) {
-                console.error("Erro ao salvar prompt:", error);
-                alert("Não foi possível salvar o prompt. Verifique o webhook.");
-                btn.innerHTML = originalHtml;
-                btn.disabled = false;
-            }
-        }
-
-        // --- SALVAR INTERVALO BOT-NOTICIAS ---
-        async function saveNewsInterval() {
-            // Captura os elementos de input
-            const inputHoras = document.getElementById('news-interval');
-            const inputMinutos = document.getElementById('news-interval-min');
-
-            // Converte para número ou assume 0 se estiver vazio
-            const horasValue = parseInt(inputHoras.value) || 0;
-            const minutosValue = parseInt(inputMinutos.value) || 0;
-
-            // Cálculo total em segundos para facilitar a vida do n8n
-            const totalSegundos = (horasValue * 3600) + (minutosValue * 60);
-
-            const payload = {
-                servico: 'noticias',
-                acao: 'true', // Ativa o fluxo
-                config: {
-                    horas: horasValue,
-                    minutos: minutosValue,
-                    total_segundos: totalSegundos
-                }
-            };
-
-            try {
-                // Removi o 'no-cors' pois se você precisar ler a resposta do n8n, ele impede. 
-                // Se o n8n estiver configurado corretamente, o POST padrão funciona melhor.
-                const response = await fetch(WEBHOOK_SET_NOTICIAS, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                alert("Intervalo atualizado! O Bot reiniciará o ciclo.");
-                console.log("Configuração enviada:", payload);
-            } catch (error) {
-                console.error("Erro ao conectar com o n8n:", error);
-                alert("Erro ao salvar. Verifique o console.");
-            }
-        }
-
-        // --- GERAR QR CODE (Evolution API via n8n) ---
-        async function generateQRCode() {
-            const instanceName = document.getElementById('instance-name').value;
-            if (!instanceName) {
-                alert("Por favor, digite o nome da instância.");
-                return;
-            }
-
-            const qrContainer = document.getElementById('qr-container');
-            const qrPlaceholder = document.getElementById('qr-placeholder');
-            const qrImg = document.getElementById('qr-code-img');
-            const statusText = document.getElementById('connection-status-text');
-
-            qrContainer.classList.remove('hidden');
-            qrPlaceholder.classList.remove('hidden');
-            qrImg.classList.add('hidden');
-            statusText.innerText = "Status: Aguardando...";
-            statusText.className = "mt-4 text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full";
-
-            try {
-                const response = await fetch(WEBHOOK_QR_CODE, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ instanceName: instanceName })
-                });
-
-                const data = await response.json();
-
-                if (data && data.qrcode) {
-                    qrImg.src = data.qrcode;
-                    qrImg.classList.remove('hidden');
-                    qrPlaceholder.classList.add('hidden');
-                    statusText.innerText = "Status: QR Code gerado. Escaneie com o WhatsApp.";
-                    statusText.className = "mt-4 text-sm font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full";
-                } else {
-                    throw new Error("Formato de QR Code inválido");
-                }
-            } catch (error) {
-                console.error("Erro ao gerar QR Code:", error);
-                statusText.innerText = "Status: Erro na API.";
-                statusText.className = "mt-4 text-sm font-medium text-rose-700 bg-rose-50 px-3 py-1 rounded-full";
-                qrPlaceholder.innerHTML = `<p class="text-rose-500 text-xs font-bold">Falha ao obter QR Code do n8n</p>`;
-            }
-        }
-
-        // --- CARREGAR RELATÓRIOS (Data, Reunião, Ação) ---
-        // 1. Função para carregar a tabela (chama o webhook JSON)
-
-        async function loadReports() {
-    const tableBody = document.getElementById('reports-list');
-    if (!tableBody) return;
-
-    tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-slate-400 animate-pulse">Buscando dados em Ominus Tech...</td></tr>`;
-
-    try {
-        const response = await fetch(WEBHOOK_GET_REPORTS, {
-            method: 'GET',
-            headers: { 'ngrok-skip-browser-warning': 'true' }
+      // Accordion
+      const toggleButtons = document.querySelectorAll('.nav-toggle');
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const parentGroup = btn.closest('.nav-group');
+          const content = parentGroup.querySelector('.collapsible-content');
+          const icon = btn.querySelector('.rotate-icon');
+          content.classList.toggle('open');
+          if (icon) {
+            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+          }
         });
+      });
 
-        if (!response.ok) throw new Error('Falha na resposta do servidor');
-        
-        const rawData = await response.json();
-        console.log("Dados Brutos do n8n:", rawData);
-
-        // Ajuste fundamental: Captura os dados se vierem dentro de 'data' ou 'json'
-        let items = [];
-        if (rawData.data && Array.isArray(rawData.data)) {
-            items = rawData.data; // Formato observado no seu console
-        } else if (Array.isArray(rawData)) {
-            items = rawData.map(item => item.json || item);
-        } else if (rawData.json && Array.isArray(rawData.json)) {
-            items = rawData.json;
+      // Busca a quantidade de leads/CRMs do webhook (mesma fonte do crm.html)
+      const N8N_GET_WEBHOOK = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-leads';
+      async function fetchCrmCount() {
+        try {
+          const res = await fetch(N8N_GET_WEBHOOK, { headers: { 'ngrok-skip-browser-warning': 'true' } });
+          const json = await res.json();
+          const leads = json.body?.data || [];
+          const countEl = document.getElementById('clientes-count');
+          if (countEl) countEl.textContent = String(leads.length || 0);
+        } catch (err) {
+          console.error('Erro ao buscar contagem CRM:', err);
+          const countEl = document.getElementById('clientes-count');
+          if (countEl) countEl.textContent = '0';
         }
+      }
 
-        tableBody.innerHTML = ''; 
+      // Chama ao carregar a página
+      fetchCrmCount();
+    });
+    
+    const N8N_WEBHOOK_AGENDA = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-agenda-events";
 
-        if (items.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-slate-500">Nenhum relatório encontrado.</td></tr>`;
-            return;
+async function fetchAgendaCount() {
+  try {
+    const res = await fetch(N8N_WEBHOOK_AGENDA, { 
+      headers: { 'ngrok-skip-browser-warning': 'true' } 
+    });
+    
+    // O n8n com 'responseMode: lastNode' vai retornar o objeto agrupado diretamente
+    const groupedEvents = await res.json(); 
+    
+    let totalEvents = 0;
+
+    // Pega todos os valores do objeto (que são os arrays de eventos de cada dia)
+    // e soma o tamanho de cada um deles
+    Object.values(groupedEvents).forEach(dayEvents => {
+      if (Array.isArray(dayEvents)) {
+        totalEvents += dayEvents.length;
+      }
+    });
+
+    // ATENÇÃO: Mudei o ID aqui para 'agenda-count' para não sobrescrever a contagem do CRM.
+    // Certifique-se de ter um elemento com id="agenda-count" no seu HTML.
+    const countEl = document.getElementById('agenda-count');
+    if (countEl) countEl.textContent = String(totalEvents);
+
+  } catch (err) {
+    console.error('Erro ao buscar contagem da Agenda:', err);
+    const countEl = document.getElementById('agenda-count');
+    if (countEl) countEl.textContent = '0';
+  }
+}
+
+// Chama a função
+fetchAgendaCount();
+    
+    // Objeto com os status iniciais (adicionei telegram e noticias com base no seu webhook)
+let currentServiceStatus = {
+    whatsapp: false,
+    telegram: false,
+    noticias: false
+};
+
+// 1. Função para salvar o estado atual no localStorage
+function saveStatusToStorage() {
+    localStorage.setItem('serviceStatus', JSON.stringify(currentServiceStatus));
+}
+
+// 2. Função para recuperar o estado do localStorage ao carregar a página
+function loadStatusFromStorage() {
+    const savedStatus = localStorage.getItem('serviceStatus');
+    
+    if (savedStatus) {
+        // Mescla os status salvos no storage com o objeto atual
+        // Isso evita erros caso você adicione um novo serviço no futuro
+        currentServiceStatus = { ...currentServiceStatus, ...JSON.parse(savedStatus) };
+    }
+
+    // Atualiza a interface visual para todos os serviços na página atual
+    for (const service in currentServiceStatus) {
+        const statusLabel = document.getElementById(`status-${service}`);
+        // Verifica se o elemento existe na página atual antes de tentar atualizar
+        if (statusLabel) { 
+            updateStatusUI(service);
         }
-
-        items.forEach(fields => {
-            // Ignora linhas nulas (como o ID 2 da sua tabela)
-            if (!fields || (!fields.Reuniao && !fields.id)) return;
-
-            const row = document.createElement('tr');
-            row.className = 'hover:bg-white/5 transition-colors border-b border-white/5';
-
-            const titulo = fields.Reuniao || 'Relatório Sem Título';
-            const status = fields.acao || fields.Resumo || 'PENDENTE';
-            
-            // Formatação de data robusta
-            let dataExibicao = '---';
-            if (fields.Data) {
-                const d = new Date(fields.Data);
-                dataExibicao = !isNaN(d.getTime()) ? d.toLocaleDateString('pt-BR') : fields.Data.split('T')[0];
-            }
-
-            const safeFields = JSON.stringify(fields).replace(/'/g, "&apos;");
-
-            row.innerHTML = `
-                <td class="px-6 py-4 text-sm font-medium text-slate-800">${titulo}</td>
-                <td class="px-6 py-4 text-sm text-black">
-
-                        ${status}
-
-                <td class="px-6 py-4 text-sm text-slate-500 font-mono">${dataExibicao}</td>
-                <td class="px-6 py-4 text-center">
-                    <button onclick='gerarPDF(${safeFields})' 
-                        class="text-red-500 hover:text-red-700 transition-transform active:scale-90">
-                        <i class="fas fa-file-pdf text-lg"></i>
-                    </button>
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
-
-    } catch (error) {
-        console.error('Erro detalhado:', error);
-        tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-red-400">Erro ao processar dados. Verifique o console.</td></tr>`;
     }
 }
 
-        // 3. Função de gerar PDF (FORA da loadReports para ter escopo global)
-        async function gerarPDF(dados) {
-            try {
-                const response = await fetch(WEBHOOK_GERAR_PDF, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dados)
-                });
+function updateStatusUI(service) {
+    const statusLabel = document.getElementById(`status-${service}`);
+    
+    // Proteção caso o elemento não exista na página HTML atual
+    if (!statusLabel) return; 
 
-                if (!response.ok) throw new Error('Erro no servidor n8n');
+    if (currentServiceStatus[service]) {
+        statusLabel.innerText = "ATIVO";
+        statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
+    } else {
+        statusLabel.innerText = "INATIVO";
+        statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
+    }
+}
 
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                const nomeArquivo = dados.Reuniao ? dados.Reuniao.replace(/\s+/g, '_') : 'Relatorio';
-                a.download = `Relatorio_${nomeArquivo}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            } catch (error) {
-                console.error("Erro PDF:", error);
-                alert("Falha ao gerar PDF. O n8n está ativo?");
-            }
-        }
-        // --- MODAL ---
-        function openReport(report) {
-            document.getElementById('modal-title').innerText = report.titulo;
-            document.getElementById('modal-date').innerText = report.data;
-            document.getElementById('modal-summary').innerText = report.resumo;
-            document.getElementById('modal-content').innerText = report.transcricao;
-            document.getElementById('report-modal').classList.remove('hidden');
-        }
+async function toggleService(service) {
+    const statusLabel = document.getElementById(`status-${service}`);
+    const originalText = statusLabel.innerText;
 
-        function closeModal() {
-            document.getElementById('report-modal').classList.add('hidden');
-        }
+    // escolher webhook específico para notícias
+    const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : service === 'telegram' ? WEBHOOK_TOGGLE_TELEGRAM : WEBHOOK_TOGGLE;
 
-        // --- SIDEBAR RETRÁTIL ---
-        function toggleSidebar() {
-            const aside = document.querySelector('aside');
-            const btn = document.getElementById('sidebar-toggle-btn');
-            aside.classList.toggle('sidebar-collapsed');
-            if (aside.classList.contains('sidebar-collapsed')) {
-                btn.innerHTML = '<i class="fas fa-angle-right"></i>';
-            } else {
-                btn.innerHTML = '<i class="fas fa-angle-left"></i>';
-            }
-        }
+    try {
+        statusLabel.innerText = "PROCESSANDO...";
+        statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
 
-
-        // --- INICIALIZAÇÃO ---
-        document.addEventListener('DOMContentLoaded', () => {
-            loadReports();
-            // sidebar active inicial
-            document.getElementById('nav-overview').classList.add('sidebar-active');
-
-            // handle hash navigation from other pages
-            const hash = window.location.hash.replace('#', '');
-            if (hash && ['overview', 'reports', 'whatsapp'].includes(hash)) {
-                showPage(hash);
-                // scroll to top in case
-                window.scrollTo(0, 0);
-            }
+        const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                servico: service,
+                acao: currentServiceStatus[service] ? 'false' : 'true',
+                timestamp: new Date().toISOString()
+            })
         });
-        function viewPDF(id) {
-            // Usamos o URL de produção para que o link seja permanente
-            const pdfUrl = `https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis?id=${id}`;
 
-            // Abre em nova aba. O cabeçalho 'inline' configurado no n8n fará o resto.
-            window.open(pdfUrl, '_blank');
+        if (response.ok) {
+            // Alterna o valor no objeto
+            currentServiceStatus[service] = !currentServiceStatus[service];
+            
+            // 3. Salva o novo valor no LocalStorage
+            saveStatusToStorage();
+            
+            // Atualiza o botão
+            updateStatusUI(service);
+        } else {
+            throw new Error('Falha na comunicação');
         }
-    </script>
+    } catch (error) {
+        console.error("Erro ao alternar serviço:", error);
+        alert("Erro ao comunicar com o n8n. Verifique o console.");
+        // Reverte a UI para o estado anterior em caso de erro no n8n
+        updateStatusUI(service); 
+    }
+}
+
+// 4. Executa a função de carregamento assim que a página HTML estiver pronta
+document.addEventListener("DOMContentLoaded", () => {
+    loadStatusFromStorage();
+});
+
+window.addEventListener('storage', (event) => {
+    if (event.key === 'serviceStatus') {
+        loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
+    }
+});
+
+  </script>
+  
 </body>
 
 </html>

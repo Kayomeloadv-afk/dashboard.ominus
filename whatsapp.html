@@ -189,7 +189,7 @@ html.dark .logo-light {
           </div>
         </div>
         <nav class="flex-1 overflow-y-auto py-4 px-2 space-y-1">
-          <a href="teste2.html"
+          <a href="index.html"
             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-[var(--border-light)] hover:text-foreground transition-all">
             <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
             <span>Início</span>
@@ -356,12 +356,12 @@ html.dark .logo-light {
                             </div>
                         </div>
 
-                        <div class="space-y-5">
-                            <div>
+                        
                                 <label class="block text-sm font-medium text-foreground mb-1">Nome da Instância</label>
                                 <input type="text" id="instance-name" placeholder="Ex: Ominus_Advocacia"
-                                    class="w-full px-4 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-                            </div>
+                                   class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                          
+                            <div class="space-y-5">
                             <button onclick="generateQRCode()"
                                 class="w-full py-3.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl hover:from-green-700 hover:to-emerald-800 transition shadow-lg flex items-center justify-center gap-2">
                                 <i class="fas fa-qrcode"></i> Gerar QR Code
@@ -459,6 +459,7 @@ html.dark .logo-light {
         });
       });
     });
+
     let currentServiceStatus = {
     whatsapp: false
 };
