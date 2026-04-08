@@ -313,13 +313,107 @@ html.dark .logo-light {
         </div>
         
       </header>
+       <div class="glass-card p-8 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="p-3 bg-gradient-to-br from-red-100 to-red-200 text-red-700 rounded-xl shadow-sm">
+                            <i class="fas fa-newspaper text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-foreground">Configuração de nova laddingpages</h4>
+                            <p class="text-sm text-muted-foreground">Defina as configurações para a nova ladding page</p>
+                        </div>
+                    </div>
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">Assunto da Ladding Page</label>
+                            <input type="text" id="news-assunt" placeholder="Ex: previdencia, direito trabalhista, etc."
+                                class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">Nome do escritorio</label>
+                            <input type="text" id="news-nome"placeholder="Ex: kayomelo.adv - Especialistas em Direito Previdenciário"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">Nome da cidade</label>
+                            <input type="text" id="news-cidade" placeholder="Ex: São Paulo"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">titulo principal da ladding page</label>
+                            <input type="text" id="news-titulo" placeholder="Ex: Conquiste seus direitos previdenciários com kayomelo.adv"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                         <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">subtitulo da ladding page</label>
+                            <input type="text" id="news-subtitulo"  placeholder="Ex: Especialistas em Direito Previdenciário prontos para te ajudar a conquistar seus benefícios"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                         <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">publico alvo da ladding page</label>
+                            <input type="text" id="news-publico-alvo"  placeholder="Ex: Pessoas com problemas previdenciários"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                         <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">telefone para contato na ladding page</label>
+                            <input type="text" id="news-telefone"  placeholder="Ex: (11) 99999-9999"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                        
+                        <button onclick="quero que crie uma automação no n8n que gere ladingpages dinamicamente sabendo que uso n8n crie o html,script e como eu devo fazer o fluxo no n8n que devo utilizar para que isso possa ocorrer saiba que no meu html está da seguinte forma:<div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">Assunto da Ladding Page</label>
+                            <input type="text" id="news-assunt" placeholder="Ex: previdencia, direito trabalhista, etc."
+                                class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">Nome do escritorio</label>
+                            <input type="text" id="news-nome"placeholder="Ex: kayomelo.adv - Especialistas em Direito Previdenciário"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">Nome da cidade</label>
+                            <input type="text" id="news-cidade" placeholder="Ex: São Paulo"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">titulo principal da ladding page</label>
+                            <input type="text" id="news-titulo" placeholder="Ex: Conquiste seus direitos previdenciários com kayomelo.adv"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                         <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">subtitulo da ladding page</label>
+                            <input type="text" id="news-subtitulo"  placeholder="Ex: Especialistas em Direito Previdenciário prontos para te ajudar a conquistar seus benefícios"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                         <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">publico alvo da ladding page</label>
+                            <input type="text" id="news-publico-alvo"  placeholder="Ex: Pessoas com problemas previdenciários"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                         <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">telefone para contato na ladding page</label>
+                            <input type="text" id="news-telefone"  placeholder="Ex: (11) 99999-9999"
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+                        
+                        <button onclick="quero que crie uma automação no n8n que gere ladingpages dinamicamente sabendo que uso n8n crie o html,script e o fluxo no n8n que devo utilizar para que isso possa ocorrer saiba que no meu html os seguinte dados estão sendo coletados:"
+                            class="w-full py-3.5 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-xl hover:from-red-700 hover:to-red-800 transition shadow-lg flex items-center justify-center gap-2">
+                            <i class="fas fa-save"></i> Criar ladding page
+                        </button>
+                    </div>"
+                            class="w-full py-3.5 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-xl hover:from-red-700 hover:to-red-800 transition shadow-lg flex items-center justify-center gap-2">
+                            <i class="fas fa-save"></i> Criar ladding page
+                        </button>
+                    </div>
+                </div>
 
        <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
        
       </footer>
     </main>
     <script>
-        if (typeof lucide !== 'undefined') lucide.createIcons();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
 
       // Theme toggle
       const themeToggle = document.getElementById('themeToggle');
@@ -384,4 +478,5 @@ html.dark .logo-light {
           }
         });
       });
+   
     </script>
