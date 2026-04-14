@@ -334,6 +334,15 @@ html.dark .logo-light {
                             <input type="text" id="news-nome"placeholder="Ex: kayomelo.adv - Especialistas em Direito Previdenciário"
                                 class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
                         </div>
+                         <div>
+                            <label for="file-input" class="block text-sm font-medium text-foreground mb-1">logo presente na pagina</label>
+                            <input type="file" id="file-input" accept="image/*" onchange="pegarUrl(event)">
+                        </div>
+                         <div>
+                            <label class="block text-sm font-medium text-foreground mb-1">cores presentes na pagina</label>
+                            <input type="text" id="news-cores"placeholder="Ex: #000000, #FFFFFF, etc."
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
                         <div>
                             <label class="block text-sm font-medium text-foreground mb-1">Nome da cidade</label>
                             <input type="text" id="news-cidade" placeholder="Ex: São Paulo"
@@ -434,12 +443,32 @@ html.dark .logo-light {
           }
         });
       });
+let logoBase64 = ""; // Variável para armazenar a imagem
 
-      async function criarLandingPage() {
-    // Capturando os dados do seu formulário
+function pegarUrl(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            logoBase64 = e.target.result; // Armazena o Base64 aqui
+            document.getElementById('status').textContent = 'Logo carregada com sucesso!';
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+async function criarLandingPage() {
+    // Verificação simples
+    if (!logoBase64) {
+        alert("Por favor, selecione uma logo primeiro.");
+        return;
+    }
+
     const dados = {
         assunto: document.getElementById('news-assunt').value,
         nome_escritorio: document.getElementById('news-nome').value,
+        logo: logoBase64, // Agora o campo logo contém a string da imagem
+        cores: document.getElementById('news-cores').value,
         cidade: document.getElementById('news-cidade').value,
         titulo: document.getElementById('news-titulo').value,
         subtitulo: document.getElementById('news-subtitulo').value,
@@ -447,24 +476,19 @@ html.dark .logo-light {
         telefone: document.getElementById('news-telefone').value
     };
 
-    // URL do seu Webhook do n8n (Troque pela sua URL de teste ou produção)
-    const N8N_WEBHOOK_URL = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/pagina';
-
+    // Exemplo de envio para o n8n
     try {
-        const response = await fetch(N8N_WEBHOOK_URL, {
+        const response = await fetch('https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/pagina', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dados)
         });
-
+        
         if (response.ok) {
-            alert('Sua Landing Page está sendo gerada! Em instantes ela estará disponível.');
-        } else {
-            alert('Erro ao conectar com o servidor.');
+            alert("Dados enviados com sucesso!");
         }
     } catch (error) {
-        console.error('Erro:', error);
-        alert('Falha ao enviar os dados.');
+        console.error("Erro ao enviar:", error);
     }
 }
    
