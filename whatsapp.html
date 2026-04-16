@@ -9,6 +9,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
     rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -137,29 +138,32 @@
     .placeholder-muted-foreground::placeholder {
       color: var(--text-muted);
     }
+
     .w-80.h-80 {
-            width: 5rem;
-            /* Ajuste o valor conforme necessário */
-            height: 5rem;
-            /* Ajuste o valor conforme necessário */
-        }
+      width: 5rem;
+      /* Ajuste o valor conforme necessário */
+      height: 5rem;
+      /* Ajuste o valor conforme necessário */
+    }
 
-        /* Estilos para o tema claro (padrão) */
-        /* Tema claro (padrão) */
-.logo-dark {
-    display: none;
-}
-.logo-light {
-    display: block;
-}
+    /* Estilos para o tema claro (padrão) */
+    /* Tema claro (padrão) */
+    .logo-dark {
+      display: none;
+    }
 
-/* Tema escuro (quando a classe .dark está no html) */
-html.dark .logo-dark {
-    display: block;
-}
-html.dark .logo-light {
-    display: none;
-}
+    .logo-light {
+      display: block;
+    }
+
+    /* Tema escuro (quando a classe .dark está no html) */
+    html.dark .logo-dark {
+      display: block;
+    }
+
+    html.dark .logo-light {
+      display: none;
+    }
   </style>
 </head>
 
@@ -171,9 +175,9 @@ html.dark .logo-light {
       <div class="flex flex-col h-full">
         <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
           <div class="flex items-center gap-2">
-          <img src="assets/fundo preto (branco) recorte.png"  class="logo-dark w-80 h-80">
-                        <img src="assets/fundo branco (preta) (1) recorte.png"  class="logo-light w-80 h-80">
-              
+            <img src="assets/fundo preto (branco) recorte.png" class="logo-dark w-80 h-80">
+            <img src="assets/fundo branco (preta) (1) recorte.png" class="logo-light w-80 h-80">
+
           </div>
           <button id="closeSidebarBtn" class="lg:hidden text-muted-foreground hover:text-foreground p-1">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -217,9 +221,13 @@ html.dark .logo-light {
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
             <div class="collapsible-content open pl-9 mt-1 space-y-1">
-              <a href="relatorios.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Relatórios/Transcrição</a>
-              <a href="whatsapp.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Agente de AI</a>
-              <a href="noticias.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
+              <a href="relatorios.html"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Relatórios/Transcrição</a>
+              <a href="whatsapp.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Agente
+                de AI</a>
+              <a href="noticias.html"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
             </div>
           </div>
           <div class="nav-group">
@@ -293,7 +301,7 @@ html.dark .logo-light {
       </div>
     </aside>
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden transition-opacity"></div>
-     <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
+    <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
       <header
         class="sticky top-0 z-10 backdrop-blur-md border-b border-border bg-[var(--header-bg)] px-5 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -313,328 +321,329 @@ html.dark .logo-light {
         </div>
       </header>
       <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-              <p class="text-sm font-medium mb-3">Atendente Virtual (WhatsApp)</p>
-              <div class="flex items-center justify-between">
-                <span id="status-whatsapp" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
-                <button onclick="toggleService('whatsapp')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
-              </div>
+        <p class="text-sm font-medium mb-3">Atendente Virtual (WhatsApp)</p>
+        <div class="flex items-center justify-between">
+          <span id="status-whatsapp"
+            class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
+          <button onclick="toggleService('whatsapp')"
+            class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <!-- Card: Prompt da IA -->
+        <div class="glass-card p-8 rounded-2xl">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-3 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-xl shadow-sm">
+              <i class="fas fa-robot text-2xl"></i>
             </div>
-       <div class="space-y-1">
-                    <!-- Card: Prompt da IA -->
-                    <div class="glass-card p-8 rounded-2xl">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div
-                                class="p-3 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-xl shadow-sm">
-                                <i class="fas fa-robot text-2xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold text-foreground">Personalidade do Atendente</h4>
-                                <p class="text-sm text-muted-foreground">Defina o prompt / instruções para a IA no WhatsApp</p>
-                            </div>
-                        </div>
-                        <textarea id="ai-prompt" rows="5"
-                            class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground"
-                            placeholder="Ex: Você é um assistente jurídico especializado em direito civil. Seja cordial, objetivo e colete nome, telefone e motivo do contato antes de passar para o humano...">Você é a assistente virtual da Ominus tech. Recepcione clientes com empatia, identifique a área de interesse (trabalhista, cível, etc.) e colete nome e telefone. Nunca dê consultoria jurídica, apenas agende reuniões.</textarea>
-                        <div class="flex justify-end mt-4">
-                            <button onclick="savePrompt()"
-                                class="px-6 py-2.5 bg-gradient-to-r from-blue-700 to-blue-800 text-white font-medium rounded-xl hover:from-blue-800 hover:to-blue-900 transition shadow-md flex items-center gap-2">
-                                <i class="fas fa-save"></i> Salvar prompt
-                            </button>
-                        </div>
-                    </div>
+            <div>
+              <h4 class="text-xl font-semibold text-foreground">Personalidade do Atendente</h4>
+              <p class="text-sm text-muted-foreground">Defina o prompt / instruções para a IA no WhatsApp</p>
+            </div>
+          </div>
+          <textarea id="ai-prompt" rows="5"
+            class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground"
+            placeholder="Ex: Você é um assistente jurídico especializado em direito civil. Seja cordial, objetivo e colete nome, telefone e motivo do contato antes de passar para o humano...">Você é a assistente virtual da Ominus tech. Recepcione clientes com empatia, identifique a área de interesse (trabalhista, cível, etc.) e colete nome e telefone. Nunca dê consultoria jurídica, apenas agende reuniões.</textarea>
+          <div class="flex justify-end mt-4">
+            <button onclick="savePrompt()"
+              class="px-6 py-2.5 bg-gradient-to-r from-blue-700 to-blue-800 text-white font-medium rounded-xl hover:from-blue-800 hover:to-blue-900 transition shadow-md flex items-center gap-2">
+              <i class="fas fa-save"></i> Salvar prompt
+            </button>
+          </div>
+        </div>
 
-                    <!-- Card: Conexão WhatsApp (Evolution API) -->
-                    <div class="glass-card p-8 rounded-2xl">
-                        <div class="flex items-center gap-3 mb-5">
-                            <div
-                                class="p-3 bg-gradient-to-br from-green-100 to-green-200 text-green-700 rounded-xl shadow-sm">
-                                <i class="fab fa-whatsapp text-2xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold text-foreground">Conectar instância WhatsApp</h4>
-                                <p class="text-sm text-muted-foreground">Digite o nome da instância e gere o QR Code</p>
-                            </div>
-                        </div>
+        <!-- Card: Conexão WhatsApp (Evolution API) -->
+        <div class="glass-card p-8 rounded-2xl">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-3 bg-gradient-to-br from-green-100 to-green-200 text-green-700 rounded-xl shadow-sm">
+              <i class="fab fa-whatsapp text-2xl"></i>
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold text-foreground">Conectar instância WhatsApp</h4>
+              <p class="text-sm text-muted-foreground">Digite o nome da instância e gere o QR Code</p>
+            </div>
+          </div>
 
-                        
-                                <label class="block text-sm font-medium text-foreground mb-1">Nome da Instância</label>
-                                <input type="text" id="instance-name" placeholder="Ex: Ominus_Advocacia"
-                                   class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-                          
-                            <div class="space-y-5">
-                            <button onclick="generateQRCode()"
-                                class="w-full py-3.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl hover:from-green-700 hover:to-emerald-800 transition shadow-lg flex items-center justify-center gap-2">
-                                <i class="fas fa-qrcode"></i> Gerar QR Code
-                            </button>
-                        </div>
 
-                        <div id="qr-container"
-                            class="hidden mt-8 flex flex-col items-center justify-center p-6 border-2 border-dashed border-white/50 rounded-xl bg-white/30">
-                            <div id="qr-placeholder" class="text-muted-foreground text-center">
-                                <i class="fas fa-spinner fa-pulse text-3xl mb-2"></i>
-                                <p class="text-sm">Aguardando resposta da API...</p>
-                            </div>
-                            <img id="qr-code-img" class="hidden max-w-xs shadow-xl rounded-xl border-4 border-white"
-                                src="" alt="QR Code WhatsApp">
-                            <p id="connection-status-text"
-                                class="mt-4 text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full">
-                                Status: desconectado</p>
-                        </div>
-                    </div>
-                </div>
-      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
-       
+          <label class="block text-sm font-medium text-foreground mb-1">Nome da Instância</label>
+          <input type="text" id="instance-name" placeholder="Ex: Ominus_Advocacia"
+            class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+
+          <div class="space-y-5">
+            <button onclick="generateQRCode()"
+              class="w-full py-3.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl hover:from-green-700 hover:to-emerald-800 transition shadow-lg flex items-center justify-center gap-2">
+              <i class="fas fa-qrcode"></i> Gerar QR Code
+            </button>
+          </div>
+
+          <div id="qr-container"
+            class="hidden mt-8 flex flex-col items-center justify-center p-6 border-2 border-dashed border-white/50 rounded-xl bg-white/30">
+            <div id="qr-placeholder" class="text-muted-foreground text-center">
+              <i class="fas fa-spinner fa-pulse text-3xl mb-2"></i>
+              <p class="text-sm">Aguardando resposta da API...</p>
+            </div>
+            <img id="qr-code-img" class="hidden max-w-xs shadow-xl rounded-xl border-4 border-white" src=""
+              alt="QR Code WhatsApp">
+            <p id="connection-status-text"
+              class="mt-4 text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full">
+              Status: desconectado</p>
+          </div>
+        </div>
+      </div>
+      <footer
+        class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+
       </footer>
     </main>
     <script>
-        const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
-         const WEBHOOK_QR_CODE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/generate-qr";
-        const WEBHOOK_SAVE_PROMPT = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-prompt";
-       
-    document.addEventListener('DOMContentLoaded', function () {
-      // Inicializa os ícones
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+      const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
+      const WEBHOOK_QR_CODE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/generate-qr";
+      const WEBHOOK_SAVE_PROMPT = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-prompt";
 
-      // Theme toggle
-      const themeToggle = document.getElementById('themeToggle');
-      const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      if (isDark) document.documentElement.classList.add('dark');
-      else document.documentElement.classList.remove('dark');
+      document.addEventListener('DOMContentLoaded', function () {
+        // Inicializa os ícones
+        if (typeof lucide !== 'undefined') lucide.createIcons();
 
-      themeToggle?.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-        localStorage.setItem('theme', theme);
-        if (typeof lucide !== 'undefined') lucide.createIcons(); // recria ícones para trocar sun/moon
-      });
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
 
-      // Sidebar mobile
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      const openBtn = document.getElementById('openSidebarBtn');
-      const closeBtn = document.getElementById('closeSidebarBtn');
+        themeToggle?.addEventListener('click', () => {
+          document.documentElement.classList.toggle('dark');
+          const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+          localStorage.setItem('theme', theme);
+          if (typeof lucide !== 'undefined') lucide.createIcons(); // recria ícones para trocar sun/moon
+        });
 
-      function openSidebar() {
-        sidebar.classList.remove('-translate-x-full');
-        overlay.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeSidebar() {
-        sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-      openBtn?.addEventListener('click', openSidebar);
-      closeBtn?.addEventListener('click', closeSidebar);
-      overlay?.addEventListener('click', closeSidebar);
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024) {
-          closeSidebar();
+        // Sidebar mobile
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const openBtn = document.getElementById('openSidebarBtn');
+        const closeBtn = document.getElementById('closeSidebarBtn');
+
+        function openSidebar() {
           sidebar.classList.remove('-translate-x-full');
+          overlay.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+        function closeSidebar() {
+          sidebar.classList.add('-translate-x-full');
           overlay.classList.add('hidden');
           document.body.style.overflow = '';
-        } else {
-          if (!sidebar.classList.contains('-translate-x-full')) {
-            // se estiver aberto, mantém, mas não força fechamento
-          } else {
-            sidebar.classList.add('-translate-x-full');
-          }
         }
-      });
-      if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
-      else sidebar.classList.add('-translate-x-full');
-
-      // Accordion
-      const toggleButtons = document.querySelectorAll('.nav-toggle');
-      toggleButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const parentGroup = btn.closest('.nav-group');
-          const content = parentGroup.querySelector('.collapsible-content');
-          const icon = btn.querySelector('.rotate-icon');
-          content.classList.toggle('open');
-          if (icon) {
-            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        openBtn?.addEventListener('click', openSidebar);
+        closeBtn?.addEventListener('click', closeSidebar);
+        overlay?.addEventListener('click', closeSidebar);
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 1024) {
+            closeSidebar();
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+          } else {
+            if (!sidebar.classList.contains('-translate-x-full')) {
+              // se estiver aberto, mantém, mas não força fechamento
+            } else {
+              sidebar.classList.add('-translate-x-full');
+            }
           }
         });
+        if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
+        else sidebar.classList.add('-translate-x-full');
+
+        // Accordion
+        const toggleButtons = document.querySelectorAll('.nav-toggle');
+        toggleButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const parentGroup = btn.closest('.nav-group');
+            const content = parentGroup.querySelector('.collapsible-content');
+            const icon = btn.querySelector('.rotate-icon');
+            content.classList.toggle('open');
+            if (icon) {
+              icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+          });
+        });
       });
-    });
 
-    let currentServiceStatus = {
-    whatsapp: false
-};
+      let currentServiceStatus = {
+        whatsapp: false
+      };
 
-// 1. Função para salvar o estado atual no localStorage
-function saveStatusToStorage() {
-    localStorage.setItem('serviceStatus', JSON.stringify(currentServiceStatus));
-}
+      // 1. Função para salvar o estado atual no localStorage
+      function saveStatusToStorage() {
+        localStorage.setItem('serviceStatus', JSON.stringify(currentServiceStatus));
+      }
 
-// 2. Função para recuperar o estado do localStorage ao carregar a página
-function loadStatusFromStorage() {
-    const savedStatus = localStorage.getItem('serviceStatus');
-    
-    if (savedStatus) {
-        // Mescla os status salvos no storage com o objeto atual
-        // Isso evita erros caso você adicione um novo serviço no futuro
-        currentServiceStatus = { ...currentServiceStatus, ...JSON.parse(savedStatus) };
-    }
+      // 2. Função para recuperar o estado do localStorage ao carregar a página
+      function loadStatusFromStorage() {
+        const savedStatus = localStorage.getItem('serviceStatus');
 
-    // Atualiza a interface visual para todos os serviços na página atual
-    for (const service in currentServiceStatus) {
-        const statusLabel = document.getElementById(`status-${service}`);
-        // Verifica se o elemento existe na página atual antes de tentar atualizar
-        if (statusLabel) { 
-            updateStatusUI(service);
+        if (savedStatus) {
+          // Mescla os status salvos no storage com o objeto atual
+          // Isso evita erros caso você adicione um novo serviço no futuro
+          currentServiceStatus = { ...currentServiceStatus, ...JSON.parse(savedStatus) };
         }
-    }
-}
 
-function updateStatusUI(service) {
-    const statusLabel = document.getElementById(`status-${service}`);
-    
-    // Proteção caso o elemento não exista na página HTML atual
-    if (!statusLabel) return; 
+        // Atualiza a interface visual para todos os serviços na página atual
+        for (const service in currentServiceStatus) {
+          const statusLabel = document.getElementById(`status-${service}`);
+          // Verifica se o elemento existe na página atual antes de tentar atualizar
+          if (statusLabel) {
+            updateStatusUI(service);
+          }
+        }
+      }
 
-    if (currentServiceStatus[service]) {
-        statusLabel.innerText = "ATIVO";
-        statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
-    } else {
-        statusLabel.innerText = "INATIVO";
-        statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
-    }
-}
+      function updateStatusUI(service) {
+        const statusLabel = document.getElementById(`status-${service}`);
 
-async function toggleService(service) {
-    const statusLabel = document.getElementById(`status-${service}`);
-    const originalText = statusLabel.innerText;
+        // Proteção caso o elemento não exista na página HTML atual
+        if (!statusLabel) return;
 
-    // escolher webhook específico para notícias
-    const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : service === 'telegram' ? WEBHOOK_TOGGLE_TELEGRAM : WEBHOOK_TOGGLE;
+        if (currentServiceStatus[service]) {
+          statusLabel.innerText = "ATIVO";
+          statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
+        } else {
+          statusLabel.innerText = "INATIVO";
+          statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
+        }
+      }
 
-    try {
-        statusLabel.innerText = "PROCESSANDO...";
-        statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
+      async function toggleService(service) {
+        const statusLabel = document.getElementById(`status-${service}`);
+        const originalText = statusLabel.innerText;
 
-        const response = await fetch(webhookUrl, {
+        // escolher webhook específico para notícias
+        const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : service === 'telegram' ? WEBHOOK_TOGGLE_TELEGRAM : WEBHOOK_TOGGLE;
+
+        try {
+          statusLabel.innerText = "PROCESSANDO...";
+          statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
+
+          const response = await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                servico: service,
-                acao: currentServiceStatus[service] ? 'false' : 'true',
-                timestamp: new Date().toISOString()
+              servico: service,
+              acao: currentServiceStatus[service] ? 'false' : 'true',
+              timestamp: new Date().toISOString()
             })
-        });
+          });
 
-        if (response.ok) {
+          if (response.ok) {
             // Alterna o valor no objeto
             currentServiceStatus[service] = !currentServiceStatus[service];
-            
+
             // 3. Salva o novo valor no LocalStorage
             saveStatusToStorage();
-            
+
             // Atualiza o botão
             updateStatusUI(service);
-        } else {
+          } else {
             throw new Error('Falha na comunicação');
+          }
+        } catch (error) {
+          console.error("Erro ao alternar serviço:", error);
+          alert("Erro ao comunicar com o n8n. Verifique o console.");
+          // Reverte a UI para o estado anterior em caso de erro no n8n
+          updateStatusUI(service);
         }
-    } catch (error) {
-        console.error("Erro ao alternar serviço:", error);
-        alert("Erro ao comunicar com o n8n. Verifique o console.");
-        // Reverte a UI para o estado anterior em caso de erro no n8n
-        updateStatusUI(service); 
-    }
-}
+      }
 
-// 4. Executa a função de carregamento assim que a página HTML estiver pronta
+      // 4. Executa a função de carregamento assim que a página HTML estiver pronta
 
-        async function generateQRCode() {
-            const instanceName = document.getElementById('instance-name').value;
-            if (!instanceName) {
-                alert("Por favor, digite o nome da instância.");
-                return;
-            }
-
-            const qrContainer = document.getElementById('qr-container');
-            const qrPlaceholder = document.getElementById('qr-placeholder');
-            const qrImg = document.getElementById('qr-code-img');
-            const statusText = document.getElementById('connection-status-text');
-
-            qrContainer.classList.remove('hidden');
-            qrPlaceholder.classList.remove('hidden');
-            qrImg.classList.add('hidden');
-            statusText.innerText = "Status: Aguardando...";
-            statusText.className = "mt-4 text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full";
-
-            try {
-                const response = await fetch(WEBHOOK_QR_CODE, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ instanceName: instanceName })
-                });
-
-                const data = await response.json();
-
-                if (data && data.qrcode) {
-                    qrImg.src = data.qrcode;
-                    qrImg.classList.remove('hidden');
-                    qrPlaceholder.classList.add('hidden');
-                    statusText.innerText = "Status: QR Code gerado. Escaneie com o WhatsApp.";
-                    statusText.className = "mt-4 text-sm font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full";
-                } else {
-                    throw new Error("Formato de QR Code inválido");
-                }
-            } catch (error) {
-                console.error("Erro ao gerar QR Code:", error);
-                statusText.innerText = "Status: Erro na API.";
-                statusText.className = "mt-4 text-sm font-medium text-rose-700 bg-rose-50 px-3 py-1 rounded-full";
-                qrPlaceholder.innerHTML = `<p class="text-rose-500 text-xs font-bold">Falha ao obter QR Code do n8n</p>`;
-            }
+      async function generateQRCode() {
+        const instanceName = document.getElementById('instance-name').value;
+        if (!instanceName) {
+          alert("Por favor, digite o nome da instância.");
+          return;
         }
-        async function savePrompt() {
-            const promptText = document.getElementById('ai-prompt').value;
-            if (!promptText.trim()) {
-                alert("Por favor, escreva um prompt para a IA.");
-                return;
-            }
 
-            const btn = event.currentTarget;
-            const originalHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Salvando...';
-            btn.disabled = true;
+        const qrContainer = document.getElementById('qr-container');
+        const qrPlaceholder = document.getElementById('qr-placeholder');
+        const qrImg = document.getElementById('qr-code-img');
+        const statusText = document.getElementById('connection-status-text');
 
-            try {
-                const response = await fetch(WEBHOOK_SAVE_PROMPT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: promptText, timestamp: new Date().toISOString() })
-                });
+        qrContainer.classList.remove('hidden');
+        qrPlaceholder.classList.remove('hidden');
+        qrImg.classList.add('hidden');
+        statusText.innerText = "Status: Aguardando...";
+        statusText.className = "mt-4 text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full";
 
-                if (response.ok) {
-                    btn.innerHTML = '<i class="fas fa-check"></i> Salvo!';
-                    setTimeout(() => {
-                        btn.innerHTML = originalHtml;
-                        btn.disabled = false;
-                    }, 2000);
-                } else {
-                    throw new Error('Erro no servidor');
-                }
-            } catch (error) {
-                console.error("Erro ao salvar prompt:", error);
-                alert("Não foi possível salvar o prompt. Verifique o webhook.");
-                btn.innerHTML = originalHtml;
-                btn.disabled = false;
-            }
+        try {
+          const response = await fetch(WEBHOOK_QR_CODE, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ instanceName: instanceName })
+          });
+
+          const data = await response.json();
+
+          if (data && data.qrcode) {
+            qrImg.src = data.qrcode;
+            qrImg.classList.remove('hidden');
+            qrPlaceholder.classList.add('hidden');
+            statusText.innerText = "Status: QR Code gerado. Escaneie com o WhatsApp.";
+            statusText.className = "mt-4 text-sm font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full";
+          } else {
+            throw new Error("Formato de QR Code inválido");
+          }
+        } catch (error) {
+          console.error("Erro ao gerar QR Code:", error);
+          statusText.innerText = "Status: Erro na API.";
+          statusText.className = "mt-4 text-sm font-medium text-rose-700 bg-rose-50 px-3 py-1 rounded-full";
+          qrPlaceholder.innerHTML = `<p class="text-rose-500 text-xs font-bold">Falha ao obter QR Code do n8n</p>`;
         }
-    document.addEventListener("DOMContentLoaded", () => {
-    loadStatusFromStorage();
-});
+      }
+      async function savePrompt() {
+        const promptText = document.getElementById('ai-prompt').value;
+        if (!promptText.trim()) {
+          alert("Por favor, escreva um prompt para a IA.");
+          return;
+        }
 
-window.addEventListener('storage', (event) => {
-    if (event.key === 'serviceStatus') {
-        loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
-    }
-});
- </script>
+        const btn = event.currentTarget;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Salvando...';
+        btn.disabled = true;
+
+        try {
+          const response = await fetch(WEBHOOK_SAVE_PROMPT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: promptText, timestamp: new Date().toISOString() })
+          });
+
+          if (response.ok) {
+            btn.innerHTML = '<i class="fas fa-check"></i> Salvo!';
+            setTimeout(() => {
+              btn.innerHTML = originalHtml;
+              btn.disabled = false;
+            }, 2000);
+          } else {
+            throw new Error('Erro no servidor');
+          }
+        } catch (error) {
+          console.error("Erro ao salvar prompt:", error);
+          alert("Não foi possível salvar o prompt. Verifique o webhook.");
+          btn.innerHTML = originalHtml;
+          btn.disabled = false;
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        loadStatusFromStorage();
+      });
+
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'serviceStatus') {
+          loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
+        }
+      });
+    </script>
 </body>
 
 </html>

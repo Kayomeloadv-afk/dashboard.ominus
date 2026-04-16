@@ -402,7 +402,8 @@
       margin-top: 2px;
     }
 
-    .crm-content .lead-whatsapp svg, .crm-content .lead-whatsapp i {
+    .crm-content .lead-whatsapp svg,
+    .crm-content .lead-whatsapp i {
       width: 12px;
       height: 12px;
     }
@@ -580,8 +581,13 @@
     }
 
     @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
     }
 
     #toast {
@@ -614,29 +620,32 @@
     #toast.error {
       border-left: 4px solid var(--danger);
     }
+
     .w-80.h-80 {
-            width: 5rem;
-            /* Ajuste o valor conforme necessário */
-            height: 5rem;
-            /* Ajuste o valor conforme necessário */
-        }
+      width: 5rem;
+      /* Ajuste o valor conforme necessário */
+      height: 5rem;
+      /* Ajuste o valor conforme necessário */
+    }
 
-        /* Estilos para o tema claro (padrão) */
-        /* Tema claro (padrão) */
-.logo-dark {
-    display: none;
-}
-.logo-light {
-    display: block;
-}
+    /* Estilos para o tema claro (padrão) */
+    /* Tema claro (padrão) */
+    .logo-dark {
+      display: none;
+    }
 
-/* Tema escuro (quando a classe .dark está no html) */
-html.dark .logo-dark {
-    display: block;
-}
-html.dark .logo-light {
-    display: none;
-}
+    .logo-light {
+      display: block;
+    }
+
+    /* Tema escuro (quando a classe .dark está no html) */
+    html.dark .logo-dark {
+      display: block;
+    }
+
+    html.dark .logo-light {
+      display: none;
+    }
   </style>
 </head>
 
@@ -648,8 +657,8 @@ html.dark .logo-light {
       <div class="flex flex-col h-full">
         <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <img src="assets/fundo preto (branco) recorte.png"  class="logo-dark w-80 h-80">
-                        <img src="assets/fundo branco (preta) (1) recorte.png"  class="logo-light w-80 h-80">
+            <img src="assets/fundo preto (branco) recorte.png" class="logo-dark w-80 h-80">
+            <img src="assets/fundo branco (preta) (1) recorte.png" class="logo-light w-80 h-80">
           </div>
           <button id="closeSidebarBtn" class="lg:hidden text-muted-foreground hover:text-foreground p-1">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -693,9 +702,12 @@ html.dark .logo-light {
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
             <div class="collapsible-content pl-9 mt-1 space-y-1">
-              <a href="relatorios.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Relatórios/Transcrição</a>
-              <a href="whatsapp.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Agente de AI</a>
-              <a href="noticias.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
+              <a href="relatorios.html"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Relatórios/Transcrição</a>
+              <a href="whatsapp.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Agente
+                de AI</a>
+              <a href="noticias.html"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
             </div>
           </div>
           <div class="nav-group">
@@ -769,7 +781,7 @@ html.dark .logo-light {
       </div>
     </aside>
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden transition-opacity"></div>
-     <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
+    <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
       <header
         class="sticky top-0 z-10 backdrop-blur-md border-b border-border bg-[var(--header-bg)] px-5 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -803,7 +815,8 @@ html.dark .logo-light {
             <div class="filter-group">
               <label>Temperatura</label>
               <div class="filter-btn-group" id="filter-temp">
-                <button class="filter-chip hot" data-val="quente" onclick="toggleChip(this,'temp')">🔥 Lead Quente</button>
+                <button class="filter-chip hot" data-val="quente" onclick="toggleChip(this,'temp')">🔥 Lead
+                  Quente</button>
                 <button class="filter-chip cold" data-val="frio" onclick="toggleChip(this,'temp')">❄️ Lead Frio</button>
               </div>
             </div>
@@ -811,9 +824,12 @@ html.dark .logo-light {
             <div class="filter-group">
               <label>Status</label>
               <div class="filter-btn-group" id="filter-status">
-                <button class="filter-chip" data-val="aguardando" onclick="toggleChip(this,'status')">⏳ Aguardando</button>
-                <button class="filter-chip" data-val="Em Atendimento" onclick="toggleChip(this,'status')">💬 Em Atendimento</button>
-                <button class="filter-chip" data-val="Agendamento Marcado" onclick="toggleChip(this,'status')">📅 Agendado</button>
+                <button class="filter-chip" data-val="aguardando" onclick="toggleChip(this,'status')">⏳
+                  Aguardando</button>
+                <button class="filter-chip" data-val="Em Atendimento" onclick="toggleChip(this,'status')">💬 Em
+                  Atendimento</button>
+                <button class="filter-chip" data-val="Agendamento Marcado" onclick="toggleChip(this,'status')">📅
+                  Agendado</button>
               </div>
             </div>
 
@@ -874,8 +890,9 @@ html.dark .logo-light {
       </div>
 
       <!-- Footer -->
-      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
-       
+      <footer
+        class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+
       </footer>
     </main>
 
@@ -965,7 +982,7 @@ html.dark .logo-light {
         const dataFmt = lead.data ? new Date(lead.data).toLocaleDateString('pt-BR', {
           day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
         }) : 'Sem data';
-        
+
         return `
   <div class="lead-card ${temperaturaClass}" id="card-${escHtml(lead.whatsapp)}">
     <div class="lead-card-header">
@@ -1031,9 +1048,9 @@ html.dark .logo-light {
         try {
           const res = await fetch(N8N_POST_WEBHOOK, {
             method: 'POST',
-            headers: { 
+            headers: {
               'Content-Type': 'application/json',
-              'ngrok-skip-browser-warning': 'true' 
+              'ngrok-skip-browser-warning': 'true'
             },
             body: JSON.stringify(payload)
           });

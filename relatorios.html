@@ -137,29 +137,32 @@
     .rotate-icon {
       transition: transform 0.2s;
     }
+
     .w-80.h-80 {
-            width: 5rem;
-            /* Ajuste o valor conforme necessário */
-            height: 5rem;
-            /* Ajuste o valor conforme necessário */
-        }
+      width: 5rem;
+      /* Ajuste o valor conforme necessário */
+      height: 5rem;
+      /* Ajuste o valor conforme necessário */
+    }
 
-        /* Estilos para o tema claro (padrão) */
-        /* Tema claro (padrão) */
-.logo-dark {
-    display: none;
-}
-.logo-light {
-    display: block;
-}
+    /* Estilos para o tema claro (padrão) */
+    /* Tema claro (padrão) */
+    .logo-dark {
+      display: none;
+    }
 
-/* Tema escuro (quando a classe .dark está no html) */
-html.dark .logo-dark {
-    display: block;
-}
-html.dark .logo-light {
-    display: none;
-}
+    .logo-light {
+      display: block;
+    }
+
+    /* Tema escuro (quando a classe .dark está no html) */
+    html.dark .logo-dark {
+      display: block;
+    }
+
+    html.dark .logo-light {
+      display: none;
+    }
   </style>
 </head>
 
@@ -171,8 +174,8 @@ html.dark .logo-light {
       <div class="flex flex-col h-full">
         <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <img src="assets/fundo preto (branco) recorte.png"  class="logo-dark w-80 h-80">
-                        <img src="assets/fundo branco (preta) (1) recorte.png"  class="logo-light w-80 h-80">
+            <img src="assets/fundo preto (branco) recorte.png" class="logo-dark w-80 h-80">
+            <img src="assets/fundo branco (preta) (1) recorte.png" class="logo-light w-80 h-80">
           </div>
           <button id="closeSidebarBtn" class="lg:hidden text-muted-foreground hover:text-foreground p-1">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -216,9 +219,12 @@ html.dark .logo-light {
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
             <div class="collapsible-content open pl-9 mt-1 space-y-1">
-              <a href="relatorios.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Relatórios/Transcrição</a>
-              <a href="whatsapp.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Agente de AI</a>
-              <a href="noticias.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
+              <a href="relatorios.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Relatórios/Transcrição</a>
+              <a href="whatsapp.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Agente
+                de AI</a>
+              <a href="noticias.html"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
             </div>
           </div>
           <div class="nav-group">
@@ -292,7 +298,7 @@ html.dark .logo-light {
       </div>
     </aside>
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden transition-opacity"></div>
-     <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
+    <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
       <header
         class="sticky top-0 z-10 backdrop-blur-md border-b border-border bg-[var(--header-bg)] px-5 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -311,165 +317,168 @@ html.dark .logo-light {
             KM</div>
         </div>
       </header>
-       <div class="space-y-6">
-            <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-              <p class="text-sm font-medium mb-3">Bot Telegram (Transcrição)</p>
-              <div class="flex items-center justify-between">
-                <span id="status-telegram" class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
-                <button onclick="toggleService('telegram')" class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
-              </div>
-            </div>
-            <div class="rounded-2xl overflow-hidden shadow-sm border border-border bg-card">
-                    <div class="p-4 border-b border-border flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-foreground uppercase tracking-wider">
-                            Histórico de Atendimentos
-                        </h3>
-                        <button onclick="loadReports()"
-                            class="text-primary hover:text-primary-dark transition-transform active:scale-95">
-                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                    <div class="overflow-x-auto overflow-y-auto max-h-[60vh]">
-                        <table class="min-w-[900px] w-full text-left border-collapse">
-                            <thead class="bg-[var(--border-light)]/50 border-b border-border">
-                                <tr>
-                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase">Reunião /
-                                        Cliente</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase text-center">
-                                        Resumo</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase">Data</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase text-center">PDF
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="reports-list" class="divide-y divide-border text-foreground">
-                                <tr>
-                                    <td colspan="4" class="px-6 py-10 text-center text-muted-foreground">
-                                        Clique em atualizar para carregar dados...
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>    
-      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
-   
-      </footer>
+      <div class="space-y-6">
+        <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
+          <p class="text-sm font-medium mb-3">Bot Telegram (Transcrição)</p>
+          <div class="flex items-center justify-between">
+            <span id="status-telegram"
+              class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
+            <button onclick="toggleService('telegram')"
+              class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
+          </div>
+        </div>
+        <div class="rounded-2xl overflow-hidden shadow-sm border border-border bg-card">
+          <div class="p-4 border-b border-border flex justify-between items-center">
+            <h3 class="text-sm font-bold text-foreground uppercase tracking-wider">
+              Histórico de Atendimentos
+            </h3>
+            <button onclick="loadReports()"
+              class="text-primary hover:text-primary-dark transition-transform active:scale-95">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <div class="overflow-x-auto overflow-y-auto max-h-[60vh]">
+            <table class="min-w-[900px] w-full text-left border-collapse">
+              <thead class="bg-[var(--border-light)]/50 border-b border-border">
+                <tr>
+                  <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase">Reunião /
+                    Cliente</th>
+                  <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase text-center">
+                    Resumo</th>
+                  <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase">Data</th>
+                  <th class="px-6 py-4 text-xs font-semibold text-muted-foreground uppercase text-center">PDF
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="reports-list" class="divide-y divide-border text-foreground">
+                <tr>
+                  <td colspan="4" class="px-6 py-10 text-center text-muted-foreground">
+                    Clique em atualizar para carregar dados...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <footer
+          class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+
+        </footer>
     </main>
-     <script>
+    <script>
       const WEBHOOK_TOGGLE_TELEGRAM = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/WEBHOOK_TOGGLE_TELEGRAM";
-        const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis";
-        const WEBHOOK_GERAR_PDF = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/gerar-pdf";
-        
-        document.addEventListener('DOMContentLoaded', function () {
-      // Inicializa os ícones
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+      const WEBHOOK_GET_REPORTS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/relatorios-ominis";
+      const WEBHOOK_GERAR_PDF = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/gerar-pdf";
 
-      // Theme toggle
-      const themeToggle = document.getElementById('themeToggle');
-      const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      if (isDark) document.documentElement.classList.add('dark');
-      else document.documentElement.classList.remove('dark');
+      document.addEventListener('DOMContentLoaded', function () {
+        // Inicializa os ícones
+        if (typeof lucide !== 'undefined') lucide.createIcons();
 
-      themeToggle?.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-        localStorage.setItem('theme', theme);
-        if (typeof lucide !== 'undefined') lucide.createIcons(); // recria ícones para trocar sun/moon
-      });
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
 
-      // Sidebar mobile
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      const openBtn = document.getElementById('openSidebarBtn');
-      const closeBtn = document.getElementById('closeSidebarBtn');
+        themeToggle?.addEventListener('click', () => {
+          document.documentElement.classList.toggle('dark');
+          const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+          localStorage.setItem('theme', theme);
+          if (typeof lucide !== 'undefined') lucide.createIcons(); // recria ícones para trocar sun/moon
+        });
 
-      function openSidebar() {
-        sidebar.classList.remove('-translate-x-full');
-        overlay.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeSidebar() {
-        sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
-        document.body.style.overflow = '';
-      }
-      openBtn?.addEventListener('click', openSidebar);
-      closeBtn?.addEventListener('click', closeSidebar);
-      overlay?.addEventListener('click', closeSidebar);
-      window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024) {
-          closeSidebar();
+        // Sidebar mobile
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const openBtn = document.getElementById('openSidebarBtn');
+        const closeBtn = document.getElementById('closeSidebarBtn');
+
+        function openSidebar() {
           sidebar.classList.remove('-translate-x-full');
+          overlay.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+        function closeSidebar() {
+          sidebar.classList.add('-translate-x-full');
           overlay.classList.add('hidden');
           document.body.style.overflow = '';
-        } else {
-          if (!sidebar.classList.contains('-translate-x-full')) {
-            // se estiver aberto, mantém, mas não força fechamento
-          } else {
-            sidebar.classList.add('-translate-x-full');
-          }
         }
-      });
-      if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
-      else sidebar.classList.add('-translate-x-full');
-
-      // Accordion
-      const toggleButtons = document.querySelectorAll('.nav-toggle');
-      toggleButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          const parentGroup = btn.closest('.nav-group');
-          const content = parentGroup.querySelector('.collapsible-content');
-          const icon = btn.querySelector('.rotate-icon');
-          content.classList.toggle('open');
-          if (icon) {
-            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        openBtn?.addEventListener('click', openSidebar);
+        closeBtn?.addEventListener('click', closeSidebar);
+        overlay?.addEventListener('click', closeSidebar);
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 1024) {
+            closeSidebar();
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+          } else {
+            if (!sidebar.classList.contains('-translate-x-full')) {
+              // se estiver aberto, mantém, mas não força fechamento
+            } else {
+              sidebar.classList.add('-translate-x-full');
+            }
           }
         });
+        if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
+        else sidebar.classList.add('-translate-x-full');
+
+        // Accordion
+        const toggleButtons = document.querySelectorAll('.nav-toggle');
+        toggleButtons.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const parentGroup = btn.closest('.nav-group');
+            const content = parentGroup.querySelector('.collapsible-content');
+            const icon = btn.querySelector('.rotate-icon');
+            content.classList.toggle('open');
+            if (icon) {
+              icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+          });
+        });
+
+        // Carrega relatórios ao carregar a página
+        loadReports();
+
       });
+      async function loadReports() {
+        const tableBody = document.getElementById('reports-list');
+        if (!tableBody) return;
 
-      // Carrega relatórios ao carregar a página
-      loadReports();
-    
-    });
-    async function loadReports() {
-    const tableBody = document.getElementById('reports-list');
-    if (!tableBody) return;
+        tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-muted-foreground animate-pulse">Buscando dados em Ominus Tech...</td></tr>`;
 
-    tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-muted-foreground animate-pulse">Buscando dados em Ominus Tech...</td></tr>`;
-
-    try {
-        const response = await fetch(WEBHOOK_GET_REPORTS, {
+        try {
+          const response = await fetch(WEBHOOK_GET_REPORTS, {
             method: 'GET',
             headers: { 'ngrok-skip-browser-warning': 'true' }
-        });
+          });
 
-        if (!response.ok) throw new Error('Falha na resposta do servidor');
-        
-        const rawData = await response.json();
-        console.log("Dados Brutos do n8n:", rawData);
+          if (!response.ok) throw new Error('Falha na resposta do servidor');
 
-        // Ajuste fundamental: Captura os dados se vierem dentro de 'data' ou 'json'
-        let items = [];
-        if (rawData.data && Array.isArray(rawData.data)) {
+          const rawData = await response.json();
+          console.log("Dados Brutos do n8n:", rawData);
+
+          // Ajuste fundamental: Captura os dados se vierem dentro de 'data' ou 'json'
+          let items = [];
+          if (rawData.data && Array.isArray(rawData.data)) {
             items = rawData.data; // Formato observado no seu console
-        } else if (Array.isArray(rawData)) {
+          } else if (Array.isArray(rawData)) {
             items = rawData.map(item => item.json || item);
-        } else if (rawData.json && Array.isArray(rawData.json)) {
+          } else if (rawData.json && Array.isArray(rawData.json)) {
             items = rawData.json;
-        }
+          }
 
-        console.log("Items extraídos:", items);
+          console.log("Items extraídos:", items);
 
-        tableBody.innerHTML = ''; 
+          tableBody.innerHTML = '';
 
-        if (items.length === 0) {
+          if (items.length === 0) {
             tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-muted-foreground">Nenhum relatório encontrado.</td></tr>`;
             return;
-        }
+          }
 
-        items.forEach(fields => {
+          items.forEach(fields => {
             // Ignora linhas nulas (como o ID 2 da sua tabela)
             console.log("Processando item:", fields);
             if (!fields || (!fields.Reuniao && !fields.id)) return;
@@ -479,12 +488,12 @@ html.dark .logo-light {
 
             const titulo = fields.Reuniao || 'Relatório Sem Título';
             const status = fields.acao || fields.Resumo || 'PENDENTE';
-            
+
             // Formatação de data robusta
             let dataExibicao = '---';
             if (fields.Data) {
-                const d = new Date(fields.Data);
-                dataExibicao = !isNaN(d.getTime()) ? d.toLocaleDateString('pt-BR') : fields.Data.split('T')[0];
+              const d = new Date(fields.Data);
+              dataExibicao = !isNaN(d.getTime()) ? d.toLocaleDateString('pt-BR') : fields.Data.split('T')[0];
             }
 
             const cellTitulo = document.createElement('td');
@@ -506,148 +515,148 @@ html.dark .logo-light {
             button.type = 'button';
             button.className = 'text-red-500 hover:text-red-700 transition-transform active:scale-90 bg-red-50 hover:bg-red-100 px-2 py-1 rounded';
             button.addEventListener('click', () => {
-                console.log("Clicou no botão PDF para:", fields);
-                gerarPDF(fields);
+              console.log("Clicou no botão PDF para:", fields);
+              gerarPDF(fields);
             });
             button.innerHTML = 'PDF'; // Temporário para testar visibilidade
 
             cellAction.appendChild(button);
             row.append(cellTitulo, cellStatus, cellData, cellAction);
             tableBody.appendChild(row);
-        });
+          });
 
-        // Recria ícones após adicionar linhas
-        if (typeof lucide !== 'undefined') lucide.createIcons();
+          // Recria ícones após adicionar linhas
+          if (typeof lucide !== 'undefined') lucide.createIcons();
 
-    } catch (error) {
-        console.error('Erro detalhado:', error);
-        tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-red-500">Erro ao processar dados. Verifique o console.</td></tr>`;
-    }
-}
-
-        // 3. Função de gerar PDF (FORA da loadReports para ter escopo global)
-        async function gerarPDF(dados) {
-            try {
-                const response = await fetch(WEBHOOK_GERAR_PDF, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dados)
-                });
-
-                if (!response.ok) throw new Error('Erro no servidor n8n');
-
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                const nomeArquivo = dados.Reuniao ? dados.Reuniao.replace(/\s+/g, '_') : 'Relatorio';
-                a.download = `Relatorio_${nomeArquivo}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            } catch (error) {
-                console.error("Erro PDF:", error);
-                alert("Falha ao gerar PDF. O n8n está ativo?");
-            }
+        } catch (error) {
+          console.error('Erro detalhado:', error);
+          tableBody.innerHTML = `<tr><td colspan="4" class="px-6 py-10 text-center text-red-500">Erro ao processar dados. Verifique o console.</td></tr>`;
         }
-        let currentServiceStatus = {
-    telegram: false
-};
+      }
 
-// 1. Função para salvar o estado atual no localStorage
-function saveStatusToStorage() {
-    localStorage.setItem('serviceStatus', JSON.stringify(currentServiceStatus));
-}
+      // 3. Função de gerar PDF (FORA da loadReports para ter escopo global)
+      async function gerarPDF(dados) {
+        try {
+          const response = await fetch(WEBHOOK_GERAR_PDF, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+          });
 
-// 2. Função para recuperar o estado do localStorage ao carregar a página
-function loadStatusFromStorage() {
-    const savedStatus = localStorage.getItem('serviceStatus');
-    
-    if (savedStatus) {
-        // Mescla os status salvos no storage com o objeto atual
-        // Isso evita erros caso você adicione um novo serviço no futuro
-        currentServiceStatus = { ...currentServiceStatus, ...JSON.parse(savedStatus) };
-    }
+          if (!response.ok) throw new Error('Erro no servidor n8n');
 
-    // Atualiza a interface visual para todos os serviços na página atual
-    for (const service in currentServiceStatus) {
-        const statusLabel = document.getElementById(`status-${service}`);
-        // Verifica se o elemento existe na página atual antes de tentar atualizar
-        if (statusLabel) { 
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          const nomeArquivo = dados.Reuniao ? dados.Reuniao.replace(/\s+/g, '_') : 'Relatorio';
+          a.download = `Relatorio_${nomeArquivo}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        } catch (error) {
+          console.error("Erro PDF:", error);
+          alert("Falha ao gerar PDF. O n8n está ativo?");
+        }
+      }
+      let currentServiceStatus = {
+        telegram: false
+      };
+
+      // 1. Função para salvar o estado atual no localStorage
+      function saveStatusToStorage() {
+        localStorage.setItem('serviceStatus', JSON.stringify(currentServiceStatus));
+      }
+
+      // 2. Função para recuperar o estado do localStorage ao carregar a página
+      function loadStatusFromStorage() {
+        const savedStatus = localStorage.getItem('serviceStatus');
+
+        if (savedStatus) {
+          // Mescla os status salvos no storage com o objeto atual
+          // Isso evita erros caso você adicione um novo serviço no futuro
+          currentServiceStatus = { ...currentServiceStatus, ...JSON.parse(savedStatus) };
+        }
+
+        // Atualiza a interface visual para todos os serviços na página atual
+        for (const service in currentServiceStatus) {
+          const statusLabel = document.getElementById(`status-${service}`);
+          // Verifica se o elemento existe na página atual antes de tentar atualizar
+          if (statusLabel) {
             updateStatusUI(service);
+          }
         }
-    }
-}
+      }
 
-function updateStatusUI(service) {
-    const statusLabel = document.getElementById(`status-${service}`);
-    
-    // Proteção caso o elemento não exista na página HTML atual
-    if (!statusLabel) return; 
+      function updateStatusUI(service) {
+        const statusLabel = document.getElementById(`status-${service}`);
 
-    if (currentServiceStatus[service]) {
-        statusLabel.innerText = "ATIVO";
-        statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
-    } else {
-        statusLabel.innerText = "INATIVO";
-        statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
-    }
-}
+        // Proteção caso o elemento não exista na página HTML atual
+        if (!statusLabel) return;
 
-async function toggleService(service) {
-    const statusLabel = document.getElementById(`status-${service}`);
-    const originalText = statusLabel.innerText;
+        if (currentServiceStatus[service]) {
+          statusLabel.innerText = "ATIVO";
+          statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
+        } else {
+          statusLabel.innerText = "INATIVO";
+          statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
+        }
+      }
 
-    // escolher webhook específico para notícias
-    const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : service === 'telegram' ? WEBHOOK_TOGGLE_TELEGRAM : WEBHOOK_TOGGLE;
+      async function toggleService(service) {
+        const statusLabel = document.getElementById(`status-${service}`);
+        const originalText = statusLabel.innerText;
 
-    try {
-        statusLabel.innerText = "PROCESSANDO...";
-        statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
+        // escolher webhook específico para notícias
+        const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : service === 'telegram' ? WEBHOOK_TOGGLE_TELEGRAM : WEBHOOK_TOGGLE;
 
-        const response = await fetch(webhookUrl, {
+        try {
+          statusLabel.innerText = "PROCESSANDO...";
+          statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
+
+          const response = await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                servico: service,
-                acao: currentServiceStatus[service] ? 'false' : 'true',
-                timestamp: new Date().toISOString()
+              servico: service,
+              acao: currentServiceStatus[service] ? 'false' : 'true',
+              timestamp: new Date().toISOString()
             })
-        });
+          });
 
-        if (response.ok) {
+          if (response.ok) {
             // Alterna o valor no objeto
             currentServiceStatus[service] = !currentServiceStatus[service];
-            
+
             // 3. Salva o novo valor no LocalStorage
             saveStatusToStorage();
-            
+
             // Atualiza o botão
             updateStatusUI(service);
-        } else {
+          } else {
             throw new Error('Falha na comunicação');
+          }
+        } catch (error) {
+          console.error("Erro ao alternar serviço:", error);
+          alert("Erro ao comunicar com o n8n. Verifique o console.");
+          // Reverte a UI para o estado anterior em caso de erro no n8n
+          updateStatusUI(service);
         }
-    } catch (error) {
-        console.error("Erro ao alternar serviço:", error);
-        alert("Erro ao comunicar com o n8n. Verifique o console.");
-        // Reverte a UI para o estado anterior em caso de erro no n8n
-        updateStatusUI(service); 
-    }
-}
+      }
 
-// 4. Executa a função de carregamento assim que a página HTML estiver pronta
-document.addEventListener("DOMContentLoaded", () => {
-    loadStatusFromStorage();
-});
+      // 4. Executa a função de carregamento assim que a página HTML estiver pronta
+      document.addEventListener("DOMContentLoaded", () => {
+        loadStatusFromStorage();
+      });
 
-window.addEventListener('storage', (event) => {
-    if (event.key === 'serviceStatus') {
-        loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
-    }
-});
-        
-  </script>
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'serviceStatus') {
+          loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
+        }
+      });
+
+    </script>
 </body>
 
 </html>

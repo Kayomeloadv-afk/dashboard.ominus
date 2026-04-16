@@ -9,7 +9,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
     rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -138,32 +138,29 @@
     .placeholder-muted-foreground::placeholder {
       color: var(--text-muted);
     }
-
     .w-80.h-80 {
-      width: 5rem;
-      /* Ajuste o valor conforme necessário */
-      height: 5rem;
-      /* Ajuste o valor conforme necessário */
-    }
+            width: 5rem;
+            /* Ajuste o valor conforme necessário */
+            height: 5rem;
+            /* Ajuste o valor conforme necessário */
+        }
 
-    /* Estilos para o tema claro (padrão) */
-    /* Tema claro (padrão) */
-    .logo-dark {
-      display: none;
-    }
+        /* Estilos para o tema claro (padrão) */
+        /* Tema claro (padrão) */
+.logo-dark {
+    display: none;
+}
+.logo-light {
+    display: block;
+}
 
-    .logo-light {
-      display: block;
-    }
-
-    /* Tema escuro (quando a classe .dark está no html) */
-    html.dark .logo-dark {
-      display: block;
-    }
-
-    html.dark .logo-light {
-      display: none;
-    }
+/* Tema escuro (quando a classe .dark está no html) */
+html.dark .logo-dark {
+    display: block;
+}
+html.dark .logo-light {
+    display: none;
+}
   </style>
 </head>
 
@@ -175,8 +172,9 @@
       <div class="flex flex-col h-full">
         <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <img src="assets/fundo preto (branco) recorte.png" class="logo-dark w-80 h-80">
-            <img src="assets/fundo branco (preta) (1) recorte.png" class="logo-light w-80 h-80">
+          <img src="assets/fundo preto (branco) recorte.png"  class="logo-dark w-80 h-80">
+                        <img src="assets/fundo branco (preta) (1) recorte.png"  class="logo-light w-80 h-80">
+              
           </div>
           <button id="closeSidebarBtn" class="lg:hidden text-muted-foreground hover:text-foreground p-1">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -219,13 +217,10 @@
               </div>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
-            <div class="collapsible-content open pl-9 mt-1 space-y-1">
-              <a href="relatorios.html"
-                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Relatórios/Transcrição</a>
-              <a href="whatsapp.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Agente
-                de AI</a>
-              <a href="noticias.html"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Bot-Noticias</a>
+            <div class="collapsible-content  pl-9 mt-1 space-y-1">
+              <a href="relatorios.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Relatórios/Transcrição</a>
+              <a href="whatsapp.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Agente de AI</a>
+              <a href="noticias.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
             </div>
           </div>
           <div class="nav-group">
@@ -249,7 +244,7 @@
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
             <div class="collapsible-content pl-9 mt-1 space-y-1">
-              <a href="laddingPages.html" class="block px-3 py-2 text-sm">Landing Pages</a>
+              <a href="laddingPages.html"  class="block px-3 py-2 text-sm">Landing Pages</a>
               <a href="#" class="block px-3 py-2 text-sm">Link na Bio</a>
               <a href="#" class="block px-3 py-2 text-sm">SEO Jurídico</a>
             </div>
@@ -261,8 +256,8 @@
                   class="w-4 h-4"></i><span>Financeiro</span></div>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
-            <div class="collapsible-content pl-9 mt-1 space-y-1">
-              <a href="#" class="block px-3 py-2 text-sm">Fluxo de Caixa</a>
+            <div class="collapsible-content open pl-9 mt-1 space-y-1">
+              <a href="calculadora.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Calculadora de Juros</a>
               <a href="#" class="block px-3 py-2 text-sm">Relatórios</a>
               <a href="#" class="block px-3 py-2 text-sm">Comissões</a>
             </div>
@@ -299,7 +294,7 @@
       </div>
     </aside>
     <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-20 lg:hidden hidden transition-opacity"></div>
-    <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
+     <main class="flex-1 flex flex-col min-h-screen w-full overflow-x-hidden">
       <header
         class="sticky top-0 z-10 backdrop-blur-md border-b border-border bg-[var(--header-bg)] px-5 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -317,266 +312,198 @@
             class="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold text-sm">
             KM</div>
         </div>
+        
       </header>
-      <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all p-4">
-        <p class="text-sm font-medium mb-3">Bot-Noticias</p>
-        <div class="flex items-center justify-between">
-          <span id="status-noticias"
-            class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">INATIVO</span>
-          <button onclick="toggleService('noticias')"
-            class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
-        </div>
-      </div>
       <div class="glass-card p-8 rounded-2xl">
         <div class="flex items-center gap-3 mb-5">
-          <div class="p-3 bg-gradient-to-br from-red-100 to-red-200 text-red-700 rounded-xl shadow-sm">
-            <i class="fas fa-newspaper text-2xl"></i>
+          <div class="p-3 bg-gradient-to-br from-purple-100 to-purple-200 text-purple-700 rounded-xl shadow-sm">
+            <i class="fas fa-link text-2xl"></i>
           </div>
           <div>
-            <h4 class="text-xl font-semibold text-foreground">Configuração Bot-Noticias</h4>
-            <p class="text-sm text-muted-foreground">Defina o intervalo de verificação em horas</p>
+            <h4 class="text-xl font-semibold text-foreground">Configuração de novo link na BIO</h4>
+            <p class="text-sm text-muted-foreground">Defina as configurações para o novo link na BIO</p>
           </div>
         </div>
         <div class="space-y-5">
           <div>
-            <label class="block text-sm font-medium text-foreground mb-1">Assunto da Noticia</label>
-            <input type="text" id="news-subject" placeholder="Ex: previdencia, direito trabalhista, etc."
+            <label class="block text-sm font-medium text-foreground mb-1">Nome / Apelido</label>
+            <input type="text" id="news-apelido" placeholder="Ex: Dr. kayomelo"
               class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
           </div>
           <div>
-            <label class="block text-sm font-medium text-foreground mb-1">Intervalo (horas)</label>
-            <input type="number" id="news-interval" min="0" max="24" placeholder="Ex: 6"
+            <label class="block text-sm font-medium text-foreground mb-1">Bio / Descrição</label>
+            <input type="text" id="news-bio" placeholder="Ex: kayomelo.adv - Especialistas em Direito Previdenciário"
+              class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+          </div> 
+          <div>
+            <label class="block text-sm font-medium text-foreground mb-1">Descrição adicional</label>
+            <input type="text" id="news-subtitulo"
+              placeholder="Ex: Especialistas em Direito Previdenciário prontos para te ajudar a conquistar seus benefícios"
               class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
           </div>
           <div>
-            <label class="block text-sm font-medium text-foreground mb-1">Intervalo (minutos)</label>
-            <input type="number" id="news-interval-min" min="0" max="59" placeholder="Ex: 30"
+                            <label class="block text-sm font-medium text-foreground mb-1">cores presentes na pagina</label>
+                            <input type="text" id="news-cores"placeholder="Ex: #000000, #FFFFFF, etc."
+                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+                        </div>
+          <div>
+            <label class="block text-sm font-medium text-foreground mb-1">Link</label>
+            <input type="text" id="news-link" placeholder="Ex: https://www.kayomelo.adv.br"
               class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
           </div>
-          <button onclick="saveNewsInterval()"
-            class="w-full py-3.5 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-xl hover:from-red-700 hover:to-red-800 transition shadow-lg flex items-center justify-center gap-2">
-            <i class="fas fa-save"></i> Salvar intervalo
-          </button>
-        </div>
-      </div>
-      <footer
-        class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+          <div>
+            <label class="block text-sm font-medium text-foreground mb-1">Logo do escritório</label>
+            <div class="relative">
+              <input type="file" id="file-input" accept="image/*" onchange="pegarUrl(event)" class="hidden">
+              <label for="file-input"
+                class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
+                <span class="text-muted-foreground group-hover:text-foreground transition">Selecionar imagem...</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
+              </label>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-foreground mb-1">Sua foto</label>
+            <div class="relative">
+              <input type="file" id="file-photo" accept="image/*" onchange="pegarUrl(event)" class="hidden">
+              <label for="file-photo"
+                class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
+                <span class="text-muted-foreground group-hover:text-foreground transition">Selecionar imagem...</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
+              </label>
+            </div>
+          </div>
 
+          <button onclick="criarlinkbio()"
+            class="w-full py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-all shadow-sm">Gerar
+            Link Bio</button>
+
+        </div>
+
+      
+        <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+       
       </footer>
     </main>
     <script>
-      const WEBHOOK_TOGGLE_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticiasPost";
-      const WEBHOOK_SET_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticias";
+      if (typeof lucide !== 'undefined') lucide.createIcons();
 
-      document.addEventListener('DOMContentLoaded', function () {
-        // Inicializa os ícones
-        if (typeof lucide !== 'undefined') lucide.createIcons();
+      // Theme toggle
+      const themeToggle = document.getElementById('themeToggle');
+      const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
 
-        // Theme toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        if (isDark) document.documentElement.classList.add('dark');
-        else document.documentElement.classList.remove('dark');
-
-        themeToggle?.addEventListener('click', () => {
-          document.documentElement.classList.toggle('dark');
-          const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-          localStorage.setItem('theme', theme);
-          if (typeof lucide !== 'undefined') lucide.createIcons(); // recria ícones para trocar sun/moon
-        });
-
-        // Sidebar mobile
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-        const openBtn = document.getElementById('openSidebarBtn');
-        const closeBtn = document.getElementById('closeSidebarBtn');
-
-        function openSidebar() {
-          sidebar.classList.remove('-translate-x-full');
-          overlay.classList.remove('hidden');
-          document.body.style.overflow = 'hidden';
-        }
-        function closeSidebar() {
-          sidebar.classList.add('-translate-x-full');
-          overlay.classList.add('hidden');
-          document.body.style.overflow = '';
-        }
-        openBtn?.addEventListener('click', openSidebar);
-        closeBtn?.addEventListener('click', closeSidebar);
-        overlay?.addEventListener('click', closeSidebar);
-        window.addEventListener('resize', () => {
-          if (window.innerWidth >= 1024) {
-            closeSidebar();
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.add('hidden');
-            document.body.style.overflow = '';
-          } else {
-            if (!sidebar.classList.contains('-translate-x-full')) {
-              // se estiver aberto, mantém, mas não força fechamento
-            } else {
-              sidebar.classList.add('-translate-x-full');
-            }
-          }
-        });
-        if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
-        else sidebar.classList.add('-translate-x-full');
-
-        // Accordion
-        const toggleButtons = document.querySelectorAll('.nav-toggle');
-        toggleButtons.forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const parentGroup = btn.closest('.nav-group');
-            const content = parentGroup.querySelector('.collapsible-content');
-            const icon = btn.querySelector('.rotate-icon');
-            content.classList.toggle('open');
-            if (icon) {
-              icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
-            }
-          });
-        });
+      themeToggle?.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        localStorage.setItem('theme', theme);
+        if (typeof lucide !== 'undefined') lucide.createIcons(); // recria ícones para trocar sun/moon
       });
 
-      let currentServiceStatus = {
-        noticias: false
-      };
+      // Sidebar mobile
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const openBtn = document.getElementById('openSidebarBtn');
+      const closeBtn = document.getElementById('closeSidebarBtn');
 
-      // 1. Função para salvar o estado atual no localStorage
-      function saveStatusToStorage() {
-        localStorage.setItem('serviceStatus', JSON.stringify(currentServiceStatus));
+      function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
       }
-
-      // 2. Função para recuperar o estado do localStorage ao carregar a página
-      function loadStatusFromStorage() {
-        const savedStatus = localStorage.getItem('serviceStatus');
-
-        if (savedStatus) {
-          // Mescla os status salvos no storage com o objeto atual
-          // Isso evita erros caso você adicione um novo serviço no futuro
-          currentServiceStatus = { ...currentServiceStatus, ...JSON.parse(savedStatus) };
-        }
-
-        // Atualiza a interface visual para todos os serviços na página atual
-        for (const service in currentServiceStatus) {
-          const statusLabel = document.getElementById(`status-${service}`);
-          // Verifica se o elemento existe na página atual antes de tentar atualizar
-          if (statusLabel) {
-            updateStatusUI(service);
+      function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+      openBtn?.addEventListener('click', openSidebar);
+      closeBtn?.addEventListener('click', closeSidebar);
+      overlay?.addEventListener('click', closeSidebar);
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) {
+          closeSidebar();
+          sidebar.classList.remove('-translate-x-full');
+          overlay.classList.add('hidden');
+          document.body.style.overflow = '';
+        } else {
+          if (!sidebar.classList.contains('-translate-x-full')) {
+            // se estiver aberto, mantém, mas não força fechamento
+          } else {
+            sidebar.classList.add('-translate-x-full');
           }
         }
-      }
+      });
+      if (window.innerWidth >= 1024) sidebar.classList.remove('-translate-x-full');
+      else sidebar.classList.add('-translate-x-full');
 
-      function updateStatusUI(service) {
-        const statusLabel = document.getElementById(`status-${service}`);
+      // Accordion
+      const toggleButtons = document.querySelectorAll('.nav-toggle');
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const parentGroup = btn.closest('.nav-group');
+          const content = parentGroup.querySelector('.collapsible-content');
+          const icon = btn.querySelector('.rotate-icon');
+          content.classList.toggle('open');
+          if (icon) {
+            icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+          }
+        });
+      });
+      let logoBase64 = ""; // Variável para armazenar a imagem
+      let photoBase64 = ""; // Variável para armazenar a foto
 
-        // Proteção caso o elemento não exista na página HTML atual
-        if (!statusLabel) return;
-
-        if (currentServiceStatus[service]) {
-          statusLabel.innerText = "ATIVO";
-          statusLabel.className = "px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full";
-        } else {
-          statusLabel.innerText = "INATIVO";
-          statusLabel.className = "px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full";
+      function pegarUrl(event) {
+        const file = event.target.files[1];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            logoBase64 = e.target.result; // Armazena o Base64 aqui
+            photoBase64 = e.target.result; // Armazena o Base64 aqui
+          };
+          reader.readAsDataURL(file);
         }
       }
 
-      async function toggleService(service) {
-        const statusLabel = document.getElementById(`status-${service}`);
-        const originalText = statusLabel.innerText;
+      async function criarLandingPage() {
+        // Verificação simples
+        if (!logoBase64) {
+          alert("Por favor, selecione uma logo primeiro.");
+          return;
+        }
 
-        // escolher webhook específico para notícias
-        const webhookUrl = service === 'noticias' ? WEBHOOK_TOGGLE_NOTICIAS : service === 'telegram' ? WEBHOOK_TOGGLE_TELEGRAM : WEBHOOK_TOGGLE;
+        const dados = {
+            apelido: document.getElementById('news-apelido').value,
+            bio: document.getElementById('news-bio').value,
+            subtitulo: document.getElementById('news-subtitulo').value,
+            cores: document.getElementById('news-cores').value,
+            link: document.getElementById('news-link').value,
+            logo: logoBase64 // Envia a imagem em Base64
+        };
 
+        // Exemplo de envio para o n8n
         try {
-          statusLabel.innerText = "PROCESSANDO...";
-          statusLabel.className = "px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full";
-
-          const response = await fetch(webhookUrl, {
+          const response = await fetch('', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              servico: service,
-              acao: currentServiceStatus[service] ? 'false' : 'true',
-              timestamp: new Date().toISOString()
-            })
+            body: JSON.stringify(dados)
           });
 
           if (response.ok) {
-            // Alterna o valor no objeto
-            currentServiceStatus[service] = !currentServiceStatus[service];
-
-            // 3. Salva o novo valor no LocalStorage
-            saveStatusToStorage();
-
-            // Atualiza o botão
-            updateStatusUI(service);
-          } else {
-            throw new Error('Falha na comunicação');
+            alert("Dados enviados com sucesso!");
           }
         } catch (error) {
-          console.error("Erro ao alternar serviço:", error);
-          alert("Erro ao comunicar com o n8n. Verifique o console.");
-          // Reverte a UI para o estado anterior em caso de erro no n8n
-          updateStatusUI(service);
+          console.error("Erro ao enviar:", error);
         }
       }
 
-      // 4. Executa a função de carregamento assim que a página HTML estiver pronta
-
-      async function saveNewsInterval() {
-        // Captura os elementos de input
-        const inputSubject = document.getElementById('news-subject');
-        const inputHoras = document.getElementById('news-interval');
-        const inputMinutos = document.getElementById('news-interval-min');
-
-        // Converte para número ou assume 0 se estiver vazio
-        const subjectValue = inputSubject.value.trim() || "geral"; // Assunto padrão "geral" se vazio
-        const horasValue = parseInt(inputHoras.value) || 0;
-        const minutosValue = parseInt(inputMinutos.value) || 0;
-
-        // Cálculo total em segundos para facilitar a vida do n8n
-        const totalSegundos = (horasValue * 3600) + (minutosValue * 60);
-
-        const payload = {
-          servico: 'noticias',
-          acao: 'true', // Ativa o fluxo
-          config: {
-            assunto: subjectValue,
-            horas: horasValue,
-            minutos: minutosValue,
-            total_segundos: totalSegundos
-          }
-        };
-
-        try {
-          // Removi o 'no-cors' pois se você precisar ler a resposta do n8n, ele impede. 
-          // Se o n8n estiver configurado corretamente, o POST padrão funciona melhor.
-          const response = await fetch(WEBHOOK_SET_NOTICIAS, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          });
-
-          alert("Intervalo atualizado! O Bot reiniciará o ciclo.");
-          console.log("Configuração enviada:", payload);
-        } catch (error) {
-          console.error("Erro ao conectar com o n8n:", error);
-          alert("Erro ao salvar. Verifique o console.");
-        }
-      }
-      document.addEventListener("DOMContentLoaded", () => {
-        loadStatusFromStorage();
-      });
-
-      window.addEventListener('storage', (event) => {
-        if (event.key === 'serviceStatus') {
-          loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
-        }
-      });
-    </script>
-</body>
-
-</html>
+      </script>

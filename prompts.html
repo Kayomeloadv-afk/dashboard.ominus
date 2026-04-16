@@ -210,29 +210,32 @@
     .dark .hover-lift:hover {
       box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.4);
     }
+
     .w-80.h-80 {
-            width: 5rem;
-            /* Ajuste o valor conforme necessário */
-            height: 5rem;
-            /* Ajuste o valor conforme necessário */
-        }
+      width: 5rem;
+      /* Ajuste o valor conforme necessário */
+      height: 5rem;
+      /* Ajuste o valor conforme necessário */
+    }
 
-        /* Estilos para o tema claro (padrão) */
-        /* Tema claro (padrão) */
-.logo-dark {
-    display: none;
-}
-.logo-light {
-    display: block;
-}
+    /* Estilos para o tema claro (padrão) */
+    /* Tema claro (padrão) */
+    .logo-dark {
+      display: none;
+    }
 
-/* Tema escuro (quando a classe .dark está no html) */
-html.dark .logo-dark {
-    display: block;
-}
-html.dark .logo-light {
-    display: none;
-}
+    .logo-light {
+      display: block;
+    }
+
+    /* Tema escuro (quando a classe .dark está no html) */
+    html.dark .logo-dark {
+      display: block;
+    }
+
+    html.dark .logo-light {
+      display: none;
+    }
   </style>
 </head>
 
@@ -244,8 +247,8 @@ html.dark .logo-light {
       <div class="flex flex-col h-full">
         <div class="px-5 pt-6 pb-4 border-b border-border flex items-center justify-between">
           <div class="flex items-center gap-2">
-          <img src="assets/fundo preto (branco) recorte.png"  class="logo-dark w-80 h-80">
-            <img src="assets/fundo branco (preta) (1) recorte.png"  class="logo-light w-80 h-80">
+            <img src="assets/fundo preto (branco) recorte.png" class="logo-dark w-80 h-80">
+            <img src="assets/fundo branco (preta) (1) recorte.png" class="logo-light w-80 h-80">
           </div>
           <button id="closeSidebarBtn" class="lg:hidden text-muted-foreground hover:text-foreground p-1">
             <i data-lucide="x" class="w-5 h-5"></i>
@@ -289,9 +292,12 @@ html.dark .logo-light {
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
             <div class="collapsible-content pl-9 mt-1 space-y-1">
-              <a href="relatorios.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Relatórios/Transcrição</a>
-              <a href="whatsapp.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Agente de AI</a>
-              <a href="noticias.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
+              <a href="relatorios.html"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Relatórios/Transcrição</a>
+              <a href="whatsapp.html" class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Agente
+                de AI</a>
+              <a href="noticias.html"
+                class="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground">Bot-Noticias</a>
             </div>
           </div>
           <div class="nav-group">
@@ -302,7 +308,9 @@ html.dark .logo-light {
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
             <div class="collapsible-content open pl-9 mt-1 space-y-1">
-              <a href="prompts.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Prompts Prontos</a>
+              <a href="prompts.html"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Prompts
+                Prontos</a>
               <a href="#" class="block px-3 py-2 text-sm">Precificação Inteligente</a>
               <a href="#" class="block px-3 py-2 text-sm">Dashboard Analytics</a>
             </div>
@@ -404,7 +412,8 @@ html.dark .logo-light {
           <!-- Card: Direito Trabalhista -->
           <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Trabalhista')">
             <div class="flex flex-col items-center text-center">
-              <div class="p-6 bg-gradient-to-br from-purple-100 to-purple-200 text-purple-700 rounded-2xl mb-4 shadow-md">
+              <div
+                class="p-6 bg-gradient-to-br from-purple-100 to-purple-200 text-purple-700 rounded-2xl mb-4 shadow-md">
                 <i class="fas fa-briefcase text-4xl"></i>
               </div>
               <h3 class="text-lg font-semibold text-slate-800">Trabalhista</h3>
@@ -459,7 +468,8 @@ html.dark .logo-light {
           <!-- Card: Direito Cível -->
           <div class="glass-card p-6 rounded-2xl hover-lift cursor-pointer" onclick="openPromptModal('Cível')">
             <div class="flex flex-col items-center text-center">
-              <div class="p-6 bg-gradient-to-br from-indigo-100 to-indigo-200 text-indigo-700 rounded-2xl mb-4 shadow-md">
+              <div
+                class="p-6 bg-gradient-to-br from-indigo-100 to-indigo-200 text-indigo-700 rounded-2xl mb-4 shadow-md">
                 <i class="fas fa-scale-balanced text-4xl"></i>
               </div>
               <h3 class="text-lg font-semibold text-slate-800">Cível</h3>
@@ -480,7 +490,8 @@ html.dark .logo-light {
         </div>
       </div>
 
-      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground">
+      <footer
+        class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground">
         <p>Super Inteligênc<span class="text-primary font-semibold">[IA]</span>. Todos os direitos reservados.</p>
         <a href="#" target="_blank"
           class="inline-flex items-center gap-1.5 border border-border rounded-lg px-3 py-1.5 hover:bg-[var(--border-light)] transition">🌐
@@ -490,14 +501,17 @@ html.dark .logo-light {
   </div>
 
   <!-- MODAL DE PROMPTS (estrutura compatível com Font Awesome e dark mode) -->
-  <div id="prompt-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
-    <div class="bg-white/90 backdrop-blur-xl w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-white/40">
+  <div id="prompt-modal"
+    class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
+    <div
+      class="bg-white/90 backdrop-blur-xl w-full max-w-2xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-white/40">
       <div class="p-6 border-b border-white/30 flex justify-between items-center bg-white/30">
         <div>
           <h3 id="modal-area-title" class="text-xl font-bold text-slate-800">Prompts</h3>
           <p id="modal-area-desc" class="text-sm text-slate-500"></p>
         </div>
-        <button onclick="closePromptModal()" class="text-slate-500 hover:text-slate-800 bg-white/40 w-8 h-8 rounded-full flex items-center justify-center">
+        <button onclick="closePromptModal()"
+          class="text-slate-500 hover:text-slate-800 bg-white/40 w-8 h-8 rounded-full flex items-center justify-center">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -505,7 +519,8 @@ html.dark .logo-light {
         <p class="text-slate-600 text-center">Prompts em desenvolvimento...</p>
       </div>
       <div class="p-6 border-t border-white/30 flex justify-end bg-white/20">
-        <button onclick="closePromptModal()" class="px-6 py-2 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-700">Fechar</button>
+        <button onclick="closePromptModal()"
+          class="px-6 py-2 bg-slate-800 text-white rounded-lg font-medium hover:bg-slate-700">Fechar</button>
       </div>
     </div>
   </div>
@@ -525,7 +540,7 @@ html.dark .logo-light {
 
     // Conteúdo dos prompts (corrigido: removido duplicata da chave 'Saúde')
     const promptsContent = {
-            'Previdenciário': `
+      'Previdenciário': `
                 <h4 class="text-lg font-bold text-slate-800 mb-4">Assistente Jurídico Previdenciário</h4>
                 <p class="text-sm text-slate-600 mb-4">Este prompt foi desenhado para ser inserido na configuração da IA de atendimento inicial (WhatsApp ou Chatbot).</p>
 
@@ -567,7 +582,7 @@ html.dark .logo-light {
                     <li><strong>Call to Action:</strong> Sugira que a IA envie um link de agendamento ou o endereço do escritório ao final.</li>
                 </ul>
             `,
-            'Trabalhista': `
+      'Trabalhista': `
                 <h4 class="text-lg font-bold text-slate-800 mb-4">Assistente Jurídico Especialista em Direito do Trabalho</h4>
                 <p class="text-sm text-slate-600 mb-4">Este prompt é denso e focado em transformar a conversa num "pré-atendimento" completo, economizando tempo precioso do advogado.</p>
 
@@ -619,7 +634,7 @@ html.dark .logo-light {
                 <h5 class="font-bold text-slate-800 mt-4 mb-2">Observação Final para a IA:</h5>
                 <p class="text-sm text-slate-700 mb-4">Nunca peça a senha do portal Gov.br ou FGTS. Apenas pergunte se o cliente tem acesso a esses portais.</p>
             `,
-            'Administrativo': `
+      'Administrativo': `
                 <h4 class="text-lg font-bold text-slate-800 mb-4">Assistente Jurídico de Direito Público e Administrativo</h4>
                 <p class="text-sm text-slate-600 mb-4">Este prompt transforma a IA em um filtro especializado para concursos, servidores e contratos públicos.</p>
 
@@ -665,8 +680,8 @@ html.dark .logo-light {
                 <h5 class="font-bold text-slate-800 mt-4 mb-2">Regra de Ouro para a IA:</h5>
                 <p class="text-sm text-slate-700 mb-4">Nunca diga que "o ato da administração será anulado". Diga que "identificaremos possíveis ilegalidades no ato administrativo para fundamentar a defesa ou ação judicial".</p>
             `,
-            'Saúde': '<p class="text-slate-600 text-center">Prompt em desenvolvimento...</p>',
-                'Saúde': `
+      'Saúde': '<p class="text-slate-600 text-center">Prompt em desenvolvimento...</p>',
+      'Saúde': `
                     <h4 class="text-lg font-bold text-slate-800 mb-4">Assistente Especialista em Direito à Saúde</h4>
                     <p class="text-sm text-slate-600 mb-4">Este template prioriza a rapidez e o acolhimento, identificando logo de cara se o caso exige uma medida liminar (urgente).</p>
 
@@ -707,7 +722,7 @@ html.dark .logo-light {
                         <li><strong>Diferenciação:</strong> Lembre o advogado de que atendimentos de "Erro Médico" são diferentes de "Negativa de Procedimento" (o primeiro é reparação, o segundo é obrigação de fazer/liminar).</li>
                     </ul>
                 `,
-            'Imobiliário': `
+      'Imobiliário': `
                 <h4 class="text-lg font-bold text-slate-800 mb-4">Assistente Jurídico de Direito Imobiliário e Patrimonial</h4>
                 <p class="text-sm text-slate-600 mb-4">Este prompt é extenso para garantir que a IA cubra todas as variáveis possíveis antes de passar o caso para o advogado.</p>
 
@@ -772,7 +787,7 @@ html.dark .logo-light {
                 <h5 class="font-bold text-slate-800 mt-4 mb-2">Instrução Interna para a IA:</h5>
                 <p class="text-sm text-slate-700 mb-4">Se o cliente perguntar "quanto custa para regularizar um imóvel", responda que os custos variam entre taxas de cartório, impostos (ITBI/ITCMD) e honorários, e que o advogado passará o orçamento após a análise documental.</p>
             `,
-            'Consumidor': `
+      'Consumidor': `
                 <h4 class="text-lg font-bold text-slate-800 mb-4">Assistente Jurídico de Defesa do Consumidor</h4>
                 <p class="text-sm text-slate-600 mb-4">Este prompt transforma a IA em um especialista no CDC (Código de Defesa do Consumidor), capaz de identificar danos morais e materiais preliminares.</p>
 
@@ -830,7 +845,7 @@ html.dark .logo-light {
                 <h5 class="font-bold text-slate-800 mt-4 mb-2">Instrução Interna para a IA:</h5>
                 <p class="text-sm text-slate-700 mb-4">Se o cliente mencionar "golpe", peça que não compartilhe senhas ou códigos e foque em coletar o comprovante da transação. Oriente também a registrar um Boletim de Ocorrência quando aplicável.</p>
             `,
-            'Cível': `
+      'Cível': `
                 <h4 class="text-lg font-bold text-slate-800 mb-4">Assistente Jurídico de Direito Civil e Contratual</h4>
                 <p class="text-sm text-slate-600 mb-4">Este prompt foi desenhado para agir como um "funil", organizando a narrativa do cliente antes que o advogado precise intervir.</p>
 
@@ -889,7 +904,7 @@ html.dark .logo-light {
                 <h5 class="font-bold text-slate-800 mt-4 mb-2">Instrução Interna para a IA:</h5>
                 <p class="text-sm text-slate-700 mb-4">Se o cliente falar sobre agressão física ou crimes graves, oriente-o imediatamente a procurar a delegacia mais próxima (Boletim de Ocorrência) enquanto o escritório prepara a assistência jurídica complementar.</p>
             `,
-            'Penal': `
+      'Penal': `
                 <h4 class="text-lg font-bold text-slate-800 mb-4">Assistente Jurídico de Direito Criminal</h4>
                 <p class="text-sm text-slate-600 mb-4">Este é o prompt mais técnico e direto, desenhado para situações de urgência e sigilo absoluto.</p>
 
@@ -941,7 +956,7 @@ html.dark .logo-light {
                 <h5 class="font-bold text-slate-800 mt-4 mb-2">Instrução Interna para a IA:</h5>
                 <p class="text-sm text-slate-700 mb-4">Se o usuário perguntar "quanto tempo a pessoa vai ficar presa", responda que cada caso depende da análise do juiz na audiência de custódia e que o advogado fará o pedido de liberdade imediatamente. Nunca fale de condenações ou penas como algo certo antes da análise técnica do advogado.</p>
             `
-        };
+    };
 
 
     // Funções do modal
