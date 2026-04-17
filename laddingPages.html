@@ -9,7 +9,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
     rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
@@ -265,7 +265,7 @@
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
             <div class="collapsible-content pl-9 mt-1 space-y-1">
-              <a href="#" class="block px-3 py-2 text-sm">Fluxo de Caixa</a>
+              <a href="calculadora.html" class="block px-3 py-2 text-sm">Calculadora de Juros</a>
               <a href="#" class="block px-3 py-2 text-sm">Relatórios</a>
               <a href="#" class="block px-3 py-2 text-sm">Comissões</a>
             </div>
@@ -349,63 +349,67 @@
               <input type="file" id="file-input" accept="image/*" onchange="pegarUrl(event)" class="hidden">
               <label for="file-input"
                 class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
-                <span class="text-muted-foreground group-hover:text-foreground transition">Selecionar imagem...</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none"
+
+                <span id="nome-arquivo"
+                  class="text-muted-foreground group-hover:text-foreground transition truncate pr-4">Selecionar
+                  imagem...</span>
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground flex-shrink-0" fill="none"
                   viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                 </svg>
               </label>
             </div>
-            <div>
-                            <label class="block text-sm font-medium text-foreground mb-1">cores presentes na pagina</label>
-                            <input type="text" id="news-cores"placeholder="Ex: #000000, #FFFFFF, etc."
-                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-                        </div>
           </div>
           <div>
-            <label class="block text-sm font-medium text-foreground mb-1">Nome da cidade</label>
-            <input type="text" id="news-cidade" placeholder="Ex: São Paulo"
+            <label class="block text-sm font-medium text-foreground mb-1">cores presentes na pagina</label>
+            <input type="text" id="news-cores" placeholder="Ex: #000000, #FFFFFF, etc."
               class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
           </div>
-          <div>
-            <label class="block text-sm font-medium text-foreground mb-1">titulo principal da ladding page</label>
-            <input type="text" id="news-titulo"
-              placeholder="Ex: Conquiste seus direitos previdenciários com kayomelo.adv"
-              class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-foreground mb-1">subtitulo da ladding page</label>
-            <input type="text" id="news-subtitulo"
-              placeholder="Ex: Especialistas em Direito Previdenciário prontos para te ajudar a conquistar seus benefícios"
-              class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-foreground mb-1">publico alvo da ladding page</label>
-            <input type="text" id="news-publico-alvo" placeholder="Ex: Pessoas com problemas previdenciários"
-              class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-foreground mb-1">telefone para contato na ladding page</label>
-            <input type="text" id="news-telefone" placeholder="Ex: (11) 99999-9999"
-              class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-foreground mb-1">email para contato na ladding page</label>
-            <input type="email" id="news-email" placeholder="Ex: contato@kayomelo.adv"
-              class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-          </div>
-
-          <button onclick="criarLandingPage()"
-            class="w-full py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-all shadow-sm">Gerar
-            Ladding Page</button>
-
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-foreground mb-1">Nome da cidade</label>
+          <input type="text" id="news-cidade" placeholder="Ex: São Paulo"
+            class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-foreground mb-1">titulo principal da ladding page</label>
+          <input type="text" id="news-titulo" placeholder="Ex: Conquiste seus direitos previdenciários com kayomelo.adv"
+            class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-foreground mb-1">subtitulo da ladding page</label>
+          <input type="text" id="news-subtitulo"
+            placeholder="Ex: Especialistas em Direito Previdenciário prontos para te ajudar a conquistar seus benefícios"
+            class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-foreground mb-1">publico alvo da ladding page</label>
+          <input type="text" id="news-publico-alvo" placeholder="Ex: Pessoas com problemas previdenciários"
+            class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-foreground mb-1">telefone para contato na ladding page</label>
+          <input type="text" id="news-telefone" placeholder="Ex: (11) 99999-9999"
+            class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-foreground mb-1">email para contato na ladding page</label>
+          <input type="email" id="news-email" placeholder="Ex: contato@kayomelo.adv"
+            class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
         </div>
 
-        <footer
-          class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+        <button onclick="criarLandingPage()"
+          class="w-full py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-all shadow-sm">Gerar
+          Ladding Page</button>
 
-        </footer>
+      </div>
+
+      <footer
+        class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+
+      </footer>
     </main>
     <script>
       if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -477,15 +481,27 @@
 
       function pegarUrl(event) {
         const file = event.target.files[0];
+
         if (file) {
+          // Busca o <span> pelo ID e substitui o texto pelo nome do arquivo
+          const spanNomeArquivo = document.getElementById('nome-arquivo');
+          if (spanNomeArquivo) {
+            spanNomeArquivo.textContent = file.name;
+
+            // Opcional: mudar a cor do texto para indicar que um arquivo foi selecionado
+            spanNomeArquivo.classList.remove('text-muted-foreground');
+            spanNomeArquivo.classList.add('text-foreground');
+          }
+
           const reader = new FileReader();
           reader.onload = function (e) {
-            logoBase64 = e.target.result; // Armazena o Base64 aqui
-            document.getElementById('status').textContent = 'Logo carregada com sucesso!';
+            logoBase64 = e.target.result; // Armazena o Base64 aqui// Armazena o Base64 aqui
           };
           reader.readAsDataURL(file);
         }
       }
+
+
 
       async function criarLandingPage() {
         // Verificação simples

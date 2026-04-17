@@ -11,6 +11,9 @@
     rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
   <style>
     :root {
       --bg-base: #f8fafc;
@@ -25,6 +28,10 @@
       --card-hover-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
       --sidebar-bg: #ffffff;
       --header-bg: rgba(255, 255, 255, 0.8);
+      --accent: #7c3aed;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --success: #10b981;
     }
 
     .dark {
@@ -40,6 +47,10 @@
       --card-hover-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.4);
       --sidebar-bg: #0f0f14;
       --header-bg: rgba(15, 15, 20, 0.85);
+      --accent: #a78bfa;
+      --danger: #f87171;
+      --warning: #fbbf24;
+      --success: #34d399;
     }
 
     body {
@@ -136,6 +147,16 @@
 
     .placeholder-muted-foreground::placeholder {
       color: var(--text-muted);
+    }
+    .suggestion-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-light);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+    }
+    .suggestion-item:hover {
+      background-color: var(--primary-soft);
     }
     .w-80.h-80 {
             width: 5rem;
@@ -311,11 +332,71 @@ html.dark .logo-light {
             class="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-semibold text-sm">
             KM</div>
         </div>
-        
       </header>
-      
-        <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
-       
+      <div class="flex gap-6 p-6">
+        <aside class="w-80 p-6 bg-card rounded-lg shadow-card border border-border">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-foreground mb-2">Selecione o Banco (Base CSV)</label>
+              <div class="relative">
+                <input type="text" id="bancoInput" placeholder="Ex: Banco do Brasil..." autocomplete="off" class="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+                <div id="suggestions" class="absolute z-10 w-full bg-card border border-border rounded-lg shadow-card mt-1 hidden max-h-40 overflow-y-auto"></div>
+              </div>
+              <input type="hidden" id="taxaBCB">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-foreground mb-2">Valor Financiado (R$)</label>
+              <input type="number" id="pv" placeholder="0.00" class="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-foreground mb-2">Valor da Parcela (R$)</label>
+              <input type="number" id="pmt" placeholder="0.00" class="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-foreground mb-2">Nº de Parcelas</label>
+              <input type="number" id="n" placeholder="Ex: 48" class="w-full px-3 py-2 border border-border rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+            </div>
+
+            <button onclick="executarAuditoria()" class="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-lg transition-colors">ANALISAR CONTRATO</button>
+          </div>
+        </aside>
+
+        <main class="flex-1 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-card p-4 rounded-lg shadow-card hover:shadow-card-hover border border-border">
+              <h3 class="text-sm font-medium text-muted-foreground">Taxa Mensal</h3>
+              <p id="res-mensal" class="text-2xl font-bold text-primary">0.00%</p>
+              <small class="text-xs text-muted-foreground">Calculada (TIR)</small>
+            </div>
+            <div class="bg-card p-4 rounded-lg shadow-card hover:shadow-card-hover border border-border">
+              <h3 class="text-sm font-medium text-muted-foreground">Taxa Anual</h3>
+              <p id="res-anual" class="text-2xl font-bold text-foreground">0.00%</p>
+              <small class="text-xs text-muted-foreground">Efetiva (CET)</small>
+            </div>
+            <div class="bg-card p-4 rounded-lg shadow-card hover:shadow-card-hover border border-border">
+              <h3 class="text-sm font-medium text-muted-foreground">Média Banco</h3>
+              <p id="res-media" class="text-2xl font-bold text-foreground">0.00%</p>
+              <small class="text-xs text-muted-foreground">Baseado no CSV</small>
+            </div>
+            <div class="bg-card p-4 rounded-lg shadow-card hover:shadow-card-hover border border-border">
+              <h3 class="text-sm font-medium text-muted-foreground">Excedente</h3>
+              <p id="res-excesso" class="text-2xl font-bold text-foreground">0.00%</p>
+              <small class="text-xs text-muted-foreground">Proporção acima</small>
+            </div>
+          </div>
+
+          <div class="bg-card p-4 rounded-lg shadow-card border border-border">
+            <canvas id="mainChart"></canvas>
+          </div>
+
+          <div id="alertBox" class="p-4 rounded-lg border text-sm hidden"></div>
+        </main>
+      </div>
+
+      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
       </footer>
     </main>
     <script>
@@ -384,4 +465,131 @@ html.dark .logo-light {
           }
         });
       });
+       let csvData = [];
+    let chart;
+
+    function loadData() {
+        Papa.parse("historicotaxajurosdiario_TodosCampos.csv", {
+            download: true, header: true, delimiter: ";",
+            complete: function(r) { 
+                csvData = r.data.filter(x => x.InstituicaoFinanceira && x.TaxaJurosAoMes);
+                setupSearch();
+            }
+        });
+    }
+
+    function setupSearch() {
+        const input = document.getElementById('bancoInput');
+        const list = document.getElementById('suggestions');
+        
+        input.oninput = function() {
+            const val = this.value.toLowerCase();
+            list.innerHTML = "";
+            if(!val) { list.style.display="none"; return; }
+            
+            const results = csvData.filter(b => b.InstituicaoFinanceira.toLowerCase().includes(val)).slice(0, 8);
+            results.forEach(b => {
+                const item = document.createElement('div');
+                item.className = 'suggestion-item';
+                // Garante que a vírgula do CSV seja trocada por ponto para o cálculo
+                const t = b.TaxaJurosAoMes.replace(',', '.');
+                item.innerHTML = `<strong>${b.InstituicaoFinanceira}</strong><br><small>Média: ${t}% a.m.</small>`;
+                item.onclick = () => {
+                    input.value = b.InstituicaoFinanceira;
+                    document.getElementById('taxaBCB').value = t;
+                    list.style.display = "none";
+                };
+                list.appendChild(item);
+            });
+            list.style.display = results.length ? "block" : "none";
+        };
+    }
+
+    function calcularTIR(pv, n, pmt) {
+        let i = 0.001; // Chute inicial menor
+        for(let x=0; x<100; x++) {
+            let f = (pmt * (1 - Math.pow(1+i, -n)) / i) - pv;
+            let df = pmt * ((n * Math.pow(1+i, -n-1)/i) - ((1 - Math.pow(1+i, -n))/(i*i)));
+            i = i - f/df;
+        }
+        return i;
+    }
+
+    function executarAuditoria() {
+        const pv = parseFloat(document.getElementById('pv').value);
+        const pmt = parseFloat(document.getElementById('pmt').value);
+        const n = parseInt(document.getElementById('n').value);
+        const taxaBCB = parseFloat(document.getElementById('taxaBCB').value);
+
+        if(!pv || !pmt || !n || isNaN(taxaBCB)) return alert("Selecione o banco e preencha os valores.");
+
+        const iMensal = calcularTIR(pv, n, pmt);
+        const taxaMensalPerc = iMensal * 100;
+        const taxaAnualPerc = (Math.pow(1 + iMensal, 12) - 1) * 100;
+        
+        // CÁLCULO DO EXCEDENTE: (Taxa do Cliente / Taxa do Banco) - 1
+        const excedenteDecimal = (taxaMensalPerc / taxaBCB) - 1;
+        const excedentePerc = excedenteDecimal * 100;
+
+        // Atualiza Cards
+        document.getElementById('res-mensal').innerText = taxaMensalPerc.toFixed(2) + "%";
+        document.getElementById('res-anual').innerText = taxaAnualPerc.toFixed(2) + "%";
+        document.getElementById('res-media').innerText = taxaBCB.toFixed(2) + "%";
+        
+        const resExcesso = document.getElementById('res-excesso');
+        resExcesso.innerText = (excedentePerc > 0 ? "+" : "") + excedentePerc.toFixed(2) + "%";
+        resExcesso.style.color = excedentePerc > 0 ? "var(--danger)" : "var(--success)";
+
+        const alertBox = document.getElementById('alertBox');
+        alertBox.style.display = "block";
+
+        // LÓGICA DE AUDITORIA CORRIGIDA
+        if (taxaMensalPerc > taxaBCB) {
+            if (excedentePerc > 30) {
+                alertBox.innerText = `ABUSIVIDADE DETECTADA: Taxa ${excedentePerc.toFixed(0)}% acima da média de mercado.`;
+                alertBox.style.background = "rgba(248, 113, 113, 0.15)";
+                alertBox.style.color = "var(--danger)";
+                alertBox.style.borderColor = "var(--danger)";
+            } else {
+                alertBox.innerText = `ATENÇÃO: Taxa acima da média (Excesso de ${excedentePerc.toFixed(1)}%).`;
+                alertBox.style.background = "rgba(251, 191, 36, 0.1)";
+                alertBox.style.color = "var(--warning)";
+                alertBox.style.borderColor = "var(--warning)";
+            }
+        } else {
+            alertBox.innerText = "CONTRATO DENTRO DA MÉDIA PRATICADA PELA INSTITUIÇÃO.";
+            alertBox.style.background = "rgba(74, 222, 128, 0.1)";
+            alertBox.style.color = "var(--success)";
+            alertBox.style.borderColor = "var(--success)";
+        }
+
+        renderChart(taxaMensalPerc, taxaBCB);
+    }
+
+    function renderChart(cliente, bcb) {
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        if(chart) chart.destroy();
+        chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Taxa Contratada', 'Média do Banco (CSV)'],
+                datasets: [{
+                    data: [cliente, bcb],
+                    backgroundColor: [cliente > bcb ? '#f87171' : '#38bdf8', '#2d3748'],
+                    borderRadius: 8
+                }]
+            },
+            options: { 
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { 
+                    y: { grid: { color: '#2d3748' }, ticks: { color: '#94a3b8' } },
+                    x: { ticks: { color: 'white' } }
+                }
+            }
+        });
+    }
+
+    window.onload = loadData;
+
       </script>

@@ -243,9 +243,9 @@ html.dark .logo-light {
               </div>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
-            <div class="collapsible-content pl-9 mt-1 space-y-1">
+            <div class="collapsible-content open pl-9 mt-1 space-y-1">
               <a href="laddingPages.html"  class="block px-3 py-2 text-sm">Landing Pages</a>
-              <a href="#" class="block px-3 py-2 text-sm">Link na Bio</a>
+              <a href="#link-bio" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Link na Bio</a>
               <a href="#" class="block px-3 py-2 text-sm">SEO Jurídico</a>
             </div>
           </div>
@@ -256,8 +256,8 @@ html.dark .logo-light {
                   class="w-4 h-4"></i><span>Financeiro</span></div>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 rotate-icon"></i>
             </button>
-            <div class="collapsible-content open pl-9 mt-1 space-y-1">
-              <a href="calculadora.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Calculadora de Juros</a>
+            <div class="collapsible-content pl-9 mt-1 space-y-1">
+              <a href="calculadora.html" class="block px-3 py-2 text-sm">Calculadora de Juros</a>
               <a href="#" class="block px-3 py-2 text-sm">Relatórios</a>
               <a href="#" class="block px-3 py-2 text-sm">Comissões</a>
             </div>
@@ -352,35 +352,37 @@ html.dark .logo-light {
               class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
           </div>
           <div>
-            <label class="block text-sm font-medium text-foreground mb-1">Logo do escritório</label>
-            <div class="relative">
-              <input type="file" id="file-input" accept="image/*" onchange="pegarUrl(event)" class="hidden">
-              <label for="file-input"
-                class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
-                <span class="text-muted-foreground group-hover:text-foreground transition">Selecionar imagem...</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                </svg>
-              </label>
-            </div>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-foreground mb-1">Sua foto</label>
-            <div class="relative">
-              <input type="file" id="file-photo" accept="image/*" onchange="pegarUrl(event)" class="hidden">
-              <label for="file-photo"
-                class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
-                <span class="text-muted-foreground group-hover:text-foreground transition">Selecionar imagem...</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground" fill="none"
-                  viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                </svg>
-              </label>
-            </div>
-          </div>
+  <label class="block text-sm font-medium text-foreground mb-1">Logo do escritório</label>
+  <div class="relative">
+    <input type="file" id="file-input" accept="image/*" onchange="pegarUrl(event)" class="hidden">
+    <label for="file-input"
+      class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
+
+      <span id="nome-arquivo"
+        class="text-muted-foreground group-hover:text-foreground transition truncate pr-4">Selecionar
+        imagem...</span>
+
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground flex-shrink-0" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+      </svg>
+    </label>
+  </div>
+</div>
+
+<div>
+  <label class="block text-sm font-medium text-foreground mb-1">Foto do usuário</label>
+  <div class="relative">
+    <input type="file" id="file-photo" accept="image/*" onchange="pegarUrlphoto(event)" class="hidden">
+    <label for="file-photo"
+      class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
+      
+      <span id="nome-arquivo-photo"
+        class="text-muted-foreground group-hover:text-foreground transition truncate pr-4">Selecionar
+        imagem...</span>
+      
+     
 
           <button onclick="criarlinkbio()"
             class="w-full py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-all shadow-sm">Gerar
@@ -459,20 +461,54 @@ html.dark .logo-light {
           }
         });
       });
-      let logoBase64 = ""; // Variável para armazenar a imagem
-      let photoBase64 = ""; // Variável para armazenar a foto
 
-      function pegarUrl(event) {
-        const file = event.target.files[1];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            logoBase64 = e.target.result; // Armazena o Base64 aqui
-            photoBase64 = e.target.result; // Armazena o Base64 aqui
-          };
-          reader.readAsDataURL(file);
-        }
-      }
+      // Variáveis globais para armazenar os Base64 (se já as tiver, não precisa duplicar)
+let logoBase64 = "";
+let photoBase64 = "";
+
+// Função para o PRIMEIRO input (Logo)
+function pegarUrl(event) {
+  const file = event.target.files[0];
+  
+  if (file) {
+    // Atualiza o nome exibido
+    const spanNomeArquivo = document.getElementById('nome-arquivo');
+    if (spanNomeArquivo) {
+      spanNomeArquivo.textContent = file.name;
+      spanNomeArquivo.classList.remove('text-muted-foreground');
+      spanNomeArquivo.classList.add('text-foreground');
+    }
+
+    // Lê o arquivo e salva na variável logoBase64
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      logoBase64 = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// Função para o SEGUNDO input (Foto)
+function pegarUrlphoto(event) {
+  const file = event.target.files[0];
+  
+  if (file) {
+    // Atualiza o nome exibido no span do segundo input
+    const spanNomePhoto = document.getElementById('nome-arquivo-photo');
+    if (spanNomePhoto) {
+      spanNomePhoto.textContent = file.name;
+      spanNomePhoto.classList.remove('text-muted-foreground');
+      spanNomePhoto.classList.add('text-foreground');
+    }
+
+    // Lê o arquivo e salva na variável photoBase64
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      photoBase64 = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
 
       async function criarLandingPage() {
         // Verificação simples
@@ -487,7 +523,9 @@ html.dark .logo-light {
             subtitulo: document.getElementById('news-subtitulo').value,
             cores: document.getElementById('news-cores').value,
             link: document.getElementById('news-link').value,
-            logo: logoBase64 // Envia a imagem em Base64
+            logo: logoBase64,
+            foto: photoBase64
+            // Envia a imagem em Base64
         };
 
         // Exemplo de envio para o n8n
