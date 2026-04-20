@@ -327,6 +327,42 @@
             class="px-3 py-1.5 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition">Alternar</button>
         </div>
       </div>
+       <div class="glass-card p-8 rounded-2xl">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="p-3 bg-gradient-to-br from-red-100 to-red-200 text-red-700 rounded-xl shadow-sm">
+              <i class="fas fa-robot text-2xl"></i>
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold text-foreground">Prompt do Bot-Noticias</h4>
+              <p class="text-sm text-muted-foreground">Defina o prompt / instruções para a IA de como gerar as notícias</p>
+            </div>
+          </div>
+          <textarea id="ai-prompt" rows="5"
+            class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground"
+            placeholder="Ex: Atue como um Analista de Clipping de Notícias. Sua tarefa é buscar as 3 notícias mais relevantes e apenas essas 3 noticias e o Max iterations (3) reached deve ser apenas 3 sobre o assunto solicitado via ferramenta GNews.">"Atue como um Analista de Clipping de Notícias. Sua tarefa é buscar as 3 notícias mais relevantes e apenas essas 3 noticias e o Max iterations (3) reached deve ser apenas 3 sobre o assunto solicitado via ferramenta GNews.
+
+Regras de Extração:
+
+Para cada notícia, extraia: Título, Resumo (máx. 120 caracteres), URL da notícia e URL da imagem.
+
+Formatação de Saída: Você deve retornar um JSON estruturado (e nada mais) para que o fluxo possa processar os arquivos.
+
+Estrutura do JSON:[
+  {
+    "titulo": "Título da Notícia",
+    "resumo": "Breve resumo...",
+    "link": "https://noticia.com",
+    "imagem_url": "https://link-da-imagem.jpg"
+  }
+]
+Restrição: Não escreva textos introdutórios. Apenas o JSON puro."</textarea>
+          <div class="flex justify-end mt-4">
+            <button onclick="savePrompt()"
+              class="px-6 py-2.5 bg-gradient-to-r from-blue-700 to-blue-800 text-white font-medium rounded-xl hover:from-blue-800 hover:to-blue-900 transition shadow-md flex items-center gap-2">
+              <i class="fas fa-save"></i> Salvar prompt
+            </button>
+          </div>
+        </div>
       <div class="glass-card p-8 rounded-2xl">
         <div class="flex items-center gap-3 mb-5">
           <div class="p-3 bg-gradient-to-br from-red-100 to-red-200 text-red-700 rounded-xl shadow-sm">
@@ -367,6 +403,7 @@
     <script>
       const WEBHOOK_TOGGLE_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticiasPost";
       const WEBHOOK_SET_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticias";
+      const WEBHOOK_SAVE_PROMPT = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/salvarPrompt";
 
       document.addEventListener('DOMContentLoaded', function () {
         // Inicializa os ícones
@@ -576,6 +613,52 @@
           loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
         }
       });
+
+      async function savePrompt() {
+        const promptText = document.getElementById('ai-prompt').value;
+        if (!promptText.trim()) {
+          alert("Por favor, escreva um prompt para a IA.");
+          return;
+        }
+
+        const btn = event.currentTarget;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Salvando...';
+        btn.disabled = true;
+
+        try {
+          const response = await fetch(WEBHOOK_SAVE_PROMPT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: promptText, timestamp: new Date().toISOString() })
+          });
+
+          if (response.ok) {
+            btn.innerHTML = '<i class="fas fa-check"></i> Salvo!';
+            setTimeout(() => {
+              btn.innerHTML = originalHtml;
+              btn.disabled = false;
+            }, 2000);
+          } else {
+            throw new Error('Erro no servidor');
+          }
+        } catch (error) {
+          console.error("Erro ao salvar prompt:", error);
+          alert("Não foi possível salvar o prompt. Verifique o webhook.");
+          btn.innerHTML = originalHtml;
+          btn.disabled = false;
+        }
+      }
+      document.addEventListener("DOMContentLoaded", () => {
+        loadStatusFromStorage();
+      });
+
+      window.addEventListener('storage', (event) => {
+        if (event.key === 'serviceStatus') {
+          loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
+        }
+      });
+
     </script>
 </body>
 
