@@ -620,14 +620,6 @@ function pegarUrl(event) {
           btn.innerHTML = originalHtml;
           btn.disabled = false;
         }
-      }
-      document.addEventListener("DOMContentLoaded", () => {
-        loadStatusFromStorage();
-      });
-
-      window.addEventListener('storage', (event) => {
-        if (event.key === 'serviceStatus') {
-          loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
-        }
-      });
+     
+      };
     </script>
