@@ -334,29 +334,8 @@
           </div>
           <textarea id="ai-prompt" rows="5"
             class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground"
-            placeholder="Ex: Atue como um desenvolvedor front-end especialista em conversão. Crie o código HTML completo de uma Landing Page de alta conversão usando HTML puro e Tailwind CSS (via CDN)...">
-          Atue como um desenvolvedor front-end especialista em conversão. Crie o código HTML completo de uma Landing Page de alta conversão usando HTML puro e Tailwind CSS (via CDN).
-
-Dados para a página:
-- Assunto: {{ $('Receber Requisicao').item.json.body.assunto }}
-- Nome do Escritório: {{ $('Receber Requisicao').item.json.body.nome_escritorio }}
-- Cor Principal: {{ $('Receber Requisicao').item.json.body.cores }}
-- Cidade: {{ $('Receber Requisicao').item.json.body.cidade }}
-- Telefone: {{ $('Receber Requisicao').item.json.body.telefone }}
-- Email: {{ $('Receber Requisicao').item.json.body.email }}
-- Logo: USE O MARCADOR: ##LOGO_BASE64##
-
-Requisitos:
-1. Adicione uma seção de depoimentos persuasiva.
-2. Adicione uma seção de FAQ pertinente ao assunto {{ $('Receber Requisicao').item.json.body.assunto }}.
-3. Adicione um botão de WhatsApp flutuante apontando para o link [https://wa.me/](https://wa.me/){{ $('Receber Requisicao').item.json.body.telefone }}.
-4. Com base na cor {{ $('Receber Requisicao').item.json.body.cores }}, defina os valores hexadecimais apropriados nas classes CSS customizadas dentro da tag style.
-5. Retorne APENAS o código HTML puro.
-6. NÃO utilize blocos de código com marcação markdown como: ```html.
-7. Não inclua saudações ou explicações.
-8. deixa as fontes claras e visiveis para os usuarios.
-9. faça com que a logo sempre seja redonda.
-10. retorne um codigo funcional e sem erros utilizando todos os componentes fornecidos.</textarea>
+            placeholder="Ex: adicione aqui o prompt que você quer usar para a IA gerar a ladding page, seja o mais específico possível, incluindo detalhes como: tom da comunicação, elementos visuais desejados, estrutura da página, etc. Quanto mais detalhado, melhor será o resultado!">
+          faça uma landing page profissional para um escritório de advocacia</textarea>
           <div class="flex justify-end mt-4">
             <button onclick="savePrompt()"
               class="px-6 py-2.5 bg-gradient-to-r from-blue-700 to-blue-800 text-white font-medium rounded-xl hover:from-blue-800 hover:to-blue-900 transition shadow-md flex items-center gap-2">
