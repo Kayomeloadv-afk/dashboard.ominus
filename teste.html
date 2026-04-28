@@ -3,201 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALERTA! Ameaça Global dos Mestres Marciais - LEON SEDOV NOGUEIRA DA SILVA</title>
+    <title>Desbloqueie o Potencial Máximo da Sua Equipe - LEON SEDOV NOGUEIRA DA SILVA</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-primary-start: #FF4D4D; /* Red */
-            --color-primary-mid1: #FFA500; /* Orange */
-            --color-primary-mid2: #FFFF00; /* Yellow */
-            --color-primary-mid3: #008000; /* Green */
-            --color-primary-mid4: #0000FF; /* Blue */
-            --color-primary-mid5: #4B0082; /* Indigo */
-            --color-primary-end: #EE82EE; /* Violet */
-            --color-accent: #33D4CC; /* Turquoise for contrast */
-            --color-dark-text: #2D3748; /* Dark Gray */
-            --color-light-text: #F7FAFC; /* Off-white */
+            --verde-principal: #34D399; /* Um verde vibrante */
+            --preto-principal: #1A1A1A; /* Um preto profundo */
+            --verde-claro: #6EE7B7; /* Um verde mais claro para detalhes */
+            --cinza-texto: #D1D5DB; /* Cinza claro para texto em fundos escuros */
         }
-        .bg-rainbow-gradient {
-            background-image: linear-gradient(to right, var(--color-primary-start), var(--color-primary-mid1), var(--color-primary-mid2), var(--color-primary-mid3), var(--color-primary-mid4), var(--color-primary-mid5), var(--color-primary-end));
+        .bg-verde-principal { background-color: var(--verde-principal); }
+        .text-verde-principal { color: var(--verde-principal); }
+        .border-verde-principal { border-color: var(--verde-principal); }
+        .bg-preto-principal { background-color: var(--preto-principal); }
+        .text-cinza-texto { color: var(--cinza-texto); }
+
+        .whatsapp-button {
+            background-color: #25D366; /* Verde do WhatsApp */
+            color: white;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
         }
-        .text-rainbow-gradient {
-            background-image: linear-gradient(to right, var(--color-primary-start), var(--color-primary-mid1), var(--color-primary-mid2), var(--color-primary-mid3), var(--color-primary-mid4), var(--color-primary-mid5), var(--color-primary-end));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            transition: transform 0.3s ease-in-out;
         }
-        .border-rainbow-gradient {
-            border-image: linear-gradient(to right, var(--color-primary-start), var(--color-primary-mid1), var(--color-primary-mid2), var(--color-primary-mid3), var(--color-primary-mid4), var(--color-primary-mid5), var(--color-primary-end)) 1;
+        .whatsapp-icon {
+            font-size: 2rem; /* Tamanho do ícone */
         }
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: var(--color-dark-text);
+
+        /* Animação para o título do Hero */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
         }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Garantir que o texto seja sempre legível */
+        h1, h2, h3, p, a, strong, li {
+            font-weight: 500; /* Medium weight */
+            line-height: 1.5;
+        }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 3rem; }
+        h3 { font-size: 2.25rem; }
+        p { font-size: 1.125rem; }
+
+        @media (min-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 4rem; }
+            h3 { font-size: 2.5rem; }
+            p { font-size: 1.25rem; }
         }
     </style>
 </head>
-<body class="bg-gray-50 antialiased leading-normal tracking-wide">
+<body class="font-sans antialiased text-gray-900 bg-gray-50">
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/190" target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 transition-transform transform hover:scale-105">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.6-3.807-1.6-5.87 0-6.592 5.306-11.91 11.856-11.91 3.256 0 6.34 1.272 8.625 3.557 2.285 2.285 3.555 5.337 3.555 8.662 0 6.589-5.306 11.907-11.854 11.907-.001 0-.001 0-.002 0h-3.423l-4.787 1.583zM12.057 3.429c-4.636 0-8.406 3.791-8.406 8.441 0 1.981.674 3.824 1.821 5.309l-1.096 4.022 4.148-1.373c1.474.809 3.161 1.242 4.533 1.242 4.636 0 8.406-3.791 8.406-8.441 0-2.203-.86-4.296-2.404-5.84-1.545-1.543-3.637-2.403-5.841-2.403zM18.404 14.17c-.108-.061-.637-.31-.736-.346-.1-.035-.18-.053-.256.053-.075.109-.292.346-.357.411-.065.065-.13.073-.241.02-.663-.332-1.282-.693-1.822-1.002-.54-.309-1.353-1.074-1.46-1.267-.107-.193-.004-.298.084-.383.076-.075.17-.18.256-.271.087-.091.116-.16.174-.298.058-.139.029-.262-.015-.36-.044-.098-.256-.615-.35-.845-.094-.229-.19-.195-.256-.199-.065-.004-.139-.003-.213-.003-.075 0-.197.028-.302.15-.105.122-.403.395-.466.479-.064.084-.116.18-.174.271-.058.091-.116.182-.231.27-.116.089-.241.168-.466.256-.224.087-.37.13-.485.195-.116.065-.223.14-.309.229-.087.087-.19.182-.256.248-.065.066-.13.099-.025.292.105.193.743 1.107.808 1.192.065.084.139.14.225.18.086.04.57.362 1.233.649.663.287 1.229.479 1.664.607.564.167 1.076.167 1.48.10.403-.066.637-.271.73-.431.094-.16.19-.19.35-.292.157-.102.19-.126.345-.061z" />
-        </svg>
-    </a>
-
-    <!-- Header Section -->
-    <header class="bg-gray-900 text-white shadow-lg py-4 md:py-6 relative z-10">
-        <div class="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
-                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAGQAZADASIAAhEBAxEB/8QAHAABAAMBAQEBAQAAAAAAAAAAAAUGBwQDCAIB/8QAUhAAAQMCAgIMCAsGAwYHAAAAAAECAwQFBhESIQcTFzE2QVFVYXSBkxQWInFzkbGyFTIzQlKho8HC0dIjNWJykvAkNJRDVGOi4eI3RFNlgqTx/8QAGAEBAQEBAQAAAAAAAAAAAAAAAAECAwT/xAAgEQEBAAMAAgMBAQEAAAAAAAAAAQIRMRIhAxNRMkEi/9oADAMBAAIRAxEAPwDUgAaZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI++3F9osdXcI42yOp41ejHLkikgQeNOBt06upZ0UTdguHNVN3jhuwXDmqm7xxD7Hdlt99v01LcoNvibTOejdJW5LpNTPUqcqmkbnOFOa/t5P1HW+MutMzdU/dguHNVN3jhuwXDmqm7xxcNznCnNf28n6huc4U5r+3k/UTeH4aqn7sFw5qpu8cN2C4c1U3eOLhuc4U5r+3k/UNznCnNf28n6hvD8NVT92C4c1U3eOG7BcOaqbvHFw3OcKc1/byfqG5zhTmv7eT9Q3h+Gqp+7BcOaqbvHDdguHNVN3ji4bnOFOa/t5P1Dc5wpzX9vJ+obw/DVU/dguHNVN3jhuwXDmqm7xxcNznCnNf28n6huc4U5r+3k/UN4fhqqfuwXDmqm7xw3YLhzVTd44s9xwVgq1UMtbW0LYoYkzc5Z5PUnla1MgutRRVNxlkt9GlJS55RxaSuXLlVVVdZrGY3/Eu4vG7BcOaqbvHDdguHNVN3jiiW+gqrpXRUVHEss8rsmtT2+Y1+1bGNhprdFHcKdauqyzkl2xzUz5ERFTULMYTdVvdguHNVN3jhuwXDmqm7xxcNznCnNf28n6huc4U5r+3k/UZ3h+LqqfuwXDmqm7xw3YLhzVTd44uG5zhTmv7eT9Q3OcKc1/byfqG8Pw1VP3YLhzVTd44bsFw5qpu8cXDc5wpzX9vJ+obnOFOa/t5P1DeH4aqn7sFw5qpu8cN2C4c1U3eOLhuc4U5r+3k/UNznCnNf28n6hvD8NVT92C4c1U3eOG7BcOaqbvHFw3OcKc1/byfqM32RLLb7FfoaW2wbRE6ma9W6SuzXScmetV5ELPG3Wi7jX7FcX3ex0lwkjbG6ojR6sauaISBB4K4G2vq6E4cr1qAAIAAAAAAAAAAAAAAAAAAAAAAAABB404G3Tq6k4QeNOBt06upZ0rOtiThRUdTd7zTYTHtiThRUdTd7zTYTfydTHgADmoAc9bW09uo5ayrk2qCJM3vVFXJOwo6AVvdCwrzs3un/pO+04ns18nfDba1KiSNuk5qMcmSZ5caINU2lQAQDwrKynt9JLV1crYoIm6T3u3kQ/dRUQ0tPJUVEjYoo2q573LkjUMTxvjObEtX4PTK6O3Qu/Zs3lkX6TvuTiNY47S3TxxljCoxPXaLNKKghVdpiz3/AOJ3T7CApKSeuqo6WlidLNK7RYxqZqqnibZgTBsFgom1tRoTV87EVXtVHJG1eJq+1eM7WzGMz26cGYPgwxQ6cmjJXzNTbpeJv8Lej2lmAOFu2wAEAHFdLvb7LSpU3GpbTxK5Go5yKua8iImsiN0LCvOze6f+kuqLIDwo6ynuFHFV0sm2QzN0mPRFTNO09wAAIBj2y3wop+pt95xsJj2y3wop+pt95x0+P+ky40XBXA219XQnCDwVwNtfV0JwxerAAEAAAAAAAAAAAAAAAAAAAAAAAAAg8acDbp1dScIPGnA26dXUs6VnWxJwoqOpu95psJj2xJwoqOpu95psJv5OpjwABzUIDHPAq6eh/EhPkBjngVdPQ/iQs6VgZoGxB+/a7q34kM/NA2IP37XdV/Eh6MuOc61s/EskcMTpZXtYxiK5znLkiInGfpzmsarnKjWtTNVVdSIY9j7HLrzK6122RUoGLk96f7dU/D7ThjjuulunhjvG78QVC0FC9zLdE7zLOqca9HInb5qaETNckJi9Ybq7FQW+etTQlrUe7aVTWxqaOWfSue8eianpz6hzXNi/E3h9vWy1UmdRStzhVy63x8nZ7FTkMjOu1XKos9zgr6V2jLA9HJ0pxovQqaiZTcJdPpAHFaLpT3m1wXClXOOdullxtXjRelF1Haed0D+H9Kdsj4l+BbItHTvyrK1FY3LfYz5zvuT/AKCTd0KDshYl+Hr6sMD86OjVWRcjnfOd28XQhUwD0yamnNv2CuBtr9AhOkFgrgba/QITp5r10AAQDHtlvhRT9Tb7zjYTHtlvhRT9Tb7zjp8f9JlxouCuBtr6uhOEHgrgba+roThi9WAAIAAAAAAAAAAAAAAAAAAAAAAAABB404G3Tq6k4QeNOBt06upZ0rOtiThRUdTd7zTYTHtiThRUdTd7zTYTfydTHgADmoQGOeBV09D+JCfIDHPAq6eh/EhqdKwM0DYhXK+Vyr/uv4kM/OujudXQQ1MVLKsSVUe1yq3Uqtzzyz6T0WbmnOLtsgY7+EXPs9ql/wAI1cppmr8qv0U/h9vm38+B0W+rWguEFWkUcqwyI/a5Eza7Jd5UEmp6OtK2PcCbQkd7u0X7RfKpoHJ8Tke5OXkTtOfZj+XtP8svtaaDY7zSX61RV9G7Nj08pirrY7javSZ9sx/L2n+WX2tOMtuXtq8ZqAXTE+GdDClnxBSs1OpImVSJxLoojXfcvYdrdMunYvxN8H3JbNVSZU9W7OJVXUyT/rvefI14+ZWucxyOaqtc1c0VN9FN4wTiRuI7CyWRyLVwZR1Cb2buJ3mVPrzOXyY/61jU5VVUNFSS1VQ9I4YWK97l4kQ+fsR3ubEN7nuEuaI9dGNn0GJvJ/fGql62VcS/Fw/SycklUqL2tb969hmkMMlRPHBCxXySORrGpvqq6kQ1hjqbTKvzkuWeWrlP4XfHFgjw5h2yULcllVZXzv8ApPVGZ9ibyeYpBuXcRv2CeBlr9AntUnSCwTwMtfoE9qk6ea9dAAEAx7Zb4UU/U2+842Ex7Zb4UU/U2+846fH/AEmXGi4K4G2vq6E4QeCuBtr6uhOGL1YAAgAAAAAAAAAAAAAAAAAAAAAAAAEHjTgbdOrqThB404G3Tq6lnSs62JOFFR1N3vNNhMe2JOFFR1N3vNNhN/J1MeAAOahAY54FXT0P4kJ8gMc8Crp6H8SGp0rAwC17HuHqXEF+cytzdBTR7asf/qLmiIi9Gs9Fuptzjxt2BLvcsPTXiKPRaxNKKFU8qZqb6p93KVo+mWtaxiMY1GtamSIiZIiGV7JODPBZH323R/sXrnUxtT4jl+enQvH0mMc9321YruC8Vy4ZuqOernUM6o2eNNeSfSTpT2Fj2XJ4qn4GngkbJFJHI5j2rmiouhrM5Oiauqaijp6SWVXw0yuWJq/N0ss0To1e014+9s79Oc37DtLDXYGt9LUMR8M1Cxj2rxorTAT6DwlwRtPVI/dQx8nGsWIYjsc2Hr1Pb5s1axdKJ6/PYu8v98eZ7YXxLU4Yua1cDEkY9iskiVckdyepcvrNS2RMM/DtlWqp2Z1tGivZkmt7fnN+9P8AqYmaxvlEvqvarqpq6rlqqh6yTTPV73LxqpoGxXhrb6h1+qo/2cKqymRyfGdxu7N7z+YpNjs899u8Fup9TpXeU7LNGN43L5kPoKgoae2UENFSsRkMDEY1E9vnJndTRIz3Zi+StX80v4TLzUNmL5K1fzS/hMvLh/Jet9wRwMtfoE9qk8QOCOBlr9B96k8cL1sABAMe2W+FFP1NvvONhMe2W+FFP1NvvOOnx/0mXGi4K4G2vq6E4QeCuBtr6uhOGL1YAAgAAAAAAAAAAAAAAAAAAAAAAAAEHjTgbdOrqThB404G3Tq6lnSs62JOFFR1N3vNNhMe2JOFFR1N3vNNhN/J1MeAAOahAY54FXT0P4kJ8j77a/hqy1Vt27afCGaO2aOlo60Xe7Czo+dDQNiD9+13VfxIdu45/wC+f/V/7iwYQwL4q189V8I+FbdFtejtOhlrRc99eQ7ZZSxiSrcfmSNk0bopGI9j0VrmuTNFRd9D9A4NsPx1hB+G7jt9M1Vt9Q5ViXf2tfoL93QVQ+kLnbaW72+ahrI9OGZuSpxpyKnShnrthzWujfNXFnTf9x2xzmvbNjMT6DwlwRtPVI/dQpO44vPif6b/ALjQrRQfBdopKDbNt8GhbHp5ZaWSZZ5EzylnokdhleJ9jK4T3uapszIVpZ/L0HPRm1uXfRE5OPtNUBiZWcas2p+AcHSYbppqiubGtdOuj5K56DE4s+lda9hcACW7uxmmzF8lav5pfwmXmobMXyFq/ml9jTLzvh/LF633A/Ay1+h+9SeIHA/Au1+h+9SeOF62AAgGPbLfCin6m33nGwmPbLfCin6m33nHT4/6TLjRcFcDbX1dCcIPBXA219XQnDF6sAAQAAAAAAAAAAAAAAAAAAAAAAAACDxpwNunV1Jwg8acDbp1dSzpWdbEnCio6m73mmwmPbEnCio6m73mmwm/k6mPAAHNQAAAAAAAAAAAAAAAAAAZpsxfIWr+aX2NMvNQ2YvkbV/NL7GmXnow/li9b5gbgXa/Q/epPkBgbgXa/Q/epPnC9bgACAY9st8KKfqbfecbCY9st8KKfqbfecdPj6mXGi4K4G2vq6E4QeCuBtr6uhOGL1YAAgAAAAAAAAAAAAAAAAAAAAAAAAEPiynmq8K3Gnp4nSyyQKjGMTNXL0ITALB8/MwriaNc2WevavK2JyH78W8V813Lu3G/A6fZWfFgPi3ivmu5d24eLeK+a7l3bjfgPsp4sB8W8V813Lu3DxbxXzXcu7cb8B9lPFgPi3ivmu5d24eLeK+a7l3bjfgPsp4sB8W8V813Lu3DxbxXzXcu7cb8B9lPFgPi3ivmu5d24eLeK+a7l3bjfgPsp4sB8W8V813Lu3DxbxXzXcu7cb8B9lPFgPi3ivmu5d24eLeK+a7l3bjfgPsp4sB8W8V813Lu3DxbxXzXcu7cb8B9lPF853K2Xa3pGtzpamBH56G3tVM8t/LPsOA27HWEqvFUdE2kqIYfB1erttz155b2SdBUNyG8c4UX/P8Akbmc17SyqzT4fxJNTxy01ur3wvajmOYx2iqLvKh6eLeK+a7l3bjcbNRPttloqGVzXPp4GRuc3eVURE1HaY+xfFgPi3ivmu5d24eLeK+a7l3bjfgPsp4sB8W8V813Lu3H4fhXE0i5vs9e5eV0TlPoED7KeKHwnTzUmFbdT1ETopY4ER7HpkrV6UJgA5tAAIAAAAAAAAAAAAAAAAAB51Eqw00sqJmrGK5EXjyQD0BlcGy5Xyzxxra6ZEe5G56buNTUzVxs6S7f0Fdxdi+lwtRoqok1ZKn7KDPLNPpLyJ7SAw5j6+YlubaSltNM1ia5ZVc7Rjby+fkTjExutm2ggFdxnipMK22KdkLZqieTRjjcuSZJrVV82r1kk2LEDM7VssTVd1pqetoYIKeWRGPlR6+Rnqz1mmFuNnSXYCnY0xfdMK1MKx2+Geknb5MrnORUcm+1fb/+H7wVjhuKXz01RAymqok02sa7NHs5Uz40X2oPG62bW4AqeNcbNwstPBBCyoqpvKVjlVEazl1cq+xSSbFsBU8FYpuWKUqJ56GGnpYfJR7XKqufyJnyJ7UJDEeLrVhmNErJFfO9M2QR63r0ryJ0qXV3o2nAZLV7L10e7/B26lhb/wAVXSL9Sofyk2Xrqx/+Mt9JMz/h6TF+tVL4ZJ5RrYIHDmMbViZitpZFiqGpm+nl1OTpTlTzE8Zs0oAeFdULS0FRUtajlhic9EXjyRVA9wZfQ7Ls8ldCytt0MdO56JI9j1VWpy9hpzHtkY17HI5rkzRUXNFQtxs6S7foAj77eKexWeouNQvkxN8lv03LvN7VIJAGb2LZPrbtfKO3yW6CNtRKjFc17lVMy+XatdbrPW1zGI91NA+VGrvKrWquX1FuNnTbsBlG7BcOaqb+tw3YLhzVTf1uL4ZJ5Rq4Mo3YLhzVTf1uNJs1c66WWjr3sRjqmFsitaupFVM8iXGzqy7dwMrn2XK+GokiS10yox6tz03cSmnUky1FHDOqIiyRteqJxZpmLjZ0l29gAZAFWxLj+1Yde6mTOrrET5GNdTf5ncXm1qUqo2XL096rT0VFEziR6OevrzT2G5ham414GU0Gy/Wte1LjbYJGZ63QOVionmXPM0Ox4htuIqTwi3z6ejqfG5MnsXpQlxsWXaTABkAAAAAAAAAAAOeu/d9T6J3sU6Dnrv3fU+id7FKPnKj/AM7B6RvtN3xXiqkwvbttkykqpEyggz1uXlXkRDBYpFilZIiZqxyORPMdV3u1Ze7hJXV0qvlfxcTU4kROJDvcd1iXTtpaW742xEqaSzVM7tKSR3xY28vQichtuH7BR4ctjKKkbr35JFTypHcq/wB6io7E9xtbrbNb4omw3BF05VVc1mbxKnmzyy7eM0I5533pqQMN2Q738M4omZG7Sp6P9hHkupVRfKXtX2IarjK9pYMNVNW1yJO9Nqh1/Pdx9iZr2GRYHsq3zFFNC9iughXbpv5W8S+dck7S4TXtL+OO+4fq8PyUjKpMlqadsyJlloqu+1elFNjwLfPh3DMEr36VRB+xm5c03l7UyX1nBsnWX4TwytXG1NuoHbYmrWrF1OT2L2FK2Mb58GYi8BlflBXpoZLvJInxV9qdpb/1js5Wp4iskGIbLPb5skV6Zxv+g9N5f74szC6OqrsMYgbMiLHVUcqtexePLUqeZUPogzTZVw1pNbiClZ5Tco6pE5N5rvuXsM4X/Kti7NxFb3Yb+HtsypNq2xeVP4fPnq85iM8tfjHE6uRNKprZcmtz1MTiTzInsONLtWpZ1tO3u8DWXblj/iyy9XQadsW4Z8DonXyqZlNUpowIvzY+XtX6k6TWvCbTqxTupMD4OcsLUVlHFk1F/wBpIvL53KYiq3DEV6TNXVFZWS5a131X2In1Ihq2yw5zcJxI3edVMR39LimbFjGPxkxz8s2U8jmefUnsVRj6lpe6XOz7FtkpKZnwm11dUZZvXTcxiLyIiKi+s/V32LrFWUz/AIOY+hqMvIcj3PZn0oqrq8xdQc/Ktaj5zkZcMO3pWaTqeto5d9q7yp7UX60U3jDl4bfrDS3FqI10rcntT5rk1KnrQy/ZYiijxZG9iIj5KVjpMuNc3Jn6kT1Fo2InvdhqraqqrW1a6PR5Dczpn7x2zO6Xw47x+5a7q0nuqdhx3j9y13VpPdU5Rp84GubF2JfD7etlqX5z0jc4VX50fJ2exU5DMLNSR197oaOXPa6iojjdlv5OciL7TsljuGDMU5IuVTRS5tXJdGRv5Ki/WejKb9MT0+gjG9kzEvwrd0tlNJnS0Sqjsl1Pk417N71lyxJjimpsGxXGgl/xFwZo06Z+UxfnKv8AL7cjNsNYdfeoblXzo7waippJHOz+NJoqrU+9fN0nPCa91bf8eWDeGFq6y02vFHBS79Sm9xTE8HasYWrrLPabZijgpd+pTe4oz/qGPGE2ClhrcQW+kqGacM1TGyRuapm1XIipmhse5vhPmtf9RL+oxGmmmp6mOane5k0bkdG5u+jk3lQm/GzFnOdd9f5G8pbxJWp7m+E+a1/1Ev6ixUdJBQUcNJTM0IYWIyNuarkibyZrrMXs2J8UTXuhimuNY6J9RG17XZ5KiuTPM245ZSzrUfNdb/nqj0rvap9FWz910noGe6h861v+eqPSu9qn0VbP3XSegZ7qG/k5ExdRWsd4hfh7Dz5adyJVVDtqhX6Krvu7E+vIspl2zE5232pvzdGVe3Npzxm6t4pFjs1ZiW8sooHZySqr5JX5ropxuX+981qg2MsNUkDW1FNJWSonlSSyOTNehGqiIVzYdjYs91kVE00bG1F6FV2fsQ1E3nld6SRnuItiy3y0b5rGj6eoYiqkLnq5knRmutF7TObHeKzDl5jrYNJr4naMsarlpt42qfRBgONooocZXNkKIjduV2Scqoir9aqXC79UsbxSVMdbRw1UK5xzRtkYvQqZoexW9j575MEW1ZFVVRrmpnyI9yJ9RZDlfVaAAQAAAAAAAADnrv3fU+id7FOg8atjpKKdjEzc6NyInKuRR82RsWWRkbcs3qiJn0mwR7GFtbhd9A5WuuD/AC/C8viv5E/h4su0oNLgbEzKqF7rRMjWvaqrm3UmfnN2OueX4zI+dkW5YYvuflU1bRyfX96KnrRTcsMYipsS2llZDk2VvkzRZ643flyEPj7ByYhovDKNiJcadvk8W2t+ivTyFKw3aMaYZuPhlJZ5ntc3Rkic5NF6dOvfQXWUOPTZTvnh98ZbInosNCnlZLvyLv8AqTJPWV+22fE7YUqrZR3FsczdUlO16I9POm+d7MD4ouFzR9XbpmeETZyzOVurSXW5dfTmbbS00VHSRUsDdCKFiMY3kREyQXKYzUNbYc+244kY5kkF6exyZOa5ZFRU5FIKeCstdbtc8UtLUwqjtF6K1zV30U+kzPdkrCVbd6iluNrpVnmRqxTMbkiqm+1dfanqGOe7ouK3YbvDL7YKW4N+NIzKROR6anJ6zruUTJrZVRSsR7HwvRzVTUqZKUjY1t9+sslVQXK3TQ0sqbZG9ypk16alTUvGmXqL1VsdJRzMambnRuRE5VyOdmq1OPm6BqOqI2uTNFeiKnafSkcbIomRxtRjGNRrWtTJERN5DCoMDYnbURudaJkRHoqrm3l85u6bxv5LvTOKDxnZnX3DFVRxN0p0RJIU5XN15dutO0xOx3aow/e4K+Nq6cD8nsXVpJvOb6sz6JKPi/Y5gvcz6+2PZS1jtb2OT9nKvLq3l6eP6yYZSeqtiyWbEdqv1M2agq2PdoorolXJ7OhU/tD+3jENrsVM6avq441yVWxoub39CJvqYtV4JxNQyq11qqH5bz4U00XtafylwViaulRrbTUNVd90yaCJ2uL4T9TdcmILzNiC+VFxkardtdkyPPPQampENowRZX2LC9NTTM0Z5M5Zk5HO4uxMk7CEwjsbw2adlwukjKmrZrjjb8nGvL0qXsmeUvqLIHHeP3LXdWk91TsOW5xPmtVXFG1XPfA9rWpxqrVRDCsCwxwqtPXYffQ07ZNwz8KWr4VpmZ1VE1Veib74t9fVv+sptgwZiOlxDbqie1TMiiqo3vcqtya1HIqrvm1KiKioqZop1zy1ZYzJ6fNlNDU108FFAjpHyP0Yo8/nLyG3NscOHsAVlviyVzaOV0r/AKb1Yua/3xIh6WrA1ks13W50kUm3eVote/NrM+RMuwlL3BJU2KvghYr5JaaRjGpxqrVREM5ZbqyMLwfwvtXWme023FHBS79Sm9xTLMM4OxFRYlt1TUWuWOGKoY571VuTURd/fNYxBTy1eHblTQMV8stLKxjU33OVqoiFzvuJOMJwtwqtWf8AvkXvIfQmkz6TfWYN4iYo5nm9bfzP74jYp5on/qb+ZrKTL/Um43jSZ9JvrP6ioqZouZg3iNinmif+pv5mtYGoKu2YRo6SuhdDPGsmkxy60ze5U+pUOeWMk61Kwut/z1R6V3tU+iLbIz4LpPLb8gzj/hQxWqwPiZ9XM9tomVrpHKi5t1pn5zy8RMUczzetv5nTKTL/AFmbjedsZ9NvrKXsn2R11w8yup2LJLQuV6o3XnGvxvVki9imdeImKOZ5vW38zW8EW+pt2EaSiroFimZp6cbslyzeq+xTFnj7la6yXBeJvFm9JUSNc+lmbtc7W7+XEqdKL95t9vutBdadKigq4qiNeNjs8vOm+i+coOKNi3wid9ZYXsjV65upXrk1F/hXi8y+spE2EMS0kisdZ6zNNWcbFcnrbmasxy9p7jYcSYwteHaWRZZ2S1aN/Z0zHZucvFnyJ0qYeiVl8u66LVmq6yZVyT5znKS9BgHEtxlRqW2SBq78lQugievWvYhp2EMC0eGU8JlelTXubksuWTWJxo1Pv9g3MIe6nrRb2Wq0UlBHllTxNZmnGqJrXtXNTsAOTQACAAAAAAAAAAAAI6/XiGw2aouUzdNIW+SzPLTcupE9ZxYUxOzE9FPKtMtLPTyaEkLnaSt1al3k6fUXV1sTwAIAIrEt68XrHNc9o2/alam16WjnmqJv5Lylfixrf5aVlWzBtS+B7Ee17J9LNq60VERuZqS02uoIPDmK6DEkUiQNfBUw/LU8qZPZ+aE4SzQAFfteKfDcTV1hqqPwWopU0o1WTS21vKmpMtSovb0DQsAInEt+hw5ZpLhKzbVRyNji0tFXuVd7PzZr2Hbb6iaqt8FRUU/g8ssaPdErs1Yq8WY0OkA5Lnc6Sz2+WurZUjgiTNV415ERONQOsFJhxzeq6Jau24Rqp6NNbZHS6KvTlRMtfZmTOGsV0WJI5WxRyU9XB8tTSp5TPzQtxsNp0AGQBB4lxVRYahj29j56mfVDTxJ5T/yQhZMb32lgSrrcH1UVJvq9submpyq3R1duRqY2m12B40dUyto4aqNj2MmYj0bI3RciLypxHsZAAq2LcbR4XqKenbRLWSysWR7WyaOg1OPeXp9RZNi0g8aSqirqOGrgdpRTMR7F6FTND2AAFYxJi6osd4pLZS2p1fNVR6TEbLoLnmureXkEmxZwUqfHlyt2jLd8K1lJTZ5Oma/TRvn1In1lsoK+ludFFW0czZYJUza5P71KLLDbpABABUrnjpIrs+1WW1zXarj1S7U7RYxeTPJfyPOmx6+nuUVDiGzTWl0y5RyufpxqvnyTV068jXjTa4g/h/TIA4bxdqax2qe41artUKZqjd9yquSInSqqVqPGWIp6VtdDg6d9I5NJrkqE03N5Ubo5mpLTa5g56CpdW0EFU+B9Os0aPWKT4zM0zyU6CAACAAAAAAAAAAfwDOce3mgqcUW2yV1QkVDTPSerdkq5rlmjck6PeOemxJaKPZIZV2urbLR3ViR1KaKtRkm8i60TjRPWpbLDhNttrbhcLhNHXVddLpucsWTWJv5IiqvL9SHribClJiC0Oo2NjpZUej45mxp5Kp5ss0yzOm5xNVPA8KKKeChgiqZUmmYxGvkRMkeqJv5dJ7mFVbZJ4EVv80fvoSuGeC9q6nF7qH5xPZXYhsU9sZOkCyq1dNW6WWTkXe7CuwYMxPBTx0rMYyRwRtRjWsgyVrUTJETyjU1ZpP8AXgmgmzK34OyyWlXw7Q3s9Fd/t2sv5B4cwpQ4bZK+F8lRVTrnLUzLm93R0JnrJwmV2sCh49gkst5tmLKVi5wSJFU5cbF3vqVyZ9KF8OK8WyG82mpt0/xJ2K3PL4q8S9i5KJdUqm3WaPGOOLdbKdyTW6gYlVO5q6nKqIqJ9bU7VL+VrBuEI8KU1Q11QlTUVDk0pUZo5NRNSZZr0llGV/CBRNlTS+DrYkufgXhieEZebV9WkXs47pa6S82+WhrY9shlTWnGi8SovEqDG6uyuiBIkgjSDR2rRTQ0Pi6OWrLoKGugmzMzwDLXTL4Zob2eiu//AMh7swTiKgZ4Ja8WTRUSamskjzcxORFz9mROYawpR4cbLIyWSqrKhc5qmX4z+joTPWX1EToAMKz+fQXZmi8Oy0UpU8F097PR4u3S7S4X25/A1kqrikW3eDs0tDSy0tfKceJcKUWJYollkfT1UC5w1MXxmfmmesgZME4krolorjiySWidqc1sXlPTkXX96m/V0i22a4fC1npLgsW1eExJJoaWejnxZnacttoIrXbaeggVzo6eNGNVy61ROU6jKvzJIyKN0kjkaxiK5zlXJEROMyq04hsFxvt6ut+q0i8KYtNTx6DlyiVMlXUi68svrNExDbam8WSot9NVNpnVCaDpFbpZN40yzTfTV2i02CgtVqpqFlPFJtLEar3Rpm9eNe1c1NSyRKq2xfeY5qKqsm3bctFIroJN7TiVeJF17/vIXwrk+FNHFtLf6CoZTaDNrng2vVK3sVMly9iFjJlq3cWBRcSf+KOHfRr+IvRVcT4SrL3eaO6UN0ShmpI9Fq7VpLnmuvf6Rj0qx1ng60U/hej4Ptbtt097Ry159hT9ijbPFmoz0tp8MftWlyaLfvP7JgW8XJu0XnFdTU0qr5UMcehpedc8vqUttvt9LaqGKiookigiTJrU9q9JfUmkdJ+JdPan6Hx9FdHPlP2DCqHsT7T8B1q/+b8KXb8/jbyZdnxvrOzZQ8H8TJtu0ds22Pac9/Sz15f/AB0j+3TAz3XSS62C6SWqrm1yo1ubHrx6uLPf4zzpcB1FXXw1uJbxJdXQLnHBo6Maefl9Sb3GdNze0/zSx2DbfF63bfntvgsennv56KEgAYVF4iskWIbJPbZZFj2zJWyImeg5FzRcuMqjpsdYToUWRlHdqClZm5yLk9rGp2LqToUt97tTrzbXUba2ejcrmuSWBcnIqLmnZnkvFvFYlwfimqidRVeLnyUb00XokHlubxouv7zUvpKs1hvMN/s0FygY6NsyLmx2+1UXJU9aEicVotVNZLXBbqRFSKFuSK5c1cu+qr51O0zVAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//2Q==" alt="Logo LEON SEDOV NOGUEIRA DA SILVA" class="w-16 h-16 rounded-full border-4 border-rainbow-gradient object-cover p-1">
-                <h1 class="text-2xl md:text-3xl font-bold text-light-text tracking-tight uppercase">
-                    <span class="text-rainbow-gradient">LEON SEDOV NOGUEIRA DA SILVA</span>
-                </h1>
+    <!-- Header / Navbar -->
+    <header class="bg-preto-principal py-4 px-6 md:px-12 shadow-lg fixed w-full z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="data:image/jpeg;base64,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" alt="Logo do Escritório" class="w-16 h-16 rounded-full object-cover border-2 border-verde-principal shadow-md">
+                <h1 class="text-2xl md:text-3xl font-extrabold text-verde-principal ml-4">LEON SEDOV NOGUEIRA DA SILVA</h1>
             </div>
-            <nav class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2 text-lg">
-                <a href="#hero" class="hover:text-rainbow-gradient transition-colors duration-300">Início</a>
-                <a href="#ameaca" class="hover:text-rainbow-gradient transition-colors duration-300">A Ameaça</a>
-                <a href="#depoimentos" class="hover:text-rainbow-gradient transition-colors duration-300">Depoimentos</a>
-                <a href="#faq" class="hover:text-rainbow-gradient transition-colors duration-300">FAQ</a>
-                <a href="#contato" class="hover:text-rainbow-gradient transition-colors duration-300">Contato</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#depoimentos" class="text-cinza-texto hover:text-verde-claro text-lg font-semibold transition-colors duration-300">Depoimentos</a></li>
+                    <li><a href="#faq" class="text-cinza-texto hover:text-verde-claro text-lg font-semibold transition-colors duration-300">FAQ</a></li>
+                    <li><a href="#contato" class="text-cinza-texto hover:text-verde-claro text-lg font-semibold transition-colors duration-300">Contato</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative bg-gradient-to-r from-gray-800 to-gray-900 text-white py-16 md:py-24 overflow-hidden">
-        <div class="absolute inset-0 opacity-20 bg-center bg-cover" style="background-image: url('https://images.pexels.com/photos/8451125/pexels-photo-8451125.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-blend-mode: multiply;"></div>
-        <div class="container mx-auto px-4 md:px-6 relative z-10 text-center">
-            <h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 text-rainbow-gradient drop-shadow-lg">
-                A VERDADE CHOCANTE: Mestres Marciais Querem Escravizar a Humanidade!
+    <section class="relative h-screen flex items-center justify-center text-center bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'); padding-top: 80px;">
+        <div class="absolute inset-0 bg-black opacity-70"></div>
+        <div class="relative z-10 p-4 mx-auto max-w-5xl">
+            <h2 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 animate-pulse drop-shadow-lg">
+                EXPLORE O PODER OCULTO DA SUA EQUIPE!
             </h2>
-            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light text-gray-200">
-                Eles não são heróis. Eles usam estilos de luta ancestrais para <strong class="text-red-500">CONTROLAR MENTES</strong> e dominar o mundo. Você está preparado para o que vem por aí?
+            <p class="text-2xl md:text-3xl text-verde-claro mb-10 font-medium drop-shadow-md">
+                Seu negócio está pronto para ALCANÇAR O EXTRAORDINÁRIO sem custos adicionais? Descubra estratégias REVOLUCIONÁRIAS para otimizar a produtividade e ELEVAR seus lucros. Pare de perder dinheiro, comece a DOMINAR o mercado!
             </p>
-            <a href="#ameaca" class="inline-block bg-rainbow-gradient text-white font-bold py-4 px-8 rounded-lg text-lg uppercase shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out">
-                REVELE A CONSPIRAÇÃO AGORA!
+            <a href="#contato" class="bg-verde-principal text-preto-principal font-bold py-4 px-10 rounded-full text-xl md:text-2xl hover:bg-verde-claro transition duration-300 ease-in-out transform hover:scale-105 shadow-xl">
+                DESBLOQUEIE SEU POTENCIAL AGORA!
             </a>
         </div>
     </section>
 
-    <!-- The Threat Revealed Section -->
-    <section id="ameaca" class="bg-white py-16 md:py-20">
-        <div class="container mx-auto px-4 md:px-6">
-            <h3 class="text-4xl font-bold text-center mb-12 text-rainbow-gradient">O Plano Sombrio por Trás dos Golpes</h3>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6 text-lg text-gray-700">
-                    <p>Por gerações, os mais renomados artistas marciais esconderam um segredo aterrorizante: seus estilos de luta não são apenas para autodefesa ou competição. São ferramentas de controle mental, desenvolvidas para subverter a vontade humana e estabelecer uma nova ordem mundial sob seu comando.</p>
-                    <p>Imagine o poder de um soco que não só quebra ossos, mas também quebra sua psique. Um chute que não apenas derruba, mas implanta comandos diretos no seu subconsciente. É a realidade que enfrentamos, e a maioria das pessoas está completamente alheia a essa ameaça silenciosa.</p>
-                    <p><strong class="text-red-600">LEON SEDOV NOGUEIRA DA SILVA</strong> está aqui para expor essa verdade chocante e armar você com o conhecimento necessário para resistir.</p>
-                </div>
-                <div>
-                    <img src="https://images.pexels.com/photos/5607316/pexels-photo-5607316.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Mestre Marcial Misterioso" class="rounded-xl shadow-2xl w-full h-auto object-cover max-h-96 md:max-h-full">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Us Section (Our Solution) -->
-    <section class="bg-gray-100 py-16 md:py-20">
-        <div class="container mx-auto px-4 md:px-6 text-center">
-            <h3 class="text-4xl font-bold mb-12 text-dark-text">Nossa Missão: Desmascarar e Libertar</h3>
-            <div class="grid md:grid-cols-3 gap-10">
-                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-rainbow-gradient hover:shadow-xl transition-shadow duration-300">
-                    <h4 class="text-2xl font-semibold mb-4 text-dark-text">Revelação Total</h4>
-                    <p class="text-gray-700 text-lg">Oferecemos informações exclusivas sobre as técnicas de controle mental e as facções secretas de artistas marciais que operam nas sombras.</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-rainbow-gradient hover:shadow-xl transition-shadow duration-300">
-                    <h4 class="text-2xl font-semibold mb-4 text-dark-text">Defesa Mental</h4>
-                    <p class="text-gray-700 text-lg">Aprenda a reconhecer os sinais de manipulação e desenvolva escudos mentais para proteger sua mente de influências externas.</p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-rainbow-gradient hover:shadow-xl transition-shadow duration-300">
-                    <h4 class="text-2xl font-semibold mb-4 text-dark-text">Comunidade Global</h4>
-                    <p class="text-gray-700 text-lg">Junte-se a uma rede de indivíduos conscientes que, como você, se recusam a ser meros peões no jogo desses mestres sombrios.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Testimonials Section -->
-    <section id="depoimentos" class="bg-gray-900 text-white py-16 md:py-20">
-        <div class="container mx-auto px-4 md:px-6 text-center">
-            <h3 class="text-4xl font-bold mb-12 text-rainbow-gradient">O Que Nossos Aliados Estão Dizendo</h3>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div class="bg-gray-800 p-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-transform duration-300 flex flex-col items-center">
-                    <img src="https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Depoimento 1" class="w-24 h-24 rounded-full mb-6 object-cover border-4 border-accent">
-                    <p class="text-lg italic mb-4 text-gray-200">"Eu sentia uma estranha compulsão a obedecer certas figuras públicas. Depois de Leon Sedov, entendi que estava sob ataque psíquico. Eles abriram meus olhos!"</p>
-                    <p class="font-semibold text-accent">- Ana Paula, Engenheira de Software</p>
+    <section id="depoimentos" class="bg-gray-100 py-20 px-6 md:px-12">
+        <div class="container mx-auto">
+            <h3 class="text-4xl md:text-5xl font-extrabold text-preto-principal mb-16 text-center leading-tight">
+                NÃO ACREDITE APENAS EM NOSSAS PALAVRAS. <br> VEJA O QUE NOSSOS PARCEIROS ESTÃO DIZENDO!
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col justify-between">
+                    <p class="text-gray-700 text-lg italic mb-6">
+                        "O escritório LEON SEDOV NOGUEIRA DA SILVA nos mostrou como extrair o máximo da nossa equipe sem sobrecarregá-la financeiramente. Nossos resultados de produtividade dispararam! É um investimento que se paga em dobro."
+                    </p>
+                    <div>
+                        <strong class="text-xl text-verde-principal block mb-1">- Maria Eduarda S.</strong>
+                        <span class="text-gray-500">CEO, Tech Solutions</span>
+                    </div>
                 </div>
-                <div class="bg-gray-800 p-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-transform duration-300 flex flex-col items-center">
-                    <img src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Depoimento 2" class="w-24 h-24 rounded-full mb-6 object-cover border-4 border-accent">
-                    <p class="text-lg italic mb-4 text-gray-200">"Sempre achei que eram apenas lendas, mas o escritório de Leon Sedov revelou a verdade por trás dos 'mestres zen' e seus planos para o controle global. Minha gratidão é imensa!"</p>
-                    <p class="font-semibold text-accent">- Carlos Eduardo, Pesquisador</p>
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col justify-between">
+                    <p class="text-gray-700 text-lg italic mb-6">
+                        "Impressionante! A consultoria do escritório mudou completamente nossa visão sobre gestão de equipes. Conseguimos aumentar a entrega sem comprometer o bem-estar dos colaboradores e, o melhor, sem custos extras."
+                    </p>
+                    <div>
+                        <strong class="text-xl text-verde-principal block mb-1">- João Pedro A.</strong>
+                        <span class="text-gray-500">Diretor de Operações, Indústria XYZ</span>
+                    </div>
                 </div>
-                <div class="bg-gray-800 p-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-transform duration-300 flex flex-col items-center">
-                    <img src="https://images.pexels.com/photos/1036620/pexels-photo-1036620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Depoimento 3" class="w-24 h-24 rounded-full mb-6 object-cover border-4 border-accent">
-                    <p class="text-lg italic mb-4 text-gray-200">"A mente é a maior arma. Eles querem controlá-la. Leon Sedov Nogueira da Silva me deu as ferramentas para lutar de volta. É urgente que todos saibam!"</p>
-                    <p class="font-semibold text-accent">- Rafael Mendes, Ex-Militar</p>
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 flex flex-col justify-between">
+                    <p class="text-gray-700 text-lg italic mb-6">
+                        "Se você busca excelência e resultados exponenciais sem aumentar a folha de pagamento, encontrou o lugar certo. As estratégias são inovadoras e os retornos são visíveis em pouquíssimo tempo. RECOMENDO FORTEMENTE!"
+                    </p>
+                    <div>
+                        <strong class="text-xl text-verde-principal block mb-1">- Ana Clara R.</strong>
+                        <span class="text-gray-500">Fundadora, Marketing Inovador</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="bg-white py-16 md:py-20">
-        <div class="container mx-auto px-4 md:px-6">
-            <h3 class="text-4xl font-bold text-center mb-12 text-dark-text">Perguntas Frequentes sobre a Ameaça</h3>
-            <div class="max-w-3xl mx-auto space-y-8">
-                <div class="border border-gray-300 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h4 class="text-xl font-semibold mb-3 text-dark-text">Como os estilos de luta podem controlar pessoas?</h4>
-                    <p class="text-gray-700 text-lg">Os estilos de luta milenares desenvolvidos por certas linhagens secretas não se limitam ao combate físico. Eles incorporam técnicas avançadas de manipulação energética e neurolinguística, capazes de induzir estados de transe, implantar sugestões e até mesmo reescrever padrões de pensamento no alvo. É uma ciência sombria, disfarçada de arte marcial.</p>
-                </div>
-                <div class="border border-gray-300 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h4 class="text-xl font-semibold mb-3 text-dark-text">Quem são esses artistas marciais e qual é o objetivo deles?</h4>
-                    <p class="text-gray-700 text-lg">Eles são uma elite secreta, muitas vezes disfarçados como gurus espirituais, mestres de dojos renomados ou até mesmo figuras de poder em governos e corporações. Seu objetivo final é estabelecer um governo mundial unificado, onde a massa populacional seja controlada passivamente através dessas técnicas, garantindo obediência e subserviência total. Eles se veem como os únicos capazes de "guiar" a humanidade.</p>
-                </div>
-                <div class="border border-gray-300 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h4 class="text-xl font-semibold mb-3 text-dark-text">Como posso me proteger ou saber se estou sendo manipulado?</h4>
-                    <p class="text-gray-700 text-lg">Os sinais podem ser sutis: mudanças inexplicáveis de humor, pensamentos ou desejos que não parecem seus, uma sensação de "névoa cerebral" ou impulsos fortes para agir de maneiras incomuns. A proteção começa com o conhecimento. Nosso escritório oferece insights sobre como reconhecer esses ataques e desenvolver resistências mentais. Mantenha-se informado, questione a realidade e fortaleça sua vontade.</p>
-                </div>
-                <div class="border border-gray-300 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <h4 class="text-xl font-semibold mb-3 text-dark-text">É possível combater essa influência ou libertar alguém que está sob controle?</h4>
-                    <p class="text-gray-700 text-lg">Sim, é possível, mas requer um profundo entendimento das táticas utilizadas e uma estratégia cuidadosa. A libertação mental exige a desconstrução das programações implantadas e o fortalecimento da autonomia do indivíduo. É um processo complexo e delicado, mas não impossível. O primeiro passo é reconhecer o problema e buscar apoio especializado para desenvolver as contramedidas eficazes.</p>
-                </div>
+    <section id="faq" class="bg-preto-principal py-20 px-6 md:px-12">
+        <div class="container mx-auto">
+            <h3 class="text-4xl md:text-5xl font-extrabold text-verde-principal mb-16 text-center leading-tight">
+                PERGUNTAS FREQUENTES: DESVENDANDO O MITO DO 'TRABALHO EXTRA SEM CUSTO'
+            </h3>
+            <div class="max-w-4xl mx-auto space-y-8">
+                <!-- FAQ Item 1 -->
+                <details class="bg-gray-800 p-6 rounded-lg shadow-md group cursor-pointer hover:bg-gray-700 transition-colors duration-300">
+                    <summary class="flex justify-between items-center text-cinza-texto text-xl font-semibold leading-relaxed group-hover:text-verde-claro">
+                        É realmente possível aumentar a produtividade sem pagar mais por isso?
+                        <span class="text-verde-principal text-2xl group-open:rotate-180 transform transition-transform duration-300">+</span>
+                    </summary>
+                    <p class="mt-4 text-cinza-texto text-lg leading-relaxed border-t border-gray-700 pt-4">
+                        Absolutamente! Através de metodologias avançadas de otimização de processos, gestão de tempo e engajamento estratégico, demonstramos como sua equipe pode performar em níveis superiores sem a necessidade de horas extras pagas ou novos salários. Nosso foco é na eficiência e na inteligência do trabalho.
+                    </p>
+                </details>
+                <!-- FAQ Item 2 -->
+                <details class="bg-gray-800 p-6 rounded-lg shadow-md group cursor-pointer hover:bg-gray-700 transition-colors duration-300">
+                    <summary class="flex justify-between items-center text-cinza-texto text-xl font-semibold leading-relaxed group-hover:text-verde-claro">
+                        Isso não desmotiva os funcionários?
+                        <span class="text-verde-principal text-2xl group-open:rotate-180 transform transition-transform duration-300">+</span>
+                    </summary>
+                    <p class="mt-4 text-cinza-texto text-lg leading-relaxed border-t border-gray-700 pt-4">
+                        Pelo contrário! Nossa abordagem foca em eliminar gargalos, fornecer ferramentas e treinamentos que capacitam os colaboradores a serem mais eficientes e a atingirem seus objetivos com menos esforço desnecessário. Isso eleva a satisfação, a autonomia e o senso de realização, criando um ambiente de trabalho mais dinâmico e produtivo para todos.
+                    </p>
+                </details>
+                <!-- FAQ Item 3 -->
+                <details class="bg-gray-800 p-6 rounded-lg shadow-md group cursor-pointer hover:bg-gray-700 transition-colors duration-300">
+                    <summary class="flex justify-between items-center text-cinza-texto text-xl font-semibold leading-relaxed group-hover:text-verde-claro">
+                        Quais os primeiros passos para implementar essas estratégias?
+                        <span class="text-verde-principal text-2xl group-open:rotate-180 transform transition-transform duration-300">+</span>
+                    </summary>
+                    <p class="mt-4 text-cinza-texto text-lg leading-relaxed border-t border-gray-700 pt-4">
+                        O primeiro passo é uma análise detalhada da sua estrutura atual. Nossos especialistas farão um diagnóstico completo para identificar as áreas de maior potencial de otimização e desenvolver um plano de ação personalizado. Entre em contato conosco e agende uma consultoria inicial para começar a transformar a realidade da sua empresa!
+                    </p>
+                </details>
+                <!-- FAQ Item 4 -->
+                <details class="bg-gray-800 p-6 rounded-lg shadow-md group cursor-pointer hover:bg-gray-700 transition-colors duration-300">
+                    <summary class="flex justify-between items-center text-cinza-texto text-xl font-semibold leading-relaxed group-hover:text-verde-claro">
+                        Existe algum risco legal em buscar essa otimização de produtividade?
+                        <span class="text-verde-principal text-2xl group-open:rotate-180 transform transition-transform duration-300">+</span>
+                    </summary>
+                    <p class="mt-4 text-cinza-texto text-lg leading-relaxed border-t border-gray-700 pt-4">
+                        Nossas estratégias são desenvolvidas em estrita conformidade com as leis trabalhistas vigentes. O objetivo não é explorar o trabalho, mas sim maximizar a eficiência dentro da jornada de trabalho legalmente estabelecida, utilizando ferramentas e processos inteligentes. Garantimos que todas as recomendações respeitam a legislação e promovem um ambiente de trabalho justo e produtivo.
+                    </p>
+                </details>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action / Contact Section -->
-    <section id="contato" class="bg-gray-800 text-white py-16 md:py-20 text-center">
-        <div class="container mx-auto px-4 md:px-6">
-            <h3 class="text-4xl font-bold mb-8 text-rainbow-gradient">Não Seja Mais uma Vítima!</h3>
-            <p class="text-xl mb-10 max-w-2xl mx-auto font-light text-gray-200">
-                A hora de agir é agora. Entre em contato com LEON SEDOV NOGUEIRA DA SILVA e descubra como proteger sua mente e a liberdade do mundo.
-            </p>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-                <a href="tel:190" class="inline-block bg-accent hover:bg-opacity-90 text-gray-900 font-bold py-4 px-8 rounded-lg text-lg uppercase shadow-lg transition-colors duration-300">
-                    LIGUE AGORA: 190
-                </a>
-                <a href="mailto:email@.com" class="inline-block border-2 border-accent text-accent hover:bg-accent hover:text-gray-900 font-bold py-4 px-8 rounded-lg text-lg uppercase shadow-lg transition-all duration-300">
-                    ENVIE UM E-MAIL
-                </a>
+    <!-- Footer / Contact Section -->
+    <footer id="contato" class="bg-gray-900 py-16 px-6 md:px-12 text-cinza-texto">
+        <div class="container mx-auto flex flex-col md:flex-row items-center md:items-start justify-between text-center md:text-left gap-10">
+            <div class="flex-1">
+                <h4 class="text-3xl font-extrabold text-verde-principal mb-4">LEON SEDOV NOGUEIRA DA SILVA</h4>
+                <p class="text-lg mb-2">Especialistas em otimização de produtividade e estratégia empresarial.</p>
+                <p class="text-lg">Transformando desafios em resultados extraordinários.</p>
+            </div>
+            <div class="flex-1 md:flex-none">
+                <h5 class="text-2xl font-bold text-white mb-4">Entre em Contato</h5>
+                <p class="text-lg mb-2"><strong>Localização:</strong> Ceará-Mirim</p>
+                <p class="text-lg mb-2"><strong>Telefone:</strong> <a href="tel:190" class="text-verde-claro hover:underline">190</a></p>
+                <p class="text-lg"><strong>Email:</strong> <a href="mailto:email@.com" class="text-verde-claro hover:underline">email@.com</a></p>
+            </div>
+            <div class="flex-1 md:flex-none">
+                <h5 class="text-2xl font-bold text-white mb-4">Siga-nos</h5>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <!-- Placeholder for social media icons if needed, using simple text for now -->
+                    <a href="#" class="text-verde-claro hover:text-verde-principal text-xl transition-colors duration-300">Facebook</a>
+                    <a href="#" class="text-verde-claro hover:text-verde-principal text-xl transition-colors duration-300">LinkedIn</a>
+                </div>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-8">
-        <div class="container mx-auto px-4 md:px-6 text-center text-sm">
-            <p class="mb-2">LEON SEDOV NOGUEIRA DA SILVA - Combatendo as Sombras em Ceará-Mirim</p>
-            <p class="mb-2">Telefone: 190 | E-mail: email@.com</p>
-            <p>&copy; 2024 Todos os Direitos Reservados à Liberdade da Mente.</p>
+        <div class="text-center mt-16 pt-8 border-t border-gray-700 text-gray-400 text-sm">
+            &copy; 2023 LEON SEDOV NOGUEIRA DA SILVA. Todos os direitos reservados.
         </div>
     </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/190" target="_blank" class="whatsapp-button fixed bottom-8 right-8 z-50 p-4 flex items-center justify-center text-3xl font-bold shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.534.068 7.927c0 1.354.368 2.651 1.055 3.791L.05 16l4.204-1.102a7.929 7.929 0 0 0 3.792.927h.005c4.368 0 7.927-3.534 7.927-7.927 0-2.096-.814-4.029-2.288-5.454L13.601 2.326zM7.994 14.65c-1.268 0-2.46-.335-3.534-.91L2.09 14.07l.684-2.187a6.928 6.928 0 0 1-1.074-3.69c0-3.882 3.149-7.03 7.03-7.03 1.88 0 3.633.729 4.954 2.053 1.321 1.322 2.05 3.075 2.05 4.953 0 3.883-3.149 7.03-7.03 7.03z"></path>
+            <path d="M7.18 5.485c-.201-.004-.396.064-.544.204L5.3 7.14c-.097.098-.198.29-.02.48l1.32 1.32c.189.19.38.089.48-.02l1.3-1.3c.14-.148.208-.343.204-.544.004-.2-.064-.396-.204-.544l-.79-.79c-.148-.14-.343-.208-.544-.204zM8.5 7.927h-.005a.465.465 0 0 0-.465.465v.465c0 .256.209.465.465.465h.005a.465.465 0 0 0 .465-.465v-.465a.465.465 0 0 0-.465-.465z"></path>
+        </svg>
+    </a>
 
 </body>
 </html>

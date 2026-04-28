@@ -245,8 +245,8 @@ html.dark .logo-light {
             </button>
             <div class="collapsible-content open pl-9 mt-1 space-y-1">
               <a href="laddingPages.html"  class="block px-3 py-2 text-sm">Landing Pages</a>
-              <a href="linkBio.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Link na Bio</a>
-              <a href="geradorBlog.html" class="block px-3 py-2 text-sm">Gerador de Blog</a>
+              <a href="linkBio.html" class="block px-3 py-2 text-sm">Link na Bio</a>
+              <a href="geradorBlog.html" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium bg-primary text-white shadow-sm transition-all">Gerador de Blog</a>
             </div>
           </div>
           <div class="nav-group">
@@ -316,78 +316,61 @@ html.dark .logo-light {
       </header>
       <div class="glass-card p-8 rounded-2xl">
         <div class="flex items-center gap-3 mb-5">
-          <div class="p-3 bg-gradient-to-br from-purple-100 to-purple-200 text-purple-700 rounded-xl shadow-sm">
-            <i class="fas fa-link text-2xl"></i>
+          <div class="p-3 bg-gradient-to-br from-orange-100 to-orange-200 text-orange-700 rounded-xl shadow-sm">
+            <i class="fas fa-blog text-2xl"></i>
           </div>
           <div>
-            <h4 class="text-xl font-semibold text-foreground">Configuração de novo link na BIO</h4>
-            <p class="text-sm text-muted-foreground">Defina as configurações para o novo link na BIO</p>
+            <h4 class="text-xl font-semibold text-foreground">Otimizador de Conteúdo</h4>
+            <p class="text-sm text-muted-foreground">Selecione o blog e transforme ideias em artigos</p>
           </div>
         </div>
-        <div class="space-y-5">
+         <div class="space-y-5">
           <div>
-            <label class="block text-sm font-medium text-foreground mb-1">Nome / Apelido</label>
-            <input type="text" id="news-apelido" placeholder="Ex: Dr. kayomelo"
-              class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
+            <label class="block text-sm font-medium text-foreground mb-1">Escolha o Blog de Destino:</label>
+            <select id="blog-destino" class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground">
+                <option value="saude">Direito da Saúde</option>
+                <option value="previdenciario">Direito Previdenciário</option>
+                <option value="tributario">Direito Tributário</option>
+            </select>
           </div>
           <div>
-            <label class="block text-sm font-medium text-foreground mb-1">Bio / Descrição</label>
-            <input type="text" id="news-bio" placeholder="Ex: kayomelo.adv - Especialistas em Direito Previdenciário"
-              class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-          </div> 
-          <div>
-                            <label class="block text-sm font-medium text-foreground mb-1">cores presentes na pagina</label>
-                            <input type="text" id="news-cores"placeholder="Ex: vermelho, azul, verde, etc."
-                                class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground">
-                        </div>
-          <div>
-            <label class="block text-sm font-medium text-foreground mb-1">Link</label>
-            <textarea rows="5" id="news-link" placeholder="Ex: https://www.kayomelo.adv.br"
-              class="w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground"></textarea>
+            <label class="block text-sm font-medium text-foreground mb-1">Imagem de Capa</label>
+            <div class="relative">
+              <input type="file" id="imagem-url" accept="image/*" onchange="pegarUrl(event)" class="hidden">
+              <label for="imagem-url"
+                class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
+
+                <span id="nome-arquivo"
+                  class="text-muted-foreground group-hover:text-foreground transition truncate pr-4">Selecionar
+                  imagem...</span>
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-foreground flex-shrink-0" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
+              </label>
+            </div>
           </div>
           <div>
-  <label class="block text-sm font-medium text-foreground mb-1">Logo do escritório</label>
-  <div class="relative">
-    <input type="file" id="file-input" accept="image/*" onchange="pegarUrl(event)" class="hidden">
-    <label for="file-input"
-      class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
-
-      <span id="nome-arquivo"
-        class="text-muted-foreground group-hover:text-foreground transition truncate pr-4">Selecionar
-        imagem...</span>
-
-      
-    </label>
-  </div>
-</div>
-
-<div>
-  <label class="block text-sm font-medium text-foreground mb-1">Foto do usuário</label>
-  <div class="relative">
-    <input type="file" id="file-photo" accept="image/*" onchange="pegarUrlphoto(event)" class="hidden">
-    <label for="file-photo"
-      class="flex items-center justify-between w-full px-5 py-3 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl cursor-pointer hover:bg-white/90 transition shadow-sm group">
-      
-      <span id="nome-arquivo-photo"
-        class="text-muted-foreground group-hover:text-foreground transition truncate pr-4">Selecionar
-        imagem...</span>
-      
-
-
+            <label class="block text-sm font-medium text-foreground mb-1">Digite seu texto base:</label>
+            <textarea id="texto" rows="5" placeholder="Ex: Ex: ideias sobre o tema escolhido para transformar em artigo..."
+              class="w-full px-5 py-4 bg-white/70 backdrop-blur-sm border border-white/50 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-transparent outline-none transition shadow-sm text-foreground placeholder-muted-foreground"></textarea>
+          </div>
+          <button id="enviarBtn"
+            class="w-full py-3.5 bg-gradient-to-r from-orange-600 to-orange-700 text-white font-semibold rounded-xl hover:from-orange-700 hover:to-orange-800 transition shadow-lg flex items-center justify-center gap-2">
+            <i class="fas fa-save"></i> Enviar para Geração
+          </button>
         </div>
       </div>
-       <button onclick="criarLandingPage()"
-            class="w-full py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-all shadow-sm">
-            Gerar Link Bio</button>
-        </div>
+       <div id="status" class="status-message"></div>
 
-      
-        <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
-       
+      <footer class="border-t border-border px-6 py-4 flex flex-wrap justify-between items-center text-xs text-muted-foreground mt-4">
+       O texto será enviado para o fluxo n8n do blog selecionado
       </footer>
     </main>
     <script>
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+     if (typeof lucide !== 'undefined') lucide.createIcons();
 
       // Theme toggle
       const themeToggle = document.getElementById('themeToggle');
@@ -451,87 +434,90 @@ html.dark .logo-light {
             icon.style.transform = content.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
           }
         });
-      });
+      });   
 
-      // Variáveis globais para armazenar os Base64 (se já as tiver, não precisa duplicar)
-let logoBase64 = "";
-let photoBase64 = "";
+      let logoBase64 = ""; 
 
-// Função para o PRIMEIRO input (Logo)
 function pegarUrl(event) {
   const file = event.target.files[0];
-  
-  if (file) {
-    // Atualiza o nome exibido
-    const spanNomeArquivo = document.getElementById('nome-arquivo');
-    if (spanNomeArquivo) {
-      spanNomeArquivo.textContent = file.name;
-      spanNomeArquivo.classList.remove('text-muted-foreground');
-      spanNomeArquivo.classList.add('text-foreground');
-    }
+  if (!file) return;
 
-    // Lê o arquivo e salva na variável logoBase64
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      logoBase64 = e.target.result;
-    };
-    reader.readAsDataURL(file);
+  // Atualiza o nome no label
+  const spanNomeArquivo = document.getElementById('nome-arquivo');
+  if (spanNomeArquivo) {
+    spanNomeArquivo.textContent = file.name;
+    spanNomeArquivo.classList.remove('text-muted-foreground');
+    spanNomeArquivo.classList.add('text-foreground');
   }
 }
 
-// Função para o SEGUNDO input (Foto)
-function pegarUrlphoto(event) {
-  const file = event.target.files[0];
-  
-  if (file) {
-    // Atualiza o nome exibido no span do segundo input
-    const spanNomePhoto = document.getElementById('nome-arquivo-photo');
-    if (spanNomePhoto) {
-      spanNomePhoto.textContent = file.name;
-      spanNomePhoto.classList.remove('text-muted-foreground');
-      spanNomePhoto.classList.add('text-foreground');
-    }
+document.addEventListener('DOMContentLoaded', function() {
+            const textoTextarea = document.getElementById('texto');
+            const imagemUrlInput = document.getElementById('imagem-url');
+            const blogSelect = document.getElementById('blog-destino');
+            const enviarBtn = document.getElementById('enviarBtn');
+            const statusDiv = document.getElementById('status');
 
-    // Lê o arquivo e salva na variável photoBase64
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      photoBase64 = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-}
+            // Mapeamento de URLs dos Webhooks
+            const webhookUrls = {
+                'saude': 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/blog',
+                'previdenciario': 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/blog-previdenciario',
+                'tributario': 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/blog-tributario'
+            };
 
-      async function criarLandingPage() {
-        // Verificação simples
-        if (!logoBase64) {
-          alert("Por favor, selecione uma logo primeiro.");
-          return;
-        }
+            function showMessage(message, type) {
+                statusDiv.textContent = message;
+                statusDiv.className = 'status-message ' + type;
+            }
 
-        const dados = {
-            apelido: document.getElementById('news-apelido').value,
-            bio: document.getElementById('news-bio').value,
-            cores: document.getElementById('news-cores').value,
-            link: document.getElementById('news-link').value,
-            logo: logoBase64,
-            foto: photoBase64
-            // Envia a imagem em Base64
-        };
+            enviarBtn.addEventListener('click', async function() {
+                const texto = textoTextarea.value;
+                const imagemUrl = imagemUrlInput.value;
+                const selectedBlog = blogSelect.value;
+                const activeWebhook = webhookUrls[selectedBlog];
 
-        // Exemplo de envio para o n8n
-        try {
-          const response = await fetch('https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/linkBio', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(dados)
-          });
+                if (!texto || texto.trim().length === 0) {
+                    showMessage('Por favor, digite algum texto antes de enviar.', 'error');
+                    return;
+                }
 
-          if (response.ok) {
-            alert("Dados enviados com sucesso!");
-          }
-        } catch (error) {
-          console.error("Erro ao enviar:", error);
-        }
-      }
+                enviarBtn.disabled = true;
+                showMessage(`Enviando para o blog ${selectedBlog.toUpperCase()}... Aguarde.`, 'info');
 
-      </script>
+                const payload = {
+                    texto: texto,
+                    imagem_manual: imagemUrl,
+                    blog_origem: selectedBlog
+                };
+
+                try {
+                    const response = await fetch(activeWebhook, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        showMessage(`✅ Sucesso! O artigo para ${selectedBlog.toUpperCase()} está sendo gerado.`, 'success');
+                        textoTextarea.value = '';
+                        imagemUrlInput.value = '';
+                    } else {
+                        const errorText = await response.text();
+                        showMessage(`❌ Erro no servidor: ${response.status}.`, 'error');
+                    }
+                } catch (error) {
+                    showMessage(`❌ Falha de conexão. Verifique se o n8n está online.`, 'error');
+                } finally {
+                    setTimeout(() => { enviarBtn.disabled = false; }, 2000);
+                }
+            });
+
+            // Atalho Ctrl+Enter
+            textoTextarea.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault();
+                    enviarBtn.click();
+                }
+            });
+        });
+    </script>
