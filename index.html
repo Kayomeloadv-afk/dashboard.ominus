@@ -208,6 +208,70 @@
 </head>
 
 <body class="bg-background antialiased">
+  <style>
+    /* Estilos para lista de leads */
+    .leads-names-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      padding: 12px;
+    }
+
+    .lead-name-item {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background-color: var(--card-bg, #1a1a1a);
+      border: 1px solid var(--border-color, rgba(201, 168, 76, 0.2));
+      color: var(--foreground, #f5f0e8);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: default;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .lead-name-item:hover {
+      border-color: var(--gold, #C9A84C);
+      background-color: rgba(201, 168, 76, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(201, 168, 76, 0.2);
+    }
+
+    /* Suporte para temas CSS */
+    :root {
+      --gold: #C9A84C;
+      --black: #080808;
+      --black-2: #111111;
+      --black-3: #191919;
+      --white: #F5F0E8;
+      --card-bg: #1a1a1a;
+      --border-color: rgba(201, 168, 76, 0.2);
+      --foreground: #f5f0e8;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --card-bg: #ffffff;
+        --border-color: rgba(201, 168, 76, 0.3);
+        --foreground: #080808;
+      }
+    }
+
+    /* Dark mode explícito */
+    .dark {
+      --card-bg: #1a1a1a;
+      --border-color: rgba(201, 168, 76, 0.2);
+      --foreground: #f5f0e8;
+    }
+
+    .dark .lead-name-item {
+      background-color: var(--card-bg);
+      color: var(--foreground);
+    }
+  </style>
   <div class="min-h-screen flex relative">
     <!-- SIDEBAR -->
     <aside id="sidebar"
@@ -481,10 +545,10 @@
             <div class="p-4">
               <div class="flex items-center justify-between p-3 rounded-xl bg-[var(--border-light)]/50">
                 <div>
-                  <p class="font-medium text-sm truncate">kayo-melo-advogados-negativa-d-mmdkne11</p>
-                  <p class="text-xs text-muted-foreground">05/03/2026</p>
+                  <p class="font-medium text-sm truncate"></p>
+                  <p class="text-xs text-muted-foreground"></p>
                 </div>
-                <span class="text-[11px] px-2 py-0.5 rounded-full bg-secondary/20 border border-border">Rascunho</span>
+                <span class="text-[11px] px-2 py-0.5 rounded-full bg-secondary/20 border border-border"></span>
               </div>
             </div>
           </div>
@@ -497,8 +561,8 @@
               <a href="crm.html" class="text-xs text-primary flex items-center gap-1">Abrir CRM <i
                   data-lucide="arrow-right" class="w-3 h-3"></i></a>
             </div>
-            <div class="p-6 text-center">
-
+            <div class="p-6 text-center" id="crm-container">
+              <p class="text-muted-foreground text-sm">⏳ Carregando clientes...</p>
             </div>
           </div>
           <div class="rounded-2xl border border-border bg-card shadow-card hover:shadow-card-hover transition-all">
@@ -765,14 +829,11 @@
 
     (async function () {
       // Seleciona a div onde os nomes serão exibidos
-      const container = document.querySelector('.p-6.text-center');
+      const container = document.getElementById('crm-container');
       if (!container) {
-        console.warn('Div com class "p-6 text-center" não encontrada');
+        console.warn('Elemento com ID "crm-container" não encontrado');
         return;
       }
-
-      // Mostra loading enquanto busca os dados
-      container.innerHTML = '<div class="loading-text">⏳ Carregando nomes...</div>';
 
       try {
         const response = await fetch(N8N_GET_WEBHOOK, {
@@ -793,27 +854,27 @@
         const nomes = leads.map(lead => lead.name || lead.nome || 'Usuário sem nome');
 
         if (nomes.length === 0) {
-          container.innerHTML = '<p class="text-gray-500">Nenhum lead encontrado.</p>';
+          container.innerHTML = '<p class="text-muted-foreground text-sm">Nenhum lead encontrado.</p>';
           return;
         }
 
-        // Cria uma lista visual (pode ser <ul> ou <div> com cada nome)
+        // Cria uma lista visual com estilo padronizado
         const listHtml = `
-        <div class="leads-names-list">
-          ${nomes.map(nome => `<div class="lead-name-item">${escapeHtml(nome)}</div>`).join('')}
-        </div>
-      `;
+          <div class="leads-names-list">
+            ${nomes.map(nome => `<div class="lead-name-item" title="${escapeHtml(nome)}">${escapeHtml(nome)}</div>`).join('')}
+          </div>
+        `;
         container.innerHTML = listHtml;
 
       } catch (error) {
         console.error('Erro ao buscar leads:', error);
         // Fallback com demonstração
         const fallbackHtml = `
-        <div class="leads-names-list">
-          ${DEMO_LEADS.map(lead => `<div class="lead-name-item">${escapeHtml(lead.name)}</div>`).join('')}
-        </div>
-        <p class="text-xs text-gray-400 mt-3">⚠️ Usando dados de exemplo (falha na conexão)</p>
-      `;
+          <div class="leads-names-list">
+            ${DEMO_LEADS.map(lead => `<div class="lead-name-item" title="${escapeHtml(lead.name)}">${escapeHtml(lead.name)}</div>`).join('')}
+          </div>
+          <p class="text-xs text-muted-foreground mt-4">⚠️ Usando dados de exemplo (conexão indisponível)</p>
+        `;
         container.innerHTML = fallbackHtml;
       }
 

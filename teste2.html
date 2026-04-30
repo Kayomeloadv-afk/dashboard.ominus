@@ -92,6 +92,63 @@
         }
         .delete-event:hover { background: rgba(255,0,0,0.2); border-color: #ff6b6b; }
         .empty-events { text-align: center; color: #999; padding: 30px 0; font-size: 0.9rem; }
+
+        /* Estilo para dia desabilitado (passado) */
+        .day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Mensagem de indisponibilidade */
+        .unavailable-message {
+            text-align: center; 
+            padding: 30px 0; 
+            color: #ff6b6b; 
+            font-size: 1rem; 
+            background: rgba(255, 0, 0, 0.1); 
+            border-radius: 8px; 
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            grid-column: 1/-1;
+        }
+
+        /* Debug Panel */
+        .debug-panel {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            padding: 10px;
+            max-width: 300px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 0.7rem;
+            font-family: 'Courier New', monospace;
+            color: #0f0;
+            z-index: 9999;
+            display: none;
+        }
+
+        .debug-panel.show {
+            display: block;
+        }
+
+        .debug-toggle {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: var(--gold);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 10000;
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -154,10 +211,25 @@
             <button class="btn" onclick="location.reload()">Fazer outro agendamento</button>
         </div>
     </div>
+
+    <!-- Debug Panel -->
+    <button class="debug-toggle" onclick="toggleDebug()" title="Debug">D</button>
+    <div class="debug-panel" id="debugPanel"></div>
 </div>
 
 <script>
-    // URLs do n8n — Verifique se estão corretas!
+    // ========== CONFIGURAÇÃO DO FLUXO N8N COM GOOGLE CALENDAR ==========
+    // 
+    // CONSULTA_URL → Webhook n8n que:
+    //   1. Recebe: { "ag-data": "2024-12-25" }
+    //   2. Consulta Google Calendar para aquele dia (00:00 - 23:59 UTC)
+    //   3. Extrai horários dos eventos em formato HH:MM
+    //   4. Retorna: { ocupados: ['09:00', '10:00', '14:30', ...] }
+    //
+    // Horários ocupados = BLOQUEADOS PERMANENTEMENTE (não clicáveis)
+    // Horários locais agendados = TAMBÉM BLOQUEADOS
+    // Se NENHUM horário livre = Mensagem e bloqueio completo do passo
+    //
     const WEBHOOK_URL = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/agendamento';
     const CONSULTA_URL = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/consultar-disponibilidade';
     
@@ -190,8 +262,18 @@
         for(let i=0; i<firstDay; i++) grid.innerHTML += `<div class="day empty"></div>`;
 
         for(let i=1; i<=lastDay; i++) {
-            const isToday = new Date().getDate() === i && new Date().getMonth() === month && new Date().getFullYear() === year;
-            grid.innerHTML += `<div class="day ${isToday ? 'today' : ''}" onclick="selectDay(${i})">${i}</div>`;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const isToday = today.getDate() === i && today.getMonth() === month && today.getFullYear() === year;
+            
+            // Bloqueia datas no passado
+            const dayDate = new Date(year, month, i);
+            dayDate.setHours(0, 0, 0, 0);
+            const isPast = dayDate < today;
+            
+            const dayClass = isPast ? 'day disabled' : isToday ? 'day today' : 'day';
+            const onClickAttr = isPast ? '' : `onclick="selectDay(${i})"`;
+            grid.innerHTML += `<div class="${dayClass}" ${onClickAttr}>${i}</div>`;
         }
     }
 
@@ -201,6 +283,17 @@
     }
 
     async function selectDay(day) {
+        // Validar se a data não é passada
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const selectedDayDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), day);
+        selectedDayDate.setHours(0, 0, 0, 0);
+        
+        if (selectedDayDate < today) {
+            alert('❌ Não é possível agendar para datas no passado.');
+            return;
+        }
+
         document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'));
         event.target.classList.add('selected');
         
@@ -208,28 +301,84 @@
         document.getElementById('selectedDateDisplay').innerText = new Date(selectedDate + 'T00:00:00').toLocaleDateString('pt-BR');
         
         const timeGrid = document.getElementById('timeGrid');
-        timeGrid.innerHTML = '<p style="grid-column: 1/-1; text-align:center;">Consultando agenda...</p>';
+        timeGrid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 20px; color: var(--gold);">⏳ Consultando Google Calendar...</p>';
 
         try {
-            // Consulta os horários ocupados no n8n
+            // Consulta os horários ocupados no Google Calendar via n8n
+            console.log('📤 Enviando requisição para:', CONSULTA_URL);
+            console.log('📦 Dados:', { "ag-data": selectedDate });
+
             const response = await fetch(CONSULTA_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ "ag-data": selectedDate })
             });
             
-            const dados = await response.json();
-            const ocupados = dados.ocupados || []; 
+            console.log('📥 Status da resposta:', response.status, response.statusText);
+            
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status} ${response.statusText}`);
+            }
+
+            // Ler texto da resposta primeiro
+            const responseText = await response.text();
+            console.log('📄 Texto bruto da resposta:', responseText);
+
+            // Validar se está vazio
+            if (!responseText || responseText.trim() === '') {
+                console.warn('⚠️ Resposta vazia do webhook!');
+                renderTimes([]);
+                renderEventsForSelected();
+                document.getElementById('btnToStep2').style.display = 'block';
+                return;
+            }
+
+            // Tentar fazer parse do JSON
+            let dados;
+            try {
+                dados = JSON.parse(responseText);
+                console.log('✓ JSON parseado com sucesso:', dados);
+            } catch (parseError) {
+                console.error('❌ Erro ao fazer parse do JSON:', parseError);
+                console.error('Resposta recebida:', responseText);
+                throw new Error(`JSON inválido: ${parseError.message}`);
+            }
+
+            const ocupados = dados.ocupados || [];
+            
+            console.log('📅 Data selecionada:', selectedDate);
+            console.log('🔴 Horários ocupados no Google Calendar:', ocupados);
             
             renderTimes(ocupados);
-            renderEventsForSelected(); // Renderiza agendamentos do dia
-            document.getElementById('btnToStep2').style.display = 'block';
+            renderEventsForSelected();
+            
+            // Verificar se há horários disponíveis
+            const hasAvailable = verificarDisponibilidade(ocupados);
+            if (hasAvailable) {
+                document.getElementById('btnToStep2').style.display = 'block';
+            }
         } catch (error) {
-            console.error("Erro ao carregar horários:", error);
+            console.error("❌ Erro ao consultar Google Calendar:", error.message);
+            console.error("Stack:", error.stack);
+            
+            // Fallback: tenta usar apenas agendamentos locais
             renderTimes([]);
-            renderEventsForSelected(); // Renderiza agendamentos do dia mesmo com erro
+            renderEventsForSelected();
             document.getElementById('btnToStep2').style.display = 'block';
+            
+            timeGrid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 20px; color: #ff9900;">⚠️ Usando apenas agendamentos locais. Erro ao consultar Google Calendar.</p>';
         }
+    }
+
+    // Verifica se há pelo menos um horário disponível
+    function verificarDisponibilidade(ocupados = []) {
+        const horariosPadrao = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
+        const agendadosNoDia = getEventsForDate(selectedDate);
+        const horariosAgendados = agendadosNoDia.map(e => e.hora);
+        
+        const disponivel = horariosPadrao.some(h => !ocupados.includes(h) && !horariosAgendados.includes(h));
+        console.log('✓ Há horários disponíveis?', disponivel);
+        return disponivel;
     }
 
     function renderTimes(ocupados = []) {
@@ -238,16 +387,31 @@
         
         const horariosPadrao = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
         
-        // Obtém horários agendados para a data selecionada
+        // Obtém horários agendados para a data selecionada (localStorage)
         const agendadosNoDia = getEventsForDate(selectedDate);
         const horariosAgendados = agendadosNoDia.map(e => e.hora);
         
+        console.log('🕐 Horários padrão:', horariosPadrao);
+        console.log('🔴 Ocupados (Google Calendar):', ocupados);
+        console.log('🟠 Agendados (Local):', horariosAgendados);
+        
+        // Verificar se há horários disponíveis
+        const temDisponivel = horariosPadrao.some(h => !ocupados.includes(h) && !horariosAgendados.includes(h));
+        
+        // Se não há horários disponíveis, exibir mensagem e bloquear
+        if (!temDisponivel) {
+            timeGrid.innerHTML = '<div class="unavailable-message">⛔ Desculpe! Nenhum horário disponível para este dia. Escolha outra data.</div>';
+            document.getElementById('btnToStep3').style.display = 'none';
+            return;
+        }
+        
         horariosPadrao.forEach(h => {
-            const estaOcupado = ocupados.includes(h);
-            const estaAgendado = horariosAgendados.includes(h);
+            const estaOcupado = ocupados.includes(h);  // Google Calendar
+            const estaAgendado = horariosAgendados.includes(h);  // localStorage
             
             const div = document.createElement('div');
             let className = 'time-slot';
+            let isDisabled = estaOcupado || estaAgendado;
             
             if (estaOcupado) {
                 className += ' ocupado';
@@ -257,20 +421,47 @@
             
             div.className = className;
             div.innerText = h;
-            div.title = estaAgendado ? 'Horário já agendado' : (estaOcupado ? 'Indisponível' : 'Disponível');
             
-            if (!estaOcupado && !estaAgendado) {
-                div.onclick = () => selectTime(h);
+            // Definir tooltips descritivos
+            if (estaOcupado && estaAgendado) {
+                div.title = '❌ Indisponível (Google Calendar + agendado)';
+            } else if (estaOcupado) {
+                div.title = '⛔ Indisponível (Google Calendar)';
+            } else if (estaAgendado) {
+                div.title = '❌ Já agendado';
+            } else {
+                div.title = '✓ Disponível';
             }
+            
+            // IMPORTANTE: Só permite clicar se disponível
+            if (!isDisabled) {
+                div.onclick = () => selectTime(h);
+                div.style.cursor = 'pointer';
+            } else {
+                div.style.cursor = 'not-allowed';
+                div.style.pointerEvents = 'none';
+            }
+            
             timeGrid.appendChild(div);
         });
     }
 
     function selectTime(time) {
+        // Validação DUPLA: verificar Google Calendar + agendamentos locais
+        const agendadosNoDia = getEventsForDate(selectedDate);
+        const horariosAgendados = agendadosNoDia.map(e => e.hora);
+        
+        if (horariosAgendados.includes(time)) {
+            alert('❌ Este horário já foi agendado. Escolha outro.');
+            console.warn('⚠️ Tentativa de agendar horário já ocupado:', time);
+            return;
+        }
+
         document.querySelectorAll('.time-slot').forEach(t => t.classList.remove('selected'));
         event.target.classList.add('selected');
         selectedTime = time;
         document.getElementById('btnToStep3').style.display = 'block';
+        console.log('✓ Horário selecionado:', time);
     }
 
     async function enviarAgendamento() {
@@ -295,11 +486,15 @@
         btn.disabled = true;
 
         try {
+            console.log('📤 Enviando agendamento:', dados);
+
             const response = await fetch(WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dados)
             });
+
+            console.log('📥 Status:', response.status, response.statusText);
 
             if (response.ok) {
                 // Salvar agendamento localmente
@@ -314,14 +509,18 @@
                 });
                 saveBookings(bookings);
 
+                console.log('✓ Agendamento confirmado e salvo localmente');
                 nextStep('sucesso');
             } else {
-                alert("Erro ao agendar.");
+                const responseText = await response.text();
+                console.error('❌ Erro na resposta:', response.status, responseText);
+                alert("Erro ao agendar. Verifique a conexão com o servidor.");
                 btn.innerText = "Confirmar Agendamento";
                 btn.disabled = false;
             }
         } catch (error) {
-            alert("Erro de conexão.");
+            console.error('❌ Erro de conexão:', error.message);
+            alert("Erro de conexão. Verifique a URL do webhook.");
             btn.innerText = "Confirmar Agendamento";
             btn.disabled = false;
         }
@@ -382,6 +581,54 @@
    
 
     renderCalendar();
+
+    // ========== DEBUG PANEL ==========
+    let debugLogs = [];
+    const maxLogs = 50;
+
+    function addDebugLog(message) {
+        debugLogs.push(message);
+        if (debugLogs.length > maxLogs) {
+            debugLogs.shift();
+        }
+        updateDebugPanel();
+    }
+
+    function updateDebugPanel() {
+        const panel = document.getElementById('debugPanel');
+        panel.innerHTML = debugLogs.map(log => `<div>${log}</div>`).join('');
+        panel.scrollTop = panel.scrollHeight;
+    }
+
+    function toggleDebug() {
+        const panel = document.getElementById('debugPanel');
+        panel.classList.toggle('show');
+    }
+
+    // Interceptar console.log
+    const originalLog = console.log;
+    const originalError = console.error;
+    const originalWarn = console.warn;
+
+    console.log = function(...args) {
+        originalLog.apply(console, args);
+        addDebugLog('[LOG] ' + args.join(' '));
+    };
+
+    console.error = function(...args) {
+        originalError.apply(console, args);
+        addDebugLog('[ERROR] ' + args.join(' '));
+    };
+
+    console.warn = function(...args) {
+        originalWarn.apply(console, args);
+        addDebugLog('[WARN] ' + args.join(' '));
+    };
+
+    // Log inicial
+    console.log('🚀 Sistema de agendamento iniciado');
+    console.log('📍 Webhook consulta:', CONSULTA_URL);
+    console.log('📍 Webhook agendamento:', WEBHOOK_URL);
 </script>
 </body>
 </html>
