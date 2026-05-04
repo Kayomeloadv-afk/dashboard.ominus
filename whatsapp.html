@@ -265,7 +265,7 @@
             </button>
             <div class="collapsible-content pl-9 mt-1 space-y-1">
               <a href="calculadora.html" class="block px-3 py-2 text-sm">Calculadora de Juros</a>
-              <a href="#" class="block px-3 py-2 text-sm">Relatórios</a>
+              <a href="controleFinanceiro.html" class="block px-3 py-2 text-sm">Controle do Financeiro</a>
               <a href="#" class="block px-3 py-2 text-sm">Comissões</a>
             </div>
           </div>
@@ -530,7 +530,7 @@ Caso o cliente peça para falar com um atendente responda com apenas: "Tudo bem,
 
           <div class="space-y-5">
             <button onclick="generateQRCode()"
-              class="w-full py-3.5 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl hover:from-green-700 hover:to-emerald-800 transition shadow-lg flex items-center justify-center gap-2">
+              class="w-full py-3.5 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-700 hover:to-green-800 transition shadow-lg flex items-center justify-center gap-2">
               <i class="fas fa-qrcode"></i> Gerar QR Code
             </button>
           </div>
@@ -551,7 +551,7 @@ Caso o cliente peça para falar com um atendente responda com apenas: "Tudo bem,
         <!-- Card: Gerar Relatório -->
         <div class="glass-card p-8 rounded-2xl">
           <div class="flex items-center gap-3 mb-5">
-            <div class="p-3 bg-gradient-to-br from-purple-100 to-purple-200 text-purple-700 rounded-xl shadow-sm">
+            <div class="p-3 bg-gradient-to-br from-green-100 to-green-200 text-green-700 rounded-xl shadow-sm">
               <i class="fas fa-file-pdf text-2xl"></i>
             </div>
             <div>
@@ -563,7 +563,7 @@ Caso o cliente peça para falar com um atendente responda com apenas: "Tudo bem,
           <p class="text-sm text-muted-foreground mb-4">Clique no botão abaixo para gerar um relatório em PDF com todos os dados das conversas e agendamentos do período.</p>
           
           <button onclick="gerarRelatorio()"
-            class="w-full py-3.5 bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-indigo-800 transition shadow-lg flex items-center justify-center gap-2">
+            class="w-full py-3.5 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-700 hover:to-green-800 transition shadow-lg flex items-center justify-center gap-2">
             <i class="fas fa-download"></i> 
             <span id="btn-relatorio-text">Gerar Relatório PDF</span>
           </button>
@@ -580,7 +580,7 @@ Caso o cliente peça para falar com um atendente responda com apenas: "Tudo bem,
       const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboar";
       const WEBHOOK_QR_CODE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/generate-qr";
       const WEBHOOK_SAVE_PROMPT = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-promp";
-      const WEBHOOK_GERAR_RELATORIO = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook-test/gerarRelatorio";
+      const WEBHOOK_GERAR_RELATORIO = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/gerarRelatorio";
 
       document.addEventListener('DOMContentLoaded', function () {
         // Inicializa os ícones
@@ -816,134 +816,28 @@ Caso o cliente peça para falar com um atendente responda com apenas: "Tudo bem,
           btn.disabled = false;
         }
       }
-      async function gerarRelatorio() {
-        const btn = document.querySelector('[onclick="gerarRelatorio()"]');
-        const btnText = document.getElementById('btn-relatorio-text');
-        const statusDiv = document.getElementById('relatorio-status');
-        
-        if (!btn || !btnText || !statusDiv) {
-          console.error("Elementos de relatório não encontrados no DOM");
-          return;
-        }
-
-        const originalText = btnText.innerText;
-        const originalDisabled = btn.disabled;
-
+      async function gerarRelatorio() {       
         try {
-          // Mostrar estado de carregamento
-          btnText.innerText = "⏳ Gerando...";
-          btn.disabled = true;
-          statusDiv.classList.add('hidden');
-
           const response = await fetch(WEBHOOK_GERAR_RELATORIO, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              timestamp: new Date().toISOString(),
-              tipo: 'relatorio-pdf'
-            })
+            body: JSON.stringify({})
           });
-
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-          }
-
-          // Tenta determinar o tipo de resposta
-          const contentType = response.headers.get('content-type');
-          
-          if (contentType && contentType.includes('application/pdf')) {
-            // A resposta é um arquivo PDF - fazer download
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `relatorio_${new Date().toISOString().split('T')[0]}.pdf`;
-            document.body.appendChild(link);
-            link.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(link);
-
-            // Sucesso - mostrar mensagem
-            statusDiv.innerText = "✅ Relatório gerado e baixado com sucesso!";
-            statusDiv.className = "text-xs text-emerald-600 bg-emerald-50 mt-3 text-center rounded px-3 py-2";
-            statusDiv.classList.remove('hidden');
-
-            // Restaurar botão após 3 segundos
-            setTimeout(() => {
-              btnText.innerText = originalText;
-              btn.disabled = originalDisabled;
-              statusDiv.classList.add('hidden');
-            }, 3000);
-          } else if (contentType && contentType.includes('application/json')) {
-            // A resposta é JSON - pode ser sucesso ou erro
-            const data = await response.json();
-            
-            if (data.success || data.url) {
-              // Se houver uma URL no response, fazer download dela
-              if (data.url) {
-                const link = document.createElement('a');
-                link.href = data.url;
-                link.download = `relatorio_${new Date().toISOString().split('T')[0]}.pdf`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-              }
-
-              statusDiv.innerText = "✅ Relatório gerado com sucesso!";
-              statusDiv.className = "text-xs text-emerald-600 bg-emerald-50 mt-3 text-center rounded px-3 py-2";
-              statusDiv.classList.remove('hidden');
-
-              setTimeout(() => {
-                btnText.innerText = originalText;
-                btn.disabled = originalDisabled;
-                statusDiv.classList.add('hidden');
-              }, 3000);
-            } else {
-              throw new Error(data.error || "Erro desconhecido na geração do relatório");
-            }
-          } else {
-            // Tipo de conteúdo inesperado - tentar como blob
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `relatorio_${new Date().toISOString().split('T')[0]}.pdf`;
-            document.body.appendChild(link);
-            link.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(link);
-
-            statusDiv.innerText = "✅ Relatório gerado e baixado!";
-            statusDiv.className = "text-xs text-emerald-600 bg-emerald-50 mt-3 text-center rounded px-3 py-2";
-            statusDiv.classList.remove('hidden');
-
-            setTimeout(() => {
-              btnText.innerText = originalText;
-              btn.disabled = originalDisabled;
-              statusDiv.classList.add('hidden');
-            }, 3000);
-          }
+          if (!response.ok) throw new Error('Erro no servidor n8n');
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Relatorio.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
         } catch (error) {
-          console.error("Erro ao gerar relatório:", error);
-          statusDiv.innerText = `❌ Erro: ${error.message || 'Falha ao gerar relatório'}`;
-          statusDiv.className = "text-xs text-rose-600 bg-rose-50 mt-3 text-center rounded px-3 py-2";
-          statusDiv.classList.remove('hidden');
-
-          // Restaurar botão
-          btnText.innerText = originalText;
-          btn.disabled = originalDisabled;
+          console.error("Erro PDF:", error);
+          alert("Falha ao gerar PDF. O n8n está ativo?");
         }
       }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        loadStatusFromStorage();
-      });
-
-      window.addEventListener('storage', (event) => {
-        if (event.key === 'serviceStatus') {
-          loadStatusFromStorage(); // Recarrega e atualiza a UI automaticamente
-        }
-      });
     </script>
 </body>
 
