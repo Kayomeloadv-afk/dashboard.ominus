@@ -416,6 +416,7 @@ html.dark .logo-light {
             <th class="px-4 py-3 font-medium">Descrição</th>
             <th class="px-4 py-3 font-medium">Cliente/Processo</th>
             <th class="px-4 py-3 font-medium">Categoria</th>
+            <th class="px-4 py-3 font-medium">Tipo</th>
             <th class="px-4 py-3 font-medium">Valor</th>
             <th class="px-4 py-3 font-medium">Status</th>
             <th class="px-4 py-3 font-medium text-right">Ações</th>
@@ -496,6 +497,7 @@ html.dark .logo-light {
 
       const WEBHOOK_GET_FINANCE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-finance";
       const WEBHOOK_SAVE_FINANCE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/save-finance";
+      const WEBHOOK_UPDATE_FINANCE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/update-finance";
       const WEBHOOK_DELETE_FINANCE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/delete-finance";
 
       let financeEntries = [];
@@ -585,42 +587,93 @@ html.dark .logo-light {
           const response = await fetch(WEBHOOK_GET_FINANCE, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ search })
+            body: JSON.stringify({ search: search || '' })
           });
 
           if (!response.ok) {
-            throw new Error(`Erro ao buscar dados (HTTP ${response.status})`);
+            throw new Error(`Erro ao buscar dados (HTTP ${response.status}: ${response.statusText})`);
           }
 
           const data = await response.json();
-          financeEntries = Array.isArray(data.entries) ? data.entries : (Array.isArray(data) ? data : []);
+          console.log('Resposta do webhook:', data);
 
-          renderFinanceSummary(data.summary || {});
+          // Extrair entries e summary de diferentes formatos possíveis
+          let entries = [];
+          let summary = {};
+
+          if (data && typeof data === 'object') {
+            if (data.json && data.json.entries) {
+              entries = Array.isArray(data.json.entries) ? data.json.entries : [];
+              summary = data.json.summary || {};
+            } else if (data.entries) {
+              entries = Array.isArray(data.entries) ? data.entries : [];
+              summary = data.summary || {};
+            } else if (Array.isArray(data)) {
+              entries = data;
+            }
+          }
+
+          financeEntries = entries;
           renderFinanceTable(financeEntries);
+          updateSummaryCards(financeEntries);
 
           if (statusDiv) {
             statusDiv.className = 'text-xs text-emerald-600 bg-emerald-50 mt-2 text-center rounded px-3 py-2';
-            statusDiv.innerText = 'Dados atualizados com sucesso.';
+            statusDiv.innerText = `✓ Dados atualizados (${financeEntries.length} transações)`;
           }
         } catch (error) {
           console.error('Erro ao carregar finanças:', error);
+          financeEntries = [];
+          renderFinanceTable([]);
           if (statusDiv) {
             statusDiv.className = 'text-xs text-rose-600 bg-rose-50 mt-2 text-center rounded px-3 py-2';
-            statusDiv.innerText = `Erro ao carregar dados: ${error.message}`;
+            statusDiv.innerText = `✗ Erro: ${error.message}`;
           }
         }
       }
 
-      function renderFinanceSummary(summary) {
-        const saldo = document.getElementById('saldo-atual');
-        const receitas = document.getElementById('receitas-mes');
-        const despesas = document.getElementById('despesas-mes');
-        const receber = document.getElementById('a-receber');
+      function formatCurrency(value) {
+        const number = Number(value) || 0;
+        return number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      }
 
-        if (saldo) saldo.innerText = formatCurrency(summary.balance ?? summary.saldo ?? 0);
-        if (receitas) receitas.innerText = formatCurrency(summary.revenue ?? summary.receitas ?? 0);
-        if (despesas) despesas.innerText = formatCurrency(summary.expenses ?? summary.despesas ?? 0);
-        if (receber) receber.innerText = formatCurrency(summary.receivable ?? summary.aReceber ?? 0);
+      function calculateSummaryFromTable(entries) {
+        let totalReceitas = 0;
+        let totalDespesas = 0;
+
+        entries.forEach(entry => {
+          const value = parseFloat(entry.value || entry.amount || entry.valor || entry.preco || 0) || 0;
+          const type = (entry.type || entry.tipo || '').toLowerCase();
+          const isDespesa = type.includes('despesa') || type.includes('expense') || type === 'despesa';
+
+          if (isDespesa) {
+            totalDespesas += value;
+          } else {
+            totalReceitas += value;
+          }
+        });
+
+        const aReceber = totalReceitas - totalDespesas;
+
+        return {
+          saldo: totalReceitas,
+          receitas: totalReceitas,
+          despesas: totalDespesas,
+          aReceber: aReceber
+        };
+      }
+
+      function updateSummaryCards(entries) {
+        const summary = calculateSummaryFromTable(entries);
+        const saldoEl = document.getElementById('saldo-atual');
+        const receitasEl = document.getElementById('receitas-mes');
+        const despesasEl = document.getElementById('despesas-mes');
+        const receberEl = document.getElementById('a-receber');
+
+        if (saldoEl) saldoEl.innerText = formatCurrency(summary.saldo);
+        if (receitasEl) receitasEl.innerText = formatCurrency(summary.receitas);
+        if (despesasEl) despesasEl.innerText = formatCurrency(summary.despesas);
+        if (receberEl) receberEl.innerText = formatCurrency(summary.aReceber);
       }
 
       function renderFinanceTable(entries) {
@@ -629,31 +682,40 @@ html.dark .logo-light {
 
         if (!entries || entries.length === 0) {
           tbody.innerHTML = `<tr class="hover:bg-[var(--bg-base)]/50 transition-colors"><td colspan="7" class="px-4 py-6 text-center text-muted-foreground">Nenhuma transação encontrada.</td></tr>`;
+          updateSummaryCards([]);
           return;
         }
 
         tbody.innerHTML = entries.map((entry, index) => {
           const isDespesa = entry.type === 'despesa' || entry.type === 'Despesa';
-          const value = parseFloat(entry.value || entry.amount || 0);
+          const value = parseFloat(entry.value || entry.amount || entry.valor || entry.preco || 0);
           const formattedValue = `${isDespesa ? '-' : '+'} ${formatCurrency(value)}`;
           const labelClass = isDespesa ? 'bg-red-500/10 text-red-500' : 'bg-green-500/10 text-green-500';
-          const status = renderStatus(entry.status || 'Pendente');
+          const status = renderStatus(entry.status || entry.statusPagamento || 'Pendente');
+          const formattedDate = formatDate(entry.date || entry.data || entry.dataLancamento || '-');
+
+          const typeLabel = isDespesa ? 'Despesa' : 'Receita';
+          const typeBadgeClass = isDespesa ? 'bg-red-500/10 text-red-500' : 'bg-green-500/10 text-green-500';
 
           return `
             <tr class="hover:bg-[var(--bg-base)]/50 transition-colors">
-              <td class="px-4 py-3 text-muted-foreground">${entry.date || entry.data || '-'}</td>
-              <td class="px-4 py-3 text-foreground font-medium">${entry.description || entry.descricao || '-'}</td>
-              <td class="px-4 py-3 text-muted-foreground">${entry.client || entry.cliente || entry.process || '-'}${entry.process ? `<br><span class="text-xs">${entry.process}</span>` : ''}</td>
-              <td class="px-4 py-3"><span class="${labelClass} px-2 py-1 rounded text-xs font-medium">${entry.category || entry.categoria || 'Geral'}</span></td>
+              <td class="px-4 py-3 text-muted-foreground">${formattedDate}</td>
+              <td class="px-4 py-3 text-foreground font-medium">${entry.description || entry.descricao || entry.desc || entry.titulo || entry.drescricao || '-'}</td>
+              <td class="px-4 py-3 text-muted-foreground">${entry.client || entry.cliente || entry.clienteNome || entry.process || '-'}${entry.process ? `<br><span class="text-xs">${entry.process}</span>` : ''}</td>
+              <td class="px-4 py-3"><span class="${labelClass} px-2 py-1 rounded text-xs font-medium">${entry.category || entry.categoria || entry.tipo || 'Geral'}</span></td>
+              <td class="px-4 py-3"><span class="${typeBadgeClass} px-2 py-1 rounded-full text-xs font-medium">${typeLabel}</span></td>
               <td class="px-4 py-3 ${isDespesa ? 'text-red-500' : 'text-green-500'} font-semibold">${formattedValue}</td>
               <td class="px-4 py-3">${status}</td>
-              <td class="px-4 py-3 text-right">
-                <button onclick="deleteFinanceEntry(${index})" class="text-muted-foreground hover:text-red-500 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+              <td class="px-4 py-3 text-right flex gap-2 justify-end">
+                <button onclick="toggleFinanceStatus(${index})" class="text-muted-foreground hover:text-blue-500 p-1" title="Alternar status"><i data-lucide="check-circle" class="w-4 h-4"></i></button>
+                <button onclick="deleteFinanceEntry(${index})" class="text-muted-foreground hover:text-red-500 p-1" title="Excluir"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
               </td>
             </tr>`;
         }).join('');
 
         if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        updateSummaryCards(entries);
       }
 
       function renderStatus(statusText) {
@@ -663,11 +725,58 @@ html.dark .logo-light {
         return `<span class="inline-flex items-center gap-1 ${colorClass} px-2 py-1 rounded-full text-xs font-medium"><div class="w-1.5 h-1.5 rounded-full ${isPaid ? 'bg-green-500' : 'bg-orange-500'}"></div> ${statusText || 'Pendente'}</span>`;
       }
 
-      function formatCurrency(value) {
-        const number = Number(value) || 0;
-        return number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      function formatDate(dateString) {
+        if (!dateString) return '-';
+        try {
+          const date = new Date(dateString);
+          return date.toLocaleDateString('pt-BR'); // Formato DD/MM/YYYY
+        } catch {
+          return dateString; // Fallback para string original
+        }
+      }
+      function toggleFinanceStatus(index) {
+        const entry = financeEntries[index];
+        if (!entry) return;
+
+        const newStatus = entry.status === 'Pago' ? 'Pendente' : 'Pago';
+        updateFinanceEntryStatus(index, newStatus);
       }
 
+      async function updateFinanceEntryStatus(index, newStatus) {
+        const entry = financeEntries[index];
+        if (!entry) return;
+
+        const payload = {
+          id: entry.id ?? entry._id ?? index,
+          type: entry.type,
+          date: entry.date || entry.data,
+          description: entry.description || entry.descricao,
+          client: entry.client || entry.cliente,
+          category: entry.category || entry.categoria,
+          value: entry.value || entry.amount,
+          status: newStatus,
+          timestamp: new Date().toISOString()
+        };
+
+        try {
+          const response = await fetch(WEBHOOK_UPDATE_FINANCE, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP ${response.status}: ${errorText || response.statusText}`);
+          }
+
+          setTimeout(() => loadFinanceData(), 500);
+          alert(`Status atualizado para ${newStatus}!`);
+        } catch (error) {
+          console.error('Erro ao atualizar status:', error);
+          alert(`Erro ao atualizar status:\n${error.message}`);
+        }
+      }
       function openFinanceEntry(type) {
         currentFinanceType = type;
         const modal = document.getElementById('finance-entry-modal');
@@ -720,14 +829,16 @@ html.dark .logo-light {
           });
 
           if (!response.ok) {
-            throw new Error(`Falha ao salvar transação (HTTP ${response.status})`);
+            const errorText = await response.text();
+            throw new Error(`HTTP ${response.status}: ${errorText || response.statusText}`);
           }
 
           closeFinanceModal();
-          await loadFinanceData();
+          setTimeout(() => loadFinanceData(), 500);
+          alert('Transação salva com sucesso!');
         } catch (error) {
           console.error('Erro ao salvar transação:', error);
-          alert(`Erro ao salvar transação: ${error.message}`);
+          alert(`Erro ao salvar transação:\n${error.message}`);
         } finally {
           if (btn) btn.disabled = false;
         }
@@ -748,13 +859,15 @@ html.dark .logo-light {
           });
 
           if (!response.ok) {
-            throw new Error(`Falha ao excluir transação (HTTP ${response.status})`);
+            const errorText = await response.text();
+            throw new Error(`HTTP ${response.status}: ${errorText || response.statusText}`);
           }
 
-          await loadFinanceData();
+          setTimeout(() => loadFinanceData(), 500);
+          alert('Transação excluída com sucesso!');
         } catch (error) {
           console.error('Erro ao excluir transação:', error);
-          alert(`Erro ao excluir transação: ${error.message}`);
+          alert(`Erro ao excluir transação:\n${error.message}`);
         }
       }
       </script>
