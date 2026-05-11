@@ -816,26 +816,81 @@ Caso o cliente peça para falar com um atendente responda com apenas: "Tudo bem,
           btn.disabled = false;
         }
       }
-      async function gerarRelatorio() {       
+      async function gerarRelatorio() {
+        const btn = document.querySelector('button[onclick="gerarRelatorio()"]');
+        const btnText = document.getElementById('btn-relatorio-text');
+        const statusEl = document.getElementById('relatorio-status');
+        
+        // Verifica se já está gerando
+        if (btn.disabled) return;
+
+        // Desabilita o botão
+        btn.disabled = true;
+        const originalBtnContent = btn.innerHTML;
+
         try {
+          // Mostra status de início
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando à API...';
+          statusEl.classList.remove('hidden');
+          statusEl.innerText = '⏳ Conectando ao servidor...';
+          statusEl.className = 'text-xs text-amber-600 mt-3 text-center';
+
+          // Inicia requisição
+          statusEl.innerText = '📊 Gerando relatório...';
+          statusEl.className = 'text-xs text-blue-600 mt-3 text-center';
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processando dados...';
+
           const response = await fetch(WEBHOOK_GERAR_RELATORIO, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({})
           });
+
           if (!response.ok) throw new Error('Erro no servidor n8n');
+
+          // Mostra status de download
+          statusEl.innerText = '📥 Baixando arquivo...';
+          statusEl.className = 'text-xs text-purple-600 mt-3 text-center';
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finalizando...';
+
           const blob = await response.blob();
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = `Relatorio.pdf`;
+          a.download = `Relatorio_${new Date().toISOString().split('T')[0]}.pdf`;
           document.body.appendChild(a);
           a.click();
           a.remove();
           window.URL.revokeObjectURL(url);
+
+          // Sucesso
+          statusEl.innerText = '✅ Relatório gerado com sucesso!';
+          statusEl.className = 'text-xs text-emerald-600 mt-3 text-center font-semibold';
+          btn.innerHTML = '<i class="fas fa-check"></i> Concluído!';
+          btn.className = btn.className.replace('from-green-600 to-green-700', 'from-emerald-600 to-emerald-700');
+
+          // Reseta após 3 segundos
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.innerHTML = originalBtnContent;
+            btn.className = 'w-full py-3.5 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-xl hover:from-green-700 hover:to-green-800 transition shadow-lg flex items-center justify-center gap-2';
+            statusEl.classList.add('hidden');
+          }, 3000);
+
         } catch (error) {
           console.error("Erro PDF:", error);
-          alert("Falha ao gerar PDF. O n8n está ativo?");
+          
+          // Erro
+          statusEl.innerText = '❌ Falha ao gerar PDF. Verifique se o n8n está ativo.';
+          statusEl.className = 'text-xs text-rose-600 mt-3 text-center font-semibold';
+          btn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Erro na geração';
+
+          // Reseta após 4 segundos
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.innerHTML = originalBtnContent;
+            statusEl.classList.add('hidden');
+          }, 4000);
         }
       }
     </script>
