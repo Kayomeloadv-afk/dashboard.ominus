@@ -589,9 +589,9 @@
   </div>
 
   <script>
-    const WEBHOOK_TOGGLE = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/dashboard";
-    const WEBHOOK_TOGGLE_NOTICIAS = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/noticiasPost";
-    const WEBHOOK_TOGGLE_TELEGRAM = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/WEBHOOK_TOGGLE_TELEGRAM";
+    const WEBHOOK_TOGGLE = "https://n8n-n8n.njqmsx.easypanel.host/webhook/dashboard";
+    const WEBHOOK_TOGGLE_NOTICIAS = "https://n8n-n8n.njqmsx.easypanel.host/webhook/noticiasPost";
+    const WEBHOOK_TOGGLE_TELEGRAM = "https://n8n-n8n.njqmsx.easypanel.host/webhook/WEBHOOK_TOGGLE_TELEGRAM";
     document.addEventListener('DOMContentLoaded', function () {
       // Inicializa os ícones
       if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -661,7 +661,7 @@
       });
 
       // Busca a quantidade de leads/CRMs do webhook (mesma fonte do crm.html)
-      const N8N_GET_WEBHOOK = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-leads';
+      const N8N_GET_WEBHOOK = 'https://n8n-n8n.njqmsx.easypanel.host/webhook/get-leads';
       async function fetchCrmCount() {
         try {
           const res = await fetch(N8N_GET_WEBHOOK, { headers: { 'ngrok-skip-browser-warning': 'true' } });
@@ -680,7 +680,7 @@
       fetchCrmCount();
     });
 
-    const N8N_WEBHOOK_AGENDA = "https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-agenda-events";
+    const N8N_WEBHOOK_AGENDA = "https://n8n-n8n.njqmsx.easypanel.host/webhook/get-agenda-events";
 
     async function fetchAgendaCount() {
       try {
@@ -816,7 +816,7 @@
     });
 
     // Webhook igual ao do seu CRM
-    const N8N_GET_WEBHOOK = 'https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-leads';
+    const N8N_GET_WEBHOOK = 'https://n8n-n8n.njqmsx.easypanel.host/webhook/get-leads';
 
     // Dados de fallback (caso o webhook falhe)
     const DEMO_LEADS = [
@@ -898,7 +898,7 @@
 
     async function syncWithGoogle() {
       try {
-        const response = await fetch('https://tyrannisingly-mesorrhine-anaya.ngrok-free.dev/webhook/get-agenda-events', {
+        const response = await fetch('https://n8n-n8n.njqmsx.easypanel.host/webhook/get-agenda-events', {
           method: 'GET',
           headers: { 'Accept': 'application/json', 'ngrok-skip-browser-warning': 'true' }
         });
